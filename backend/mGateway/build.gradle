@@ -2,16 +2,25 @@ plugins {
     id 'java'
 }
 
-group 'ru.cwe'
-version '1.0-SNAPSHOT'
-
 repositories {
     mavenCentral()
 }
 
 dependencies {
+    implementation "org.projectlombok:lombok:$lombokVersion"
+
+    annotationProcessor "org.projectlombok:lombok:$lombokVersion"
+
+    testImplementation "org.projectlombok:lombok:$lombokVersion"
+    testImplementation "org.assertj:assertj-core:$assertjVersion"
     testImplementation "org.junit.jupiter:junit-jupiter-api:$junitJupiterVersion"
+    testImplementation "org.junit.jupiter:junit-jupiter-params:$junitJupiterVersion"
+
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitJupiterVersion"
+
+    testAnnotationProcessor "org.projectlombok:lombok:$lombokVersion"
+
+    implementation project(":mCommon")
 }
 
 test {

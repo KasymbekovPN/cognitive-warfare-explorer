@@ -11,11 +11,11 @@ repositories {
 
 ext {
     set('junitJupiterVersion', '5.8.2')
+    set('assertjVersion', '3.21.0')
+    set('lombokVersion', '1.18.22')
 }
 
 dependencies {
-    testImplementation "org.junit.jupiter:junit-jupiter-api:$junitJupiterVersion"
-    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitJupiterVersion"
 }
 
 test {

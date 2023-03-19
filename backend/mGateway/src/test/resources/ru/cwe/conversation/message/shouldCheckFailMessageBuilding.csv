@@ -1,0 +1,15 @@
+,,,,Absent fields: type & content & from & to
+,,,some.to.host,Absent fields: type & content & from
+,,some.from.host,,Absent fields: type & content & to
+,,some.from.host,some.to.host,Absent fields: type & content
+,some.content,,,Absent fields: type & from & to
+,some.content,,some.to.host,Absent fields: type & from
+,some.content,some.from.host,,Absent fields: type & to
+,some.content,some.from.host,some.to.host,Absent fields: type
+some.type,,,,Absent fields: content & from & to
+some.type,,,some.to.host,Absent fields: content & from
+some.type,,some.from.host,,Absent fields: content & to
+some.type,,some.from.host,some.to.host,Absent fields: content
+some.type,some.content,,,Absent fields: from & to
+some.type,some.content,,some.to.host,Absent fields: from
+some.type,some.content,some.from.host,,Absent fields: to
