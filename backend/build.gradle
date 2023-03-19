@@ -1,0 +1,23 @@
+plugins {
+    id 'java'
+}
+
+group 'ru.cwe'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    set('junitJupiterVersion', '5.8.2')
+}
+
+dependencies {
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$junitJupiterVersion"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitJupiterVersion"
+}
+
+test {
+    useJUnitPlatform()
+}
