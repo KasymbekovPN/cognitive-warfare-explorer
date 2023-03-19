@@ -1,7 +1,6 @@
 package ru.cwe.conversation.type;
 
 import org.junit.jupiter.api.Test;
-import ru.cwe.conversation.message.MessageBuildingRuntimeException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
@@ -14,7 +13,7 @@ class MessageTypeBuilderTest {
 			new MessageTypeBuilder().build();
 		});
 		assertThat(throwable)
-			.isInstanceOf(MessageBuildingRuntimeException.class)
+			.isInstanceOf(MessageTypeBuildingRuntimeException.class)
 			.hasMessage("Type is null");
 	}
 
@@ -26,7 +25,7 @@ class MessageTypeBuilderTest {
 				.build();
 		});
 		assertThat(throwable)
-			.isInstanceOf(MessageBuildingRuntimeException.class)
+			.isInstanceOf(MessageTypeBuildingRuntimeException.class)
 			.hasMessage("Type is wrong");
 	}
 

@@ -1,7 +1,5 @@
 package ru.cwe.conversation.type;
 
-import ru.cwe.conversation.message.MessageBuildingRuntimeException;
-
 import java.util.Optional;
 
 public final class MessageTypeBuilder {
@@ -22,10 +20,10 @@ public final class MessageTypeBuilder {
 
 	private Optional<RuntimeException> checkType() {
 		if (type == null){
-			return Optional.of(new MessageBuildingRuntimeException("Type is null"));
+			return Optional.of(new MessageTypeBuildingRuntimeException("Type is null"));
 		}
 		if (type.isBlank()){
-			return Optional.of(new MessageBuildingRuntimeException("Type is wrong"));
+			return Optional.of(new MessageTypeBuildingRuntimeException("Type is wrong"));
 		}
 		return Optional.empty();
 	}
