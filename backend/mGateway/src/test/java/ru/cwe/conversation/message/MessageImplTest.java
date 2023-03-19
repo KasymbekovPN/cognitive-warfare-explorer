@@ -63,6 +63,4 @@ class MessageImplTest {
 	void shouldCheckToGetting() {
 		assertThat(message.getTo()).isEqualTo(new TestAddress(EXPECTED_TO_HOST, EXPECTED_TO_PORT));
 	}
-
-	// TODO: 19.03.2023 add toString checking
 }

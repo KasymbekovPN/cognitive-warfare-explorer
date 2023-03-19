@@ -1,5 +1,6 @@
 package ru.cwe.conversation.message;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import ru.cwe.conversation.address.Address;
@@ -8,6 +9,7 @@ import ru.cwe.conversation.type.MessageType;
 import java.util.UUID;
 
 @RequiredArgsConstructor
+@EqualsAndHashCode
 @Getter
 final class MessageImpl implements Message {
 	private final boolean response;
