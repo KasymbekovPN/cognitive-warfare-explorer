@@ -13,6 +13,7 @@ ext {
     set('junitJupiterVersion', '5.8.2')
     set('assertjVersion', '3.21.0')
     set('lombokVersion', '1.18.22')
+    set('nettyVersion', '4.1.90.Final')
 }
 
 dependencies {

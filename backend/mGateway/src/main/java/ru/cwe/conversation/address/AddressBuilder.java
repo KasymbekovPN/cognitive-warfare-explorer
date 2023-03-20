@@ -1,6 +1,6 @@
 package ru.cwe.conversation.address;
 
-public class AddressBuilder {
+public final class AddressBuilder {
 	private static final int MIN_PORT_VALUE = 0;
 	private static final int MAX_PORT_VALUE = 65535;
 
