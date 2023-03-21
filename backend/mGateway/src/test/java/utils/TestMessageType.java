@@ -7,15 +7,15 @@ import ru.cwe.conversation.type.MessageType;
 @EqualsAndHashCode
 @Getter
 public final class TestMessageType implements MessageType {
-	private static final String DEFAULT_TYPE = "default.type";
+	private static final String DEFAULT_NAME = "default.name";
 
-	private final String type;
+	private final String name;
 
-	public TestMessageType(String type) {
-		this.type = type;
+	public TestMessageType(String name) {
+		this.name = name;
 	}
 
 	public TestMessageType() {
-		this.type = DEFAULT_TYPE;
+		this.name = DEFAULT_NAME;
 	}
 }

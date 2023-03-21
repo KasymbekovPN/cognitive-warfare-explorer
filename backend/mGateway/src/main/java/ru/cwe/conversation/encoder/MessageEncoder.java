@@ -22,8 +22,8 @@ public final class MessageEncoder extends MessageToByteEncoder<Message> {
 		out.writeLong(uuid.getMostSignificantBits());
 
 		MessageType type = msg.getType();
-		out.writeInt(type.getType().length());
-		out.writeCharSequence(type.getType(), CHARSET);
+		out.writeInt(type.getName().length());
+		out.writeCharSequence(type.getName(), CHARSET);
 
 		String content = msg.getContent();
 		out.writeInt(content.length());

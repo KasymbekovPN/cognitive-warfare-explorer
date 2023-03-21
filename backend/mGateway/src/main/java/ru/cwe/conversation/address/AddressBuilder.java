@@ -26,7 +26,7 @@ public final class AddressBuilder {
 			throw new AddressBuildingRuntimeException(exceptionMessage.toString());
 		}
 
-		return null;
+		return new AddressImpl(host, port);
 	}
 
 	private void checkHost() {

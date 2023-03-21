@@ -16,7 +16,7 @@ import java.util.UUID;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class MessageEncoderTest {
-	private static final boolean EXPECTED_IS_RESPONSE = true;
+	private static final boolean EXPECTED_IS_RESPONSE = false;
 	private static final String EXPECTED_MESSAGE_TYPE = "some.message.type";
 	private static final String EXPECTED_CONTENT = "some.content";
 	private static final String EXPECTED_FROM_HOST = "from.host";
@@ -32,7 +32,6 @@ class MessageEncoderTest {
 	@BeforeAll
 	static void beforeAll() {
 		message = new MessageBuilder()
-			.response()
 			.type(new TestMessageType(EXPECTED_MESSAGE_TYPE))
 			.content(EXPECTED_CONTENT)
 			.from(new TestAddress(EXPECTED_FROM_HOST, EXPECTED_FROM_PORT))

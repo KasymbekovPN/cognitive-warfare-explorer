@@ -8,5 +8,5 @@ import lombok.RequiredArgsConstructor;
 @EqualsAndHashCode
 @Getter
 final class MessageTypeImpl implements MessageType {
-	private final String type;
+	private final String name;
 }

@@ -11,13 +11,35 @@ public final class MessageBuilder {
 	private final List<String> absentFields = new ArrayList<>();
 
 	private boolean isResponse;
+	private UUID uuid;
 	private MessageType type;
 	private String content;
 	private Address from;
 	private Address to;
 
+	public MessageBuilder() {
+		this.uuid = UUID.randomUUID();
+	}
+
+	public MessageBuilder(Message request) {
+		this.isResponse = true;
+		this.uuid = request.getUuid();
+		this.from = request.getTo();
+		this.to = request.getFrom();
+	}
+
+	public MessageBuilder uuid(UUID uuid){
+		this.uuid = uuid;
+		return this;
+	}
+
 	public MessageBuilder response(){
 		this.isResponse = true;
+		return this;
+	}
+
+	public MessageBuilder request(){
+		this.isResponse = false;
 		return this;
 	}
 
@@ -49,7 +71,7 @@ public final class MessageBuilder {
 		if (absentFields.size() > 0){
 			throw new MessageBuildingRuntimeException(createExceptionMessage());
 		}
-		return new MessageImpl(isResponse, UUID.randomUUID(), type, content, from, to);
+		return new MessageImpl(isResponse, uuid, type, content, from, to);
 	}
 
 	private void checkType() {

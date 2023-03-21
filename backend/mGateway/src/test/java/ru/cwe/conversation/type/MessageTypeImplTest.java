@@ -9,7 +9,7 @@ class MessageTypeImplTest {
 	@Test
 	void shouldCheckTypeGetting() {
 		String expected = "some.type";
-		String type = new MessageTypeImpl(expected).getType();
+		String type = new MessageTypeImpl(expected).getName();
 
 		assertThat(type).isEqualTo(expected);
 	}

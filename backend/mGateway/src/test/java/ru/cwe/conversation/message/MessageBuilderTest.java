@@ -60,17 +60,21 @@ class MessageBuilderTest {
 
 	@Test
 	void shouldCheckResponseBuilding() {
-		Message message = new MessageBuilder()
-			.response()
+		Message request = new MessageBuilder()
 			.type(EXPECTED_TYPE)
 			.content(EXPECTED_CONTENT)
 			.from(EXPECTED_FROM)
 			.to(EXPECTED_TO)
 			.build();
+
+		Message message = new MessageBuilder(request)
+			.type(EXPECTED_TYPE)
+			.content(EXPECTED_CONTENT)
+			.build();
 		assertThat(message.isResponse()).isTrue();
 		assertThat(message.getType()).isEqualTo(EXPECTED_TYPE);
 		assertThat(message.getContent()).isEqualTo(EXPECTED_CONTENT);
-		assertThat(message.getFrom()).isEqualTo(EXPECTED_FROM);
-		assertThat(message.getTo()).isEqualTo(EXPECTED_TO);
+		assertThat(message.getFrom()).isEqualTo(EXPECTED_TO);
+		assertThat(message.getTo()).isEqualTo(EXPECTED_FROM);
 	}
 }

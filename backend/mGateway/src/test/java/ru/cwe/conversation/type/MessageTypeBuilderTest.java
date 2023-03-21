@@ -36,6 +36,6 @@ class MessageTypeBuilderTest {
 			.type(expected)
 			.build();
 
-		assertThat(messageType.getType()).isEqualTo(expected);
+		assertThat(messageType.getName()).isEqualTo(expected);
 	}
 }
