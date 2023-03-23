@@ -23,4 +23,6 @@ class AddressBuilderTest {
 			.isInstanceOf(AddressBuildingRuntimeException.class)
 			.hasMessage(expectedMessage);
 	}
+
+	// TODO: 23.03.2023 add normal building test
 }
