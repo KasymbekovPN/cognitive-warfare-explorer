@@ -1,10 +1,13 @@
 package ru.cwe.conversation.address;
 
-public final class AddressBuilder {
-	private static final int MIN_PORT_VALUE = 0;
-	private static final int MAX_PORT_VALUE = 65535;
+import ru.cwe.conversation.exception.AbsentFieldRuntimeExceptionBuilderImpl;
+import ru.cwe.utils.port.Ports;
 
-	private final StringBuilder exceptionMessage = new StringBuilder();
+import java.util.Optional;
+import java.util.function.Function;
+
+public final class AddressBuilder {
+	private final ExceptionBuilder exceptionBuilder = new ExceptionBuilder(AddressBuildingRuntimeException::new);
 
 	private String host;
 	private Integer port;
@@ -20,32 +23,33 @@ public final class AddressBuilder {
 	}
 
 	public Address build(){
-		checkHost();
-		checkPort();
-		if (!exceptionMessage.isEmpty()){
-			throw new AddressBuildingRuntimeException(exceptionMessage.toString());
+		exceptionBuilder
+			.checkField("host", host)
+			.checkField("port", port);
+		Optional<RuntimeException> maybeException = exceptionBuilder
+			.checkPort(port)
+			.build();
+
+		if (maybeException.isPresent()){
+			throw maybeException.get();
 		}
 
 		return new AddressImpl(host, port);
 	}
 
-	private void checkHost() {
-		if (host == null){
-			exceptionMessage.append("host is not set");
+	private static class ExceptionBuilder extends AbsentFieldRuntimeExceptionBuilderImpl{
+		public ExceptionBuilder(Function<String, RuntimeException> creator) {
+			super(creator);
 		}
-	}
 
-	private void checkPort() {
-		if (port == null){
-			if (!exceptionMessage.isEmpty()){
-				exceptionMessage.append("; ");
+		public ExceptionBuilder checkPort(Integer port){
+			if (port != null && Ports.checkInRange(port) != 0){
+				if (!messageSB.isEmpty()){
+					messageSB.append("; ");
+				}
+				messageSB.append("port is out of range (").append(port).append(")");
 			}
-			exceptionMessage.append("port is not set");
-		} else if (port < MIN_PORT_VALUE || port > MAX_PORT_VALUE) {
-			if (!exceptionMessage.isEmpty()){
-				exceptionMessage.append("; ");
-			}
-			exceptionMessage.append("port is out of range (").append(port).append(")");
+			return this;
 		}
 	}
 }

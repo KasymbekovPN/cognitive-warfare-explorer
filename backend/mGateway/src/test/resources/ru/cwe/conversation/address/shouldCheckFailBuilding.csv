@@ -1,7 +1,7 @@
-some.host,,port is not set
+some.host,,Absent fields: port
 some.host,-123,port is out of range (-123)
 some.host,1_000_000,port is out of range (1000000)
-,,host is not set; port is not set
-,8080,host is not set
-,-123,host is not set; port is out of range (-123)
-,1000000,host is not set; port is out of range (1000000)
+,,Absent fields: host & port
+,8080,Absent fields: host
+,-123,Absent fields: host; port is out of range (-123)
+,1000000,Absent fields: host; port is out of range (1000000)

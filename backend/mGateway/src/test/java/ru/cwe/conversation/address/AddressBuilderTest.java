@@ -1,5 +1,6 @@
 package ru.cwe.conversation.address;
 
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 
@@ -24,5 +25,16 @@ class AddressBuilderTest {
 			.hasMessage(expectedMessage);
 	}
 
-	// TODO: 23.03.2023 add normal building test
+	@Test
+	void shouldCheckBuilding() {
+		String expectedHost = "some.host";
+		int expectedPort = 8080;
+		Address address = new AddressBuilder()
+			.host(expectedHost)
+			.port(expectedPort)
+			.build();
+
+		assertThat(address.getPort()).isEqualTo(expectedPort);
+		assertThat(address.getHost()).isEqualTo(expectedHost);
+	}
 }
