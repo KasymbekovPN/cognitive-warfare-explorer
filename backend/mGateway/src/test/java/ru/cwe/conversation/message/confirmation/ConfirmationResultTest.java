@@ -9,18 +9,18 @@ import static org.assertj.core.api.Assertions.assertThat;
 class ConfirmationResultTest {
 
 	@Test
+	void shouldCheckInvalidConfirmationResultGetting() {
+		assertThat(ConfirmationResult.INVALID.getValue()).isEqualTo(0);
+	}
+
+	@Test
 	void shouldCheckRequestConfirmationResultGetting() {
-		assertThat(ConfirmationResult.REQUEST.getValue()).isEqualTo(0);
+		assertThat(ConfirmationResult.REQUEST.getValue()).isEqualTo(1);
 	}
 
 	@Test
 	void shouldCheckResponseConfirmationResultGetting() {
-		assertThat(ConfirmationResult.RESPONSE.getValue()).isEqualTo(1);
-	}
-
-	@Test
-	void shouldCheckInvalidConfirmationResultGetting() {
-		assertThat(ConfirmationResult.INVALID.getValue()).isEqualTo(2);
+		assertThat(ConfirmationResult.RESPONSE.getValue()).isEqualTo(2);
 	}
 
 	@ParameterizedTest

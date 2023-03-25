@@ -1,5 +1,7 @@
 package ru.cwe.conversation.message.confirmation;
 
+import ru.cwe.utils.delimiter.FirstDelimiter;
+
 import java.util.Optional;
 
 public class ConfirmationMessageBuilderException extends RuntimeException{
