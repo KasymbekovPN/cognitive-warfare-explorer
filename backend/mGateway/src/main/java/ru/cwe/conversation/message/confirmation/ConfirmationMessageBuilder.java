@@ -3,13 +3,15 @@ package ru.cwe.conversation.message.confirmation;
 import ru.cwe.conversation.message.MessageType;
 import ru.cwe.conversation.message.payload.PayloadMessage;
 
-import java.util.UUID;
+import java.util.*;
 
 public final class ConfirmationMessageBuilder {
+	private final ConfirmationMessageBuilderException.Builder builder
+		= new ConfirmationMessageBuilderException.Builder();
+
 	private UUID uuid;
-	private MessageType type;
 	private ConfirmationResult result;
-	private String payloadMessageType;
+	private String payloadMessageType = "";
 
 	ConfirmationMessageBuilder uuid(UUID uuid){
 		this.uuid = uuid;
@@ -17,22 +19,38 @@ public final class ConfirmationMessageBuilder {
 	}
 
 	ConfirmationMessageBuilder result(ConfirmationResult result){
+		this.result = result;
 		return this;
 	}
 
-	ConfirmationMessageBuilder payloadMessageType(){
+	ConfirmationMessageBuilder payloadMessageType(String payloadMessageType){
+		this.payloadMessageType = payloadMessageType;
 		return this;
 	}
 
 	ConfirmationMessageBuilder fromPayloadMessage(PayloadMessage payloadMessage){
+		this.uuid = payloadMessage.getUuid();
+		this.result = payloadMessage.getType().equals(MessageType.REQUEST)
+			? ConfirmationResult.REQUEST
+			: ConfirmationResult.RESPONSE;
 		return this;
 	}
 
 	ConfirmationMessageBuilder error(Object invalidMessage){
+		this.uuid = new UUID(0, 0);
+		this.result = ConfirmationResult.INVALID;
+		this.payloadMessageType = invalidMessage.getClass().getSimpleName();
 		return this;
 	}
 
 	ConfirmationMessage build(){
-		return null;
+		builder.field("uuid", uuid);
+		builder.field("result", result);
+		Optional<ConfirmationMessageBuilderException> maybeException = builder.build();
+		if (maybeException.isPresent()){
+			throw maybeException.get();
+		}
+
+		return new ConfirmationMessageImpl(uuid, result, payloadMessageType);
 	}
 }

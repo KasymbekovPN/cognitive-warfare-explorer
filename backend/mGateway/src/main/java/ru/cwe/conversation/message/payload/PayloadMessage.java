@@ -4,7 +4,6 @@ import ru.cwe.conversation.address.Address;
 import ru.cwe.conversation.message.Message;
 
 public interface PayloadMessage extends Message {
-	boolean isResponse();
 	String getContentType();
 	String getContent();
 	Address getFrom();
