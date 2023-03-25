@@ -1,13 +1,15 @@
 package ru.cwe.conversation.message.confirmation;
 
+import ru.cwe.conversation.exception.AbsentFieldRuntimeExceptionBuilder;
+import ru.cwe.conversation.exception.AbsentFieldRuntimeExceptionBuilderImpl;
 import ru.cwe.conversation.message.MessageType;
 import ru.cwe.conversation.message.payload.PayloadMessage;
 
 import java.util.*;
 
 public final class ConfirmationMessageBuilder {
-	private final ConfirmationMessageBuilderException.Builder builder
-		= new ConfirmationMessageBuilderException.Builder();
+	private final AbsentFieldRuntimeExceptionBuilder exceptionBuilder
+		= new AbsentFieldRuntimeExceptionBuilderImpl(ConfirmationMessageBuilderException::new);
 
 	private UUID uuid;
 	private ConfirmationResult result;
@@ -44,9 +46,10 @@ public final class ConfirmationMessageBuilder {
 	}
 
 	ConfirmationMessage build(){
-		builder.field("uuid", uuid);
-		builder.field("result", result);
-		Optional<ConfirmationMessageBuilderException> maybeException = builder.build();
+		Optional<RuntimeException> maybeException = exceptionBuilder
+			.checkField("uuid", uuid)
+			.checkField("result", result)
+			.build();
 		if (maybeException.isPresent()){
 			throw maybeException.get();
 		}
