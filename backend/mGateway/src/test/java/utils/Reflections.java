@@ -2,6 +2,7 @@ package utils;
 
 import java.lang.reflect.Field;
 
+// TODO: 25.03.2023 del
 public class Reflections {
 
 	public static Object getFieldValue(Object object, String name) throws Exception {
