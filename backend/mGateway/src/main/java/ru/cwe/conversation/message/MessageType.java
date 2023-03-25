@@ -9,6 +9,8 @@ public enum MessageType {
 	RESPONSE(1),
 	CONFIRMATION(2);
 
+	// TODO: 25.03.2023 create valueOf(int)
+
 	@Getter
 	private final int value;
 }
