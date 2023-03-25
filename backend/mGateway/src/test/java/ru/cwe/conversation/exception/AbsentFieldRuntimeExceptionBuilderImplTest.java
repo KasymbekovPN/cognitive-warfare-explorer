@@ -3,7 +3,7 @@ package ru.cwe.conversation.exception;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import utils.Reflections;
+import ru.cwe.utils.reflection.Reflections;
 
 import java.util.Optional;
 import java.util.function.Function;
@@ -37,7 +37,7 @@ class AbsentFieldRuntimeExceptionBuilderImplTest {
 		builder.checkField(name2, null);
 
 		String expected = String.format("Absent fields: %s & %s", name0, name2);
-		StringBuilder messageSB = Reflections.getFieldValue(builder, "messageSB", StringBuilder.class);
+		StringBuilder messageSB = Reflections.get(builder, "messageSB", StringBuilder.class);
 
 		assertThat(messageSB.toString()).isEqualTo(expected);
 	}
