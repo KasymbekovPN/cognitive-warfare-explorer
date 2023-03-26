@@ -4,7 +4,7 @@ import io.netty.buffer.ByteBuf;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
-import ru.cwe.conversation.buffer.writer.ByteBufferWriter;
+import ru.cwe.conversation.buffer.writer.buffer.ByteBufferWriter;
 import ru.cwe.conversation.message.Message;
 import ru.cwe.conversation.message.MessageType;
 import utils.TestConfirmationMessage;

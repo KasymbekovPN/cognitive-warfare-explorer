@@ -4,7 +4,7 @@ import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ReplayingDecoder;
 import lombok.RequiredArgsConstructor;
-import ru.cwe.conversation.buffer.reader.ByteBufferReader;
+import ru.cwe.conversation.buffer.reader.buffer.ByteBufferReader;
 import ru.cwe.conversation.message.Message;
 
 import java.util.List;

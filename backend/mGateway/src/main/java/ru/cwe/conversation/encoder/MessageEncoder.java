@@ -4,7 +4,7 @@ import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
 import lombok.RequiredArgsConstructor;
-import ru.cwe.conversation.buffer.writer.ByteBufferWriter;
+import ru.cwe.conversation.buffer.writer.buffer.ByteBufferWriter;
 import ru.cwe.conversation.message.Message;
 import ru.cwe.conversation.message.MessageType;
 
