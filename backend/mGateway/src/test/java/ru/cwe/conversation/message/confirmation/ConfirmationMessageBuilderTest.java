@@ -19,7 +19,7 @@ class ConfirmationMessageBuilderTest {
 	@Test
 	void shouldCheckUuid() {
 		UUID expectedUuid = UUID.randomUUID();
-		ConfirmationMessageBuilder builder = new ConfirmationMessageBuilder().uuid(expectedUuid);
+		ConfirmationMessageBuilder builder = ConfirmationMessageBuilder.builder().uuid(expectedUuid);
 		UUID uuid = Reflections.get(builder, "uuid", UUID.class);
 
 		assertThat(uuid).isEqualTo(expectedUuid);
@@ -29,7 +29,7 @@ class ConfirmationMessageBuilderTest {
 	@Test
 	void shouldCheckResult() {
 		ConfirmationResult expectedResult = ConfirmationResult.RESPONSE;
-		ConfirmationMessageBuilder builder = new ConfirmationMessageBuilder().result(expectedResult);
+		ConfirmationMessageBuilder builder = ConfirmationMessageBuilder.builder().result(expectedResult);
 		ConfirmationResult result = Reflections.get(builder, "result", ConfirmationResult.class);
 
 		assertThat(result).isEqualTo(expectedResult);
@@ -39,7 +39,7 @@ class ConfirmationMessageBuilderTest {
 	@Test
 	void shouldCheckPayloadMessageType() {
 		String expectedType = "some.payload.message.type";
-		ConfirmationMessageBuilder builder = new ConfirmationMessageBuilder().payloadMessageType(expectedType);
+		ConfirmationMessageBuilder builder = ConfirmationMessageBuilder.builder().payloadMessageType(expectedType);
 		String payloadMessageType = Reflections.get(builder, "payloadMessageType", String.class);
 
 		assertThat(payloadMessageType).isEqualTo(expectedType);
@@ -52,7 +52,7 @@ class ConfirmationMessageBuilderTest {
 		MessageType type = MessageType.REQUEST;
 		TestPayloadMessage payloadMessage = new TestPayloadMessage(expectedUuid, type, null, null, null, null);
 
-		ConfirmationMessageBuilder builder = new ConfirmationMessageBuilder().fromPayloadMessage(payloadMessage);
+		ConfirmationMessageBuilder builder = ConfirmationMessageBuilder.builder().fromPayloadMessage(payloadMessage);
 		UUID uuid = Reflections.get(builder, "uuid", UUID.class);
 		ConfirmationResult result = Reflections.get(builder, "result", ConfirmationResult.class);
 
@@ -67,7 +67,7 @@ class ConfirmationMessageBuilderTest {
 		MessageType type = MessageType.RESPONSE;
 		TestPayloadMessage payloadMessage = new TestPayloadMessage(expectedUuid, type, null, null, null, null);
 
-		ConfirmationMessageBuilder builder = new ConfirmationMessageBuilder().fromPayloadMessage(payloadMessage);
+		ConfirmationMessageBuilder builder = ConfirmationMessageBuilder.builder().fromPayloadMessage(payloadMessage);
 		UUID uuid = Reflections.get(builder, "uuid", UUID.class);
 		ConfirmationResult result = Reflections.get(builder, "result", ConfirmationResult.class);
 
@@ -82,7 +82,7 @@ class ConfirmationMessageBuilderTest {
 		String expectedPayloadMessageType = object.getClass().getSimpleName();
 		UUID expectedUuid = new UUID(0, 0);
 
-		ConfirmationMessageBuilder builder = new ConfirmationMessageBuilder().error(object);
+		ConfirmationMessageBuilder builder = ConfirmationMessageBuilder.builder().error(object);
 
 		UUID uuid = Reflections.get(builder, "uuid", UUID.class);
 		assertThat(uuid).isEqualTo(expectedUuid);
@@ -95,7 +95,7 @@ class ConfirmationMessageBuilderTest {
 	@CsvFileSource(resources = "shouldCheckFailBuildingAttempt.csv")
 	void shouldCheckFailBuildingAttempt(Long uuidSource, Integer resultSource, String expectedMessage) {
 		Throwable throwable = catchThrowable(() -> {
-			ConfirmationMessageBuilder builder = new ConfirmationMessageBuilder();
+			ConfirmationMessageBuilder builder = ConfirmationMessageBuilder.builder();
 			if (uuidSource != null){
 				builder.uuid(new UUID(0, uuidSource));
 			}
@@ -115,7 +115,7 @@ class ConfirmationMessageBuilderTest {
 		UUID expectedUuid = UUID.randomUUID();
 		ConfirmationResult expectedResult = ConfirmationResult.REQUEST;
 		String expectedPayloadMessageType = "some.payload.message.type";
-		ConfirmationMessage message = new ConfirmationMessageBuilder()
+		ConfirmationMessage message = ConfirmationMessageBuilder.builder()
 			.uuid(expectedUuid)
 			.result(expectedResult)
 			.payloadMessageType(expectedPayloadMessageType)

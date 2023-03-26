@@ -13,7 +13,7 @@ class AddressBuilderTest {
 	@CsvFileSource(resources = "shouldCheckFailBuilding.csv")
 	void shouldCheckFailBuilding(String host, Integer port, String expectedMessage) {
 		Throwable throwable = catchThrowable(() -> {
-			AddressBuilder builder = new AddressBuilder().host(host);
+			AddressBuilder builder = AddressBuilder.builder().host(host);
 			if (port != null){
 				builder.port(port);
 			}
@@ -29,7 +29,7 @@ class AddressBuilderTest {
 	void shouldCheckBuilding() {
 		String expectedHost = "some.host";
 		int expectedPort = 8080;
-		Address address = new AddressBuilder()
+		Address address = AddressBuilder.builder()
 			.host(expectedHost)
 			.port(expectedPort)
 			.build();

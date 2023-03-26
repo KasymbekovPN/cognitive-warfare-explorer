@@ -27,4 +27,11 @@ public class AbsentFieldRuntimeExceptionBuilderImpl implements AbsentFieldRuntim
 			? Optional.empty()
 			: Optional.of(creator.apply(messageSB.toString()));
 	}
+
+	protected StringBuilder appendPartDelimiterAndGet(){
+		if (!messageSB.isEmpty()){
+			messageSB.append("; ");
+		}
+		return messageSB;
+	}
 }

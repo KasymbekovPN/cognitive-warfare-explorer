@@ -15,6 +15,13 @@ public final class ConfirmationMessageBuilder {
 	private ConfirmationResult result;
 	private String payloadMessageType = "";
 
+	public static ConfirmationMessageBuilder builder(){
+		return new ConfirmationMessageBuilder();
+	}
+
+	private ConfirmationMessageBuilder() {
+	}
+
 	ConfirmationMessageBuilder uuid(UUID uuid){
 		this.uuid = uuid;
 		return this;

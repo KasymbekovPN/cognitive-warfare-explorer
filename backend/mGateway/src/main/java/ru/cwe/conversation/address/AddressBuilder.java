@@ -12,6 +12,13 @@ public final class AddressBuilder {
 	private String host;
 	private Integer port;
 
+	public static AddressBuilder builder(){
+		return new AddressBuilder();
+	}
+
+	private AddressBuilder() {
+	}
+
 	public AddressBuilder host(String host){
 		this.host = host;
 		return this;
@@ -44,10 +51,10 @@ public final class AddressBuilder {
 
 		public ExceptionBuilder checkPort(Integer port){
 			if (port != null && Ports.checkInRange(port) != 0){
-				if (!messageSB.isEmpty()){
-					messageSB.append("; ");
-				}
-				messageSB.append("port is out of range (").append(port).append(")");
+				appendPartDelimiterAndGet()
+					.append("port is out of range (")
+					.append(port)
+					.append(")");
 			}
 			return this;
 		}
