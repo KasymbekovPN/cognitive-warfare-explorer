@@ -1,64 +1,80 @@
-// TODO: 23.03.2023 ???
-//package ru.cwe.conversation.decoder;
-//
-//import io.netty.buffer.ByteBuf;
-//import io.netty.buffer.UnpooledByteBufAllocator;
-//import org.junit.jupiter.api.BeforeEach;
-//import org.junit.jupiter.api.Test;
-//import ru.cwe.conversation.message.MessageOLd;
-//
-//import java.nio.charset.StandardCharsets;
-//import java.util.ArrayList;
-//import java.util.UUID;
-//
-//import static org.assertj.core.api.Assertions.assertThat;
-//
-//class MessageDecoderTest {
-//	private static final boolean EXPECTED_IS_RESPONSE = true;
-//	private static final String EXPECTED_MESSAGE_TYPE = "some.message.type";
-//	private static final String EXPECTED_CONTENT = "some.content";
-//	private static final String EXPECTED_FROM_HOST = "from.host";
-//	private static final int EXPECTED_FROM_PORT = 8080;
-//	private static final String EXPECTED_TO_HOST = "to.host";
-//	private static final int EXPECTED_TO_PORT = 8081;
-//	private static final UUID EXPECTED_UUID = UUID.randomUUID();
-//
-//	private ByteBuf buffer;
-//
-//	@BeforeEach
-//	void setUp() {
-//		buffer = new UnpooledByteBufAllocator(true).buffer();
-//
-//		buffer.writeBoolean(EXPECTED_IS_RESPONSE)
-//			.writeLong(EXPECTED_UUID.getLeastSignificantBits())
-//			.writeLong(EXPECTED_UUID.getMostSignificantBits())
-//			.writeInt(EXPECTED_MESSAGE_TYPE.length())
-//			.writeCharSequence(EXPECTED_MESSAGE_TYPE, StandardCharsets.UTF_8);
-//		buffer.writeInt(EXPECTED_CONTENT.length())
-//			.writeCharSequence(EXPECTED_CONTENT, StandardCharsets.UTF_8);
-//		buffer.writeInt(EXPECTED_FROM_HOST.length())
-//			.writeCharSequence(EXPECTED_FROM_HOST, StandardCharsets.UTF_8);
-//		buffer.writeInt(EXPECTED_FROM_PORT)
-//			.writeInt(EXPECTED_TO_HOST.length())
-//			.writeCharSequence(EXPECTED_TO_HOST, StandardCharsets.UTF_8);
-//		buffer.writeInt(EXPECTED_TO_PORT);
-//	}
-//
-//	@Test
-//	void shouldCheckDecoding() throws Exception {
-//		ArrayList<Object> out = new ArrayList<>();
-//		new MessageDecoder().decode(null, buffer, out);
-//
-//		assertThat(out.size()).isEqualTo(1);
-//
-//		MessageOLd message = (MessageOLd) out.get(0);
-//		assertThat(message.isResponse()).isEqualTo(EXPECTED_IS_RESPONSE);
-//		assertThat(message.getUuid()).isEqualTo(EXPECTED_UUID);
-//		assertThat(message.getType().getName()).isEqualTo(EXPECTED_MESSAGE_TYPE);
-//		assertThat(message.getContent()).isEqualTo(EXPECTED_CONTENT);
-//		assertThat(message.getFrom().getHost()).isEqualTo(EXPECTED_FROM_HOST);
-//		assertThat(message.getFrom().getPort()).isEqualTo(EXPECTED_FROM_PORT);
-//		assertThat(message.getTo().getHost()).isEqualTo(EXPECTED_TO_HOST);
-//		assertThat(message.getTo().getPort()).isEqualTo(EXPECTED_TO_PORT);
-//	}
-//}
+package ru.cwe.conversation.decoder;
+
+import io.netty.buffer.ByteBuf;
+import lombok.Getter;
+import lombok.SneakyThrows;
+import org.junit.jupiter.api.Test;
+import ru.cwe.conversation.buffer.reader.ByteBufferReader;
+import ru.cwe.conversation.message.Message;
+import ru.cwe.conversation.message.MessageType;
+import ru.cwe.conversation.message.confirmation.ConfirmationResult;
+import utils.TestAddress;
+import utils.TestConfirmationMessage;
+import utils.TestPayloadMessage;
+
+import java.util.ArrayList;
+import java.util.Optional;
+import java.util.UUID;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+class MessageDecoderTest {
+
+	@SneakyThrows
+	@Test
+	void shouldCheckDecoding_ifInvalidMessage() {
+		ArrayList<Object> out = new ArrayList<>();
+		new MessageDecoder(new TestReader(), new TestReader()).decode(null, null, out);
+
+		assertThat(out).isEmpty();
+	}
+
+	@SneakyThrows
+	@Test
+	void shouldCheckDecoding_ifConfirmationMessage() {
+		TestConfirmationMessage message
+			= new TestConfirmationMessage(UUID.randomUUID(), ConfirmationResult.REQUEST, "");
+
+		ArrayList<Object> out = new ArrayList<>();
+		new MessageDecoder(new TestReader(message), new TestReader()).decode(null, null, out);
+
+		assertThat(out.size()).isEqualTo(1);
+		assertThat(out.get(0)).isEqualTo(message);
+	}
+
+	@SneakyThrows
+	@Test
+	void shouldCheckDecoding_ifPayloadMessage() {
+		TestPayloadMessage message = new TestPayloadMessage(
+			UUID.randomUUID(),
+			MessageType.REQUEST,
+			"",
+			"",
+			new TestAddress(),
+			new TestAddress()
+		);
+
+		ArrayList<Object> out = new ArrayList<>();
+		new MessageDecoder(new TestReader(), new TestReader(message)).decode(null, null, out);
+
+		assertThat(out.size()).isEqualTo(1);
+		assertThat(out.get(0)).isEqualTo(message);
+	}
+
+	@Getter
+	private static class TestReader implements ByteBufferReader<Message>{
+		private Message message;
+
+		public TestReader(Message message) {
+			this.message = message;
+		}
+
+		public TestReader() {
+		}
+
+		@Override
+		public Optional<Message> read(ByteBuf buffer) {
+			return message != null ? Optional.of(message) :  Optional.empty();
+		}
+	}
+}
