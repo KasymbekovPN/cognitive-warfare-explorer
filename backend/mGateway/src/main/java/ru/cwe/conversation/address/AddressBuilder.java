@@ -6,6 +6,7 @@ import ru.cwe.utils.port.Ports;
 import java.util.Optional;
 import java.util.function.Function;
 
+// TODO: 27.03.2023 reset after building or reset-method
 public final class AddressBuilder {
 	private final ExceptionBuilder exceptionBuilder = new ExceptionBuilder(AddressBuildingRuntimeException::new);
 

@@ -8,6 +8,7 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.function.Function;
 
+// TODO: 27.03.2023 reset after building
 public final class PayloadMessageBuilder {
 	private final ExceptionBuilder exceptionBuilder
 		= new ExceptionBuilder(PayloadMessageBuilderException::new);

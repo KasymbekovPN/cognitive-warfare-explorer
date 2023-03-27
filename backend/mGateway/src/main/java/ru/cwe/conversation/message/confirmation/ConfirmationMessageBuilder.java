@@ -7,6 +7,7 @@ import ru.cwe.conversation.message.payload.PayloadMessage;
 
 import java.util.*;
 
+// TODO: 27.03.2023 reset after building
 public final class ConfirmationMessageBuilder {
 	private final AbsentFieldRuntimeExceptionBuilder exceptionBuilder
 		= new AbsentFieldRuntimeExceptionBuilderImpl(ConfirmationMessageBuilderException::new);
