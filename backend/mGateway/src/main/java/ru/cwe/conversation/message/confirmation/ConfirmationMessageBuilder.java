@@ -22,22 +22,22 @@ public final class ConfirmationMessageBuilder {
 	private ConfirmationMessageBuilder() {
 	}
 
-	ConfirmationMessageBuilder uuid(UUID uuid){
+	public ConfirmationMessageBuilder uuid(UUID uuid){
 		this.uuid = uuid;
 		return this;
 	}
 
-	ConfirmationMessageBuilder result(ConfirmationResult result){
+	public ConfirmationMessageBuilder result(ConfirmationResult result){
 		this.result = result;
 		return this;
 	}
 
-	ConfirmationMessageBuilder payloadMessageType(String payloadMessageType){
+	public ConfirmationMessageBuilder payloadMessageType(String payloadMessageType){
 		this.payloadMessageType = payloadMessageType;
 		return this;
 	}
 
-	ConfirmationMessageBuilder fromPayloadMessage(PayloadMessage payloadMessage){
+	public ConfirmationMessageBuilder fromPayloadMessage(PayloadMessage payloadMessage){
 		this.uuid = payloadMessage.getUuid();
 		this.result = payloadMessage.getType().equals(MessageType.REQUEST)
 			? ConfirmationResult.REQUEST
@@ -45,14 +45,14 @@ public final class ConfirmationMessageBuilder {
 		return this;
 	}
 
-	ConfirmationMessageBuilder error(Object invalidMessage){
+	public ConfirmationMessageBuilder error(Object invalidMessage){
 		this.uuid = new UUID(0, 0);
 		this.result = ConfirmationResult.INVALID;
 		this.payloadMessageType = invalidMessage.getClass().getSimpleName();
 		return this;
 	}
 
-	ConfirmationMessage build(){
+	public ConfirmationMessage build(){
 		Optional<RuntimeException> maybeException = exceptionBuilder
 			.checkField("uuid", uuid)
 			.checkField("result", result)
