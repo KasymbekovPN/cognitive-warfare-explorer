@@ -7,7 +7,6 @@ import ru.cwe.conversation.message.payload.PayloadMessage;
 
 import java.util.*;
 
-// TODO: 27.03.2023 reset after building
 public final class ConfirmationMessageBuilder {
 	private final AbsentFieldRuntimeExceptionBuilder exceptionBuilder
 		= new AbsentFieldRuntimeExceptionBuilderImpl(ConfirmationMessageBuilderException::new);
@@ -50,6 +49,13 @@ public final class ConfirmationMessageBuilder {
 		this.uuid = new UUID(0, 0);
 		this.result = ConfirmationResult.INVALID;
 		this.payloadMessageType = invalidMessage.getClass().getSimpleName();
+		return this;
+	}
+
+	public ConfirmationMessageBuilder reset(){
+		this.uuid = null;
+		this.result = null;
+		this.payloadMessageType = "";
 		return this;
 	}
 

@@ -204,4 +204,24 @@ class PayloadMessageBuilderTest {
 		assertThat(message.getFrom()).isEqualTo(EXPECTED_FROM);
 		assertThat(message.getTo()).isEqualTo(EXPECTED_TO);
 	}
+
+	@SneakyThrows
+	@Test
+	void shouldCheckReset() {
+		PayloadMessageBuilder builder = PayloadMessageBuilder.builder()
+			.uuid(EXPECTED_UUID)
+			.type(EXPECTED_TYPE)
+			.contentType(EXPECTED_CONTENT_TYPE)
+			.content(EXPECTED_CONTENT)
+			.from(EXPECTED_FROM)
+			.to(EXPECTED_TO)
+			.reset();
+
+		assertThat(Reflections.get(builder, "uuid", UUID.class)).isNull();
+		assertThat(Reflections.get(builder, "type", MessageType.class)).isNull();
+		assertThat(Reflections.get(builder, "contentType", String.class)).isNull();
+		assertThat(Reflections.get(builder, "content", String.class)).isNull();
+		assertThat(Reflections.get(builder, "from", Address.class)).isNull();
+		assertThat(Reflections.get(builder, "to", Address.class)).isNull();
+	}
 }

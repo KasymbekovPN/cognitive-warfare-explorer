@@ -125,4 +125,21 @@ class ConfirmationMessageBuilderTest {
 		assertThat(message.getResult()).isEqualTo(expectedResult);
 		assertThat(message.getPayloadMessageType()).isEqualTo(expectedPayloadMessageType);
 	}
+
+	@SneakyThrows
+	@Test
+	void shouldCheckReset() {
+		UUID expectedUuid = UUID.randomUUID();
+		ConfirmationResult expectedResult = ConfirmationResult.REQUEST;
+		String expectedPayloadMessageType = "some.payload.message.type";
+		ConfirmationMessageBuilder builder = ConfirmationMessageBuilder.builder()
+			.uuid(expectedUuid)
+			.result(expectedResult)
+			.payloadMessageType(expectedPayloadMessageType)
+			.reset();
+
+		assertThat(Reflections.get(builder, "uuid", UUID.class)).isNull();
+		assertThat(Reflections.get(builder, "result", ConfirmationResult.class)).isNull();
+		assertThat(Reflections.get(builder, "payloadMessageType", String.class)).isEmpty();
+	}
 }
