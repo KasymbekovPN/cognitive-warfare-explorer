@@ -1,14 +1,14 @@
-package ru.cwe.conversation.buffer.writer.value;
+package ru.cwe.conversation.reader.value;
 
-// TODO: 27.03.2023 ????
+import io.netty.buffer.ByteBuf;
+
+// TODO: 26.03.2023 ???
 //private final UUID uuid;
 //private final MessageType type = MessageType.CONFIRMATION;
 //private final ConfirmationResult result;
 //private final String payloadMessageType;
 //private final Address to;
 
-import java.nio.ByteBuffer;
-
-public interface ByteBufferValueWriter<E> {
-	void write(ByteBuffer buffer, E element);
+public interface ByteBufferValueReader<R> {
+	R read(ByteBuf buffer);
 }

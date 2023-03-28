@@ -1,4 +1,4 @@
-package ru.cwe.conversation.buffer.writer.buffer;
+package ru.cwe.conversation.writer.buffer;
 
 import io.netty.buffer.ByteBuf;
 
