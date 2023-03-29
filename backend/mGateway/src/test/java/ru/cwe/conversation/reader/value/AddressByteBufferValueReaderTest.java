@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import ru.cwe.conversation.address.Address;
 import ru.cwe.conversation.address.AddressBuilder;
 import ru.cwe.conversation.address.AddressBuildingRuntimeException;
-import utils.TestBuffers;
+import utils.BufferUtil;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
@@ -23,7 +23,7 @@ class AddressByteBufferValueReaderTest {
 
 		Throwable throwable = catchThrowable(() -> {
 			new AddressByteBufferValueReader(reader, null).read(
-				TestBuffers.create()
+				BufferUtil.create()
 			);
 		});
 
@@ -85,9 +85,9 @@ class AddressByteBufferValueReaderTest {
 	}
 
 	private ByteBuf createBuffer(String host, int port){
-		ByteBuf buffer = TestBuffers.create();
-		TestBuffers.writeString(buffer, host);
-		TestBuffers.writeInt(buffer, port);
+		ByteBuf buffer = BufferUtil.create();
+		BufferUtil.writeString(buffer, host);
+		BufferUtil.writeInt(buffer, port);
 
 		return buffer;
 	}
@@ -95,7 +95,7 @@ class AddressByteBufferValueReaderTest {
 	private static class TestStringReader implements ByteBufferValueReader<String>{
 		@Override
 		public String read(ByteBuf buffer) {
-			return TestBuffers.readString(buffer);
+			return BufferUtil.readString(buffer);
 		}
 	}
 }

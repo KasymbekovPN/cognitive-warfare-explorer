@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import ru.cwe.conversation.message.confirmation.ConfirmationResult;
-import utils.TestBuffers;
+import utils.BufferUtil;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
@@ -16,7 +16,7 @@ class ConfirmationResultByteBufferValueReaderTest {
 	void shouldCheckReading_ifFail() {
 		Throwable throwable = catchThrowable(() -> {
 			new ConfirmationResultByteBufferValueReader().read(
-				TestBuffers.create()
+				BufferUtil.create()
 			);
 		});
 		assertThat(throwable).isInstanceOf(IndexOutOfBoundsException.class);
@@ -25,8 +25,8 @@ class ConfirmationResultByteBufferValueReaderTest {
 	@ParameterizedTest
 	@CsvFileSource(resources = "shouldCheckReading_confirmationResult.csv")
 	void shouldCheckReading(int intSource, String strSource) {
-		ByteBuf buffer = TestBuffers.create();
-		TestBuffers.writeInt(buffer, intSource);
+		ByteBuf buffer = BufferUtil.create();
+		BufferUtil.writeInt(buffer, intSource);
 
 		ConfirmationResult result = new ConfirmationResultByteBufferValueReader().read(buffer);
 		assertThat(result).isEqualTo(ConfirmationResult.valueOf(strSource));

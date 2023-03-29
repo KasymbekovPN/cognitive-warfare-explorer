@@ -2,7 +2,7 @@ package ru.cwe.conversation.reader.value;
 
 import io.netty.buffer.ByteBuf;
 import org.junit.jupiter.api.Test;
-import utils.TestBuffers;
+import utils.BufferUtil;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -17,7 +17,7 @@ class StringByteBufferValueReaderTest {
 	void shouldCheckReading_ifFail() {
 		Throwable throwable = catchThrowable(() -> {
 			new StringByteBufferValueReader(CHARSET).read(
-				TestBuffers.create()
+				BufferUtil.create()
 			);
 		});
 		assertThat(throwable).isInstanceOf(IndexOutOfBoundsException.class);
@@ -25,8 +25,8 @@ class StringByteBufferValueReaderTest {
 
 	@Test
 	void shouldCheckReading_ifStringIsNull() {
-		ByteBuf buffer = TestBuffers.create();
-		TestBuffers.writeString(buffer, null);
+		ByteBuf buffer = BufferUtil.create();
+		BufferUtil.writeString(buffer, null);
 
 		String nullLine = new StringByteBufferValueReader(CHARSET).read(buffer);
 		assertThat(nullLine).isNull();
@@ -34,8 +34,8 @@ class StringByteBufferValueReaderTest {
 
 	@Test
 	void shouldCheckReading_ifStringIsEmpty() {
-		ByteBuf buffer = TestBuffers.create();
-		TestBuffers.writeString(buffer, "");
+		ByteBuf buffer = BufferUtil.create();
+		BufferUtil.writeString(buffer, "");
 
 		String emptyLine = new StringByteBufferValueReader(CHARSET).read(buffer);
 		assertThat(emptyLine).isEmpty();
@@ -44,8 +44,8 @@ class StringByteBufferValueReaderTest {
 	@Test
 	void shouldCheckReading() {
 		String expectedLine = "some.line";
-		ByteBuf buffer = TestBuffers.create();
-		TestBuffers.writeString(buffer, expectedLine);
+		ByteBuf buffer = BufferUtil.create();
+		BufferUtil.writeString(buffer, expectedLine);
 
 		String line = new StringByteBufferValueReader(CHARSET).read(buffer);
 		assertThat(line).isEqualTo(expectedLine);

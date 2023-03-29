@@ -82,7 +82,7 @@ class PayloadMessageBuilderTest {
 	void shouldCheckRequest() {
 		PayloadMessageBuilder builder = PayloadMessageBuilder.builder().request();
 		Object uuid = Reflections.get(builder, "uuid");
-		
+
 		assertThat(uuid).isInstanceOf(UUID.class);
 		assertThat(Reflections.get(builder, "type", MessageType.class)).isEqualTo(MessageType.REQUEST);
 	}

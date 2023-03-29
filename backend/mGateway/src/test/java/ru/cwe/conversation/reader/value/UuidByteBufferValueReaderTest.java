@@ -2,7 +2,7 @@ package ru.cwe.conversation.reader.value;
 
 import io.netty.buffer.ByteBuf;
 import org.junit.jupiter.api.Test;
-import utils.TestBuffers;
+import utils.BufferUtil;
 
 import java.util.UUID;
 
@@ -15,7 +15,7 @@ class UuidByteBufferValueReaderTest {
 	void shouldCheckReading_ifFail() {
 		Throwable throwable = catchThrowable(() -> {
 			new UuidByteBufferValueReader().read(
-				TestBuffers.create()
+				BufferUtil.create()
 			);
 		});
 
@@ -25,8 +25,8 @@ class UuidByteBufferValueReaderTest {
 	@Test
 	void shouldCheckReading() {
 		UUID expectedUuid = UUID.randomUUID();
-		ByteBuf buffer = TestBuffers.create();
-		TestBuffers.writeUuid(buffer, expectedUuid);
+		ByteBuf buffer = BufferUtil.create();
+		BufferUtil.writeUuid(buffer, expectedUuid);
 
 		UUID uuid = new UuidByteBufferValueReader().read(buffer);
 		assertThat(uuid).isEqualTo(expectedUuid);

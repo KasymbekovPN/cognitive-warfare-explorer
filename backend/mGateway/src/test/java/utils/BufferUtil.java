@@ -10,8 +10,7 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 
-// TODO: 27.03.2023 rename &  [ ??? move TestBuffers to mCommon ???]
-public final class TestBuffers {
+public final class BufferUtil {
 	private static final Charset CHARSET = StandardCharsets.UTF_8;
 
 	public static ByteBuf create(){
