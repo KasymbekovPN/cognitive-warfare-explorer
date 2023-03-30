@@ -10,8 +10,9 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Getter
 public class PayloadMessageImpl implements PayloadMessage {
-	private final UUID uuid;
+	private final int version;
 	private final MessageType type;
+	private final UUID uuid;
 	private final String contentType;
 	private final String content;
 	private final Address from;

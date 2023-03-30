@@ -9,6 +9,7 @@ import java.util.UUID;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ConfirmationMessageImplTest {
+	private static final int EXPECTED_VERSION = 0;
 	private static final UUID EXPECTED_UUID = UUID.randomUUID();
 	private static final ConfirmationResult EXPECTED_RESULT = ConfirmationResult.RESPONSE;
 	private static final String EXPECTED_PAYLOAD_MESSAGE_TYPE = "some.payload.type";
@@ -17,7 +18,12 @@ class ConfirmationMessageImplTest {
 
 	@BeforeAll
 	static void beforeAll() {
-		message = new ConfirmationMessageImpl(EXPECTED_UUID, EXPECTED_RESULT, EXPECTED_PAYLOAD_MESSAGE_TYPE);
+		message = new ConfirmationMessageImpl(EXPECTED_VERSION, EXPECTED_UUID, EXPECTED_RESULT, EXPECTED_PAYLOAD_MESSAGE_TYPE);
+	}
+
+	@Test
+	void shouldCheckVersionGetting() {
+		assertThat(message.getVersion()).isEqualTo(EXPECTED_VERSION);
 	}
 
 	@Test
