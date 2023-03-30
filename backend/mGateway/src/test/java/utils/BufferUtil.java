@@ -37,7 +37,7 @@ public final class BufferUtil {
 	public static void writeString(ByteBuf buffer, String value){
 		int len = value != null ? value.length() : -1;
 		buffer.writeInt(len);
-		if (len != -1){
+		if (len > 0){
 			buffer.writeCharSequence(value, CHARSET);
 		}
 	}
