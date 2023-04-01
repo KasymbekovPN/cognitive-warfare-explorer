@@ -1,6 +1,5 @@
 package ru.cwe.conversation.message.payload;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import ru.cwe.conversation.address.Address;
@@ -12,6 +11,8 @@ import java.util.UUID;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class PayloadMessageImplTest {
+	private static final int EXPECTED_VERSION = 1;
+	private static final int EXPECTED_PRIORITY = 2;
 	private static final UUID UUID = java.util.UUID.randomUUID();
 	private static final MessageType TYPE = MessageType.REQUEST;
 	private static final String CONTENT_TYPE = "some.content.type";
@@ -24,8 +25,8 @@ class PayloadMessageImplTest {
 	@BeforeAll
 	static void beforeAll() {
 		message = new PayloadMessageImpl(
-			-1, // TODO: 30.03.2023 temp
-			0, // TODO: 01.04.2023 temp
+			EXPECTED_VERSION,
+			EXPECTED_PRIORITY,
 			TYPE,
 			UUID,
 			CONTENT_TYPE,
@@ -33,6 +34,16 @@ class PayloadMessageImplTest {
 			FROM,
 			TO
 		);
+	}
+
+	@Test
+	void shouldCheckVersionGetting() {
+		assertThat(message.getVersion()).isEqualTo(EXPECTED_VERSION);
+	}
+
+	@Test
+	void shouldCheckPriorityGetting() {
+		assertThat(message.getPriority()).isEqualTo(EXPECTED_PRIORITY);
 	}
 
 	@Test
