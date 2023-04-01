@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import ru.cwe.utils.reflection.Reflections;
+import utils.faker.Fakers;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
@@ -15,7 +16,8 @@ class AddressBuilderTest {
 	@CsvFileSource(resources = "shouldCheckFailBuilding.csv")
 	void shouldCheckFailBuilding(String host, Integer port, String expectedMessage) {
 		Throwable throwable = catchThrowable(() -> {
-			AddressBuilder builder = AddressBuilder.builder().host(host);
+			AddressBuilder builder = AddressBuilder.builder()
+				.host(host);
 			if (port != null){
 				builder.port(port);
 			}
@@ -29,8 +31,8 @@ class AddressBuilderTest {
 
 	@Test
 	void shouldCheckBuilding() {
-		String expectedHost = "some.host";
-		int expectedPort = 8080;
+		String expectedHost = Fakers.host();
+		int expectedPort = Fakers.port();
 		Address address = AddressBuilder.builder()
 			.host(expectedHost)
 			.port(expectedPort)
@@ -43,8 +45,8 @@ class AddressBuilderTest {
 	@SneakyThrows
 	@Test
 	void shouldCheckReset() {
-		String expectedHost = "some.host";
-		int expectedPort = 8080;
+		String expectedHost = Fakers.host();
+		int expectedPort = Fakers.port();
 		AddressBuilder builder = AddressBuilder.builder()
 			.host(expectedHost)
 			.port(expectedPort)

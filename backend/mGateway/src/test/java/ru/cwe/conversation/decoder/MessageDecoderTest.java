@@ -8,13 +8,12 @@ import ru.cwe.conversation.reader.buffer.ByteBufferReader;
 import ru.cwe.conversation.message.Message;
 import ru.cwe.conversation.message.MessageType;
 import ru.cwe.conversation.message.confirmation.ConfirmationResult;
-import utils.TestAddress;
+import utils.faker.Fakers;
 import utils.TestConfirmationMessage;
 import utils.TestPayloadMessage;
 
 import java.util.ArrayList;
 import java.util.Optional;
-import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -32,8 +31,13 @@ class MessageDecoderTest {
 	@SneakyThrows
 	@Test
 	void shouldCheckDecoding_ifConfirmationMessage() {
-		TestConfirmationMessage message
-			= new TestConfirmationMessage(0, 0, UUID.randomUUID(), ConfirmationResult.REQUEST, "");
+		TestConfirmationMessage message = new TestConfirmationMessage(
+			Fakers.version(),
+			Fakers.priority(),
+			Fakers.uuid(),
+			ConfirmationResult.REQUEST,
+			Fakers.string()
+		);
 
 		ArrayList<Object> out = new ArrayList<>();
 		new MessageDecoder(new TestReader(message), new TestReader()).decode(null, null, out);
@@ -46,14 +50,14 @@ class MessageDecoderTest {
 	@Test
 	void shouldCheckDecoding_ifPayloadMessage() {
 		TestPayloadMessage message = new TestPayloadMessage(
-			0,
-			0,
+			Fakers.version(),
+			Fakers.priority(),
 			MessageType.REQUEST,
-			UUID.randomUUID(),
-			"",
-			"",
-			new TestAddress(),
-			new TestAddress()
+			Fakers.uuid(),
+			Fakers.string(),
+			Fakers.string(),
+			Fakers.addressOld(),
+			Fakers.addressOld()
 		);
 
 		ArrayList<Object> out = new ArrayList<>();

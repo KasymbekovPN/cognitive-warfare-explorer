@@ -7,6 +7,7 @@ import org.junit.jupiter.params.provider.CsvFileSource;
 import ru.cwe.conversation.message.MessageType;
 import ru.cwe.conversation.message.Priorities;
 import ru.cwe.utils.reflection.Reflections;
+import utils.faker.Fakers;
 import utils.TestPayloadMessage;
 
 import java.util.UUID;
@@ -19,7 +20,7 @@ class ConfirmationMessageBuilderTest {
 	@SneakyThrows
 	@Test
 	void shouldCheckVersion() {
-		int expectedVersion = 0;
+		int expectedVersion = Fakers.version();
 		ConfirmationMessageBuilder builder = ConfirmationMessageBuilder.builder().version(expectedVersion);
 		int version = Reflections.get(builder, "version", Integer.class);
 
@@ -29,7 +30,7 @@ class ConfirmationMessageBuilderTest {
 	@SneakyThrows
 	@Test
 	void shouldCheckPriority() {
-		int expectedPriority = 123;
+		int expectedPriority = Fakers.priority();
 		ConfirmationMessageBuilder builder = ConfirmationMessageBuilder.builder().priority(expectedPriority);
 		int priority = Reflections.get(builder, "priority", Integer.class);
 
@@ -39,7 +40,7 @@ class ConfirmationMessageBuilderTest {
 	@SneakyThrows
 	@Test
 	void shouldCheckUuid() {
-		UUID expectedUuid = UUID.randomUUID();
+		UUID expectedUuid = Fakers.uuid();
 		ConfirmationMessageBuilder builder = ConfirmationMessageBuilder.builder().uuid(expectedUuid);
 		UUID uuid = Reflections.get(builder, "uuid", UUID.class);
 
@@ -49,7 +50,7 @@ class ConfirmationMessageBuilderTest {
 	@SneakyThrows
 	@Test
 	void shouldCheckResult() {
-		ConfirmationResult expectedResult = ConfirmationResult.RESPONSE;
+		ConfirmationResult expectedResult = Fakers.confirmationResult();
 		ConfirmationMessageBuilder builder = ConfirmationMessageBuilder.builder().result(expectedResult);
 		ConfirmationResult result = Reflections.get(builder, "result", ConfirmationResult.class);
 
@@ -59,7 +60,7 @@ class ConfirmationMessageBuilderTest {
 	@SneakyThrows
 	@Test
 	void shouldCheckPayloadMessageType() {
-		String expectedType = "some.payload.message.type";
+		String expectedType = Fakers.string();
 		ConfirmationMessageBuilder builder = ConfirmationMessageBuilder.builder().payloadMessageType(expectedType);
 		String payloadMessageType = Reflections.get(builder, "payloadMessageType", String.class);
 
@@ -69,61 +70,51 @@ class ConfirmationMessageBuilderTest {
 	@SneakyThrows
 	@Test
 	void shouldCheckFromPayloadMessage_ifItIsRequest() {
-		UUID expectedUuid = UUID.randomUUID();
+		UUID expectedUuid = Fakers.uuid();
 		MessageType type = MessageType.REQUEST;
-		int expectedVersion = 0;
-		int expectedPriority = 123;
+		int expectedVersion = Fakers.version();
+		int expectedPriority = Fakers.priority();
 		TestPayloadMessage payloadMessage = new TestPayloadMessage(
 			expectedVersion,
 			expectedPriority,
 			type,
 			expectedUuid,
-			null,
-			null,
-			null,
-			null
+			Fakers.string(),
+			Fakers.string(),
+			Fakers.addressOld(),
+			Fakers.addressOld()
 		);
 
 		ConfirmationMessageBuilder builder = ConfirmationMessageBuilder.builder().fromPayloadMessage(payloadMessage);
-		int version = Reflections.get(builder, "version", Integer.class);
-		Integer priority = Reflections.get(builder, "priority", Integer.class);
-		UUID uuid = Reflections.get(builder, "uuid", UUID.class);
-		ConfirmationResult result = Reflections.get(builder, "result", ConfirmationResult.class);
-
-		assertThat(version).isEqualTo(expectedVersion);
-		assertThat(priority).isEqualTo(expectedPriority);
-		assertThat(uuid).isEqualTo(expectedUuid);
-		assertThat(result).isEqualTo(ConfirmationResult.REQUEST);
+		assertThat(Reflections.get(builder, "version", Integer.class)).isEqualTo(expectedVersion);
+		assertThat(Reflections.get(builder, "priority", Integer.class)).isEqualTo(expectedPriority);
+		assertThat(Reflections.get(builder, "uuid", UUID.class)).isEqualTo(expectedUuid);
+		assertThat(Reflections.get(builder, "result", ConfirmationResult.class)).isEqualTo(ConfirmationResult.REQUEST);
 	}
 
 	@SneakyThrows
 	@Test
 	void shouldCheckFromPayloadMessage_ifItIsResponse() {
-		UUID expectedUuid = UUID.randomUUID();
+		UUID expectedUuid = Fakers.uuid();
 		MessageType type = MessageType.RESPONSE;
-		int expectedVersion = 0;
-		int expectedPriority = 123;
+		int expectedVersion = Fakers.version();
+		int expectedPriority = Fakers.priority();
 		TestPayloadMessage payloadMessage = new TestPayloadMessage(
 			expectedVersion,
 			expectedPriority,
 			type,
 			expectedUuid,
-			null,
-			null,
-			null,
-			null
+			Fakers.string(),
+			Fakers.string(),
+			Fakers.addressOld(),
+			Fakers.addressOld()
 		);
 
 		ConfirmationMessageBuilder builder = ConfirmationMessageBuilder.builder().fromPayloadMessage(payloadMessage);
-		int version = Reflections.get(builder, "version", Integer.class);
-		Integer priority = Reflections.get(builder, "priority", Integer.class);
-		UUID uuid = Reflections.get(builder, "uuid", UUID.class);
-		ConfirmationResult result = Reflections.get(builder, "result", ConfirmationResult.class);
-
-		assertThat(version).isEqualTo(expectedVersion);
-		assertThat(priority).isEqualTo(expectedPriority);
-		assertThat(uuid).isEqualTo(expectedUuid);
-		assertThat(result).isEqualTo(ConfirmationResult.RESPONSE);
+		assertThat(Reflections.get(builder, "version", Integer.class)).isEqualTo(expectedVersion);
+		assertThat(Reflections.get(builder, "priority", Integer.class)).isEqualTo(expectedPriority);
+		assertThat(Reflections.get(builder, "uuid", UUID.class)).isEqualTo(expectedUuid);
+		assertThat(Reflections.get(builder, "result", ConfirmationResult.class)).isEqualTo(ConfirmationResult.RESPONSE);
 	}
 
 	@SneakyThrows
@@ -134,14 +125,9 @@ class ConfirmationMessageBuilderTest {
 		UUID expectedUuid = new UUID(0, 0);
 
 		ConfirmationMessageBuilder builder = ConfirmationMessageBuilder.builder().error(object);
-
-		Integer priority = Reflections.get(builder, "priority", Integer.class);
-		UUID uuid = Reflections.get(builder, "uuid", UUID.class);
-		String payloadMessageType = Reflections.get(builder, "payloadMessageType", String.class);
-
-		assertThat(priority).isEqualTo(Priorities.MAX);
-		assertThat(uuid).isEqualTo(expectedUuid);
-		assertThat(payloadMessageType).isEqualTo(expectedPayloadMessageType);
+		assertThat(Reflections.get(builder, "priority", Integer.class)).isEqualTo(Priorities.MAX);
+		assertThat(Reflections.get(builder, "uuid", UUID.class)).isEqualTo(expectedUuid);
+		assertThat(Reflections.get(builder, "payloadMessageType", String.class)).isEqualTo(expectedPayloadMessageType);
 	}
 
 	@ParameterizedTest
@@ -168,11 +154,11 @@ class ConfirmationMessageBuilderTest {
 
 	@Test
 	void shouldCheckBuilding() {
-		int version = 123;
-		int expectedPriority = 100;
-		UUID expectedUuid = UUID.randomUUID();
+		int version = Fakers.version();
+		int expectedPriority = Fakers.priority();
+		UUID expectedUuid = Fakers.uuid();
 		ConfirmationResult expectedResult = ConfirmationResult.REQUEST;
-		String expectedPayloadMessageType = "some.payload.message.type";
+		String expectedPayloadMessageType = Fakers.string();
 		ConfirmationMessage message = ConfirmationMessageBuilder.builder()
 			.version(version)
 			.priority(expectedPriority)
@@ -191,11 +177,11 @@ class ConfirmationMessageBuilderTest {
 	@SneakyThrows
 	@Test
 	void shouldCheckReset() {
-		UUID expectedUuid = UUID.randomUUID();
-		int version = 123;
-		int priority = 100;
+		UUID expectedUuid = Fakers.uuid();
+		int version = Fakers.version();
+		int priority = Fakers.priority();
 		ConfirmationResult expectedResult = ConfirmationResult.REQUEST;
-		String expectedPayloadMessageType = "some.payload.message.type";
+		String expectedPayloadMessageType = Fakers.string();
 		ConfirmationMessageBuilder builder = ConfirmationMessageBuilder.builder()
 			.version(version)
 			.priority(priority)

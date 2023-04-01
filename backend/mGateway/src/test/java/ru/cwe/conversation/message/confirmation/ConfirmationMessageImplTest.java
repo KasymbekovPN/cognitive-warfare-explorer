@@ -8,6 +8,7 @@ import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+// TODO: 01.04.2023 !!!
 class ConfirmationMessageImplTest {
 	private static final int EXPECTED_VERSION = 0;
 	private static final int EXPECTED_PRIORITY = 0;

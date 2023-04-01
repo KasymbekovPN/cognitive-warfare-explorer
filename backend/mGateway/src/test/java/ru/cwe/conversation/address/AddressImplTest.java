@@ -1,24 +1,25 @@
 package ru.cwe.conversation.address;
 
 import org.junit.jupiter.api.Test;
+import utils.faker.Fakers;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class AddressImplTest {
-	private static final String EXPECTED_HOST = "some.host";
-	private static final int EXPECTED_PORT = 8080;
 
 	@Test
 	void shouldCheckHostGetting() {
-		String host = new AddressImpl(EXPECTED_HOST, EXPECTED_PORT).getHost();
+		String expectedHost = Fakers.host();
+		String host = new AddressImpl(expectedHost, Fakers.port()).getHost();
 
-		assertThat(host).isEqualTo(EXPECTED_HOST);
+		assertThat(host).isEqualTo(expectedHost);
 	}
 
 	@Test
 	void shouldCheckPortGetting() {
-		int port = new AddressImpl(EXPECTED_HOST, EXPECTED_PORT).getPort();
+		Integer expectedPort = Fakers.port();
+		int port = new AddressImpl(Fakers.host(), expectedPort).getPort();
 
-		assertThat(port).isEqualTo(EXPECTED_PORT);
+		assertThat(port).isEqualTo(expectedPort);
 	}
 }

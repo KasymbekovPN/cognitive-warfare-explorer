@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import ru.cwe.conversation.writer.buffer.ByteBufferWriter;
 import ru.cwe.conversation.message.Message;
 import ru.cwe.conversation.message.MessageType;
+import utils.faker.Fakers;
 import utils.TestConfirmationMessage;
 import utils.TestPayloadMessage;
 
@@ -17,7 +18,13 @@ class MessageEncoderTest {
 	@SneakyThrows
 	@Test
 	void shouldCheckConfirmationMessageEncoding() {
-		TestConfirmationMessage message = new TestConfirmationMessage(0, 0,null, null, null);
+		TestConfirmationMessage message = new TestConfirmationMessage(
+			Fakers.version(),
+			Fakers.priority(),
+			Fakers.uuid(),
+			Fakers.confirmationResult(),
+			Fakers.string()
+		);
 		TestWriter writer = new TestWriter();
 		new MessageEncoder(writer, null).encode(null, message, null);
 
@@ -28,14 +35,14 @@ class MessageEncoderTest {
 	@Test
 	void shouldCheckRequestPayloadMessageEncoding() {
 		TestPayloadMessage message = new TestPayloadMessage(
-			0,
-			0,
+			Fakers.version(),
+			Fakers.priority(),
 			MessageType.REQUEST,
-			null,
-			null,
-			null,
-			null,
-			null
+			Fakers.uuid(),
+			Fakers.string(),
+			Fakers.string(),
+			Fakers.addressOld(),
+			Fakers.addressOld()
 		);
 		TestWriter writer = new TestWriter();
 		new MessageEncoder(null, writer).encode(null, message, null);
@@ -47,14 +54,14 @@ class MessageEncoderTest {
 	@Test
 	void shouldCheckResponsePayloadMessageEncoding() {
 		TestPayloadMessage message = new TestPayloadMessage(
-			0,
-			0,
+			Fakers.version(),
+			Fakers.priority(),
 			MessageType.RESPONSE,
-			null,
-			null,
-			null,
-			null,
-			null
+			Fakers.uuid(),
+			Fakers.string(),
+			Fakers.string(),
+			Fakers.addressOld(),
+			Fakers.addressOld()
 		);
 		TestWriter writer = new TestWriter();
 		new MessageEncoder(null, writer).encode(null, message, null);

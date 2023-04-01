@@ -21,6 +21,7 @@ dependencies {
     testImplementation "io.netty:netty-all:$nettyVersion"
     testImplementation "ch.qos.logback:logback-classic:$logbackVersion"
     testImplementation "org.mockito:mockito-all:$mackitoVersion"
+    testImplementation "com.github.javafaker:javafaker:$javafakerVersion"
 
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitJupiterVersion"
 
