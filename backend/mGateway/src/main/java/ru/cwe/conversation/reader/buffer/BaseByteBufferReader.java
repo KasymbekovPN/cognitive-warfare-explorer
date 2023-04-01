@@ -10,7 +10,7 @@ public abstract class BaseByteBufferReader<R> implements ByteBufferReader<R> {
 	public Optional<R> read(ByteBuf buffer) {
 		try {
 			return readUnsafe(buffer);
-		} catch (IndexOutOfBoundsException ex){
+		} catch (RuntimeException ex){
 			ex.printStackTrace();
 			return Optional.empty();
 		}
