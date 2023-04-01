@@ -10,6 +10,7 @@ import java.util.UUID;
 @Getter
 final class ConfirmationMessageImpl implements ConfirmationMessage {
 	private final int version;
+	private final int priority;
 	private final MessageType type = MessageType.CONFIRMATION;
 	private final UUID uuid;
 	private final ConfirmationResult result;

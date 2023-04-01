@@ -11,6 +11,7 @@ import java.util.UUID;
 @Getter
 public class PayloadMessageImpl implements PayloadMessage {
 	private final int version;
+	private final int priority;
 	private final MessageType type;
 	private final UUID uuid;
 	private final String contentType;

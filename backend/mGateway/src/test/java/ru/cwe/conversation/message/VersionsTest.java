@@ -5,11 +5,11 @@ import org.junit.jupiter.params.provider.CsvFileSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class VersionTest {
+class VersionsTest {
 
 	@ParameterizedTest
 	@CsvFileSource(resources = "shouldCheckCheckingMethod.csv")
 	void shouldCheckCheckingMethod(int version, boolean expected) {
-		assertThat(Version.check(version)).isEqualTo(expected);
+		assertThat(Versions.check(version)).isEqualTo(expected);
 	}
 }

@@ -25,6 +25,7 @@ class PayloadMessageImplTest {
 	static void beforeAll() {
 		message = new PayloadMessageImpl(
 			-1, // TODO: 30.03.2023 temp
+			0, // TODO: 01.04.2023 temp
 			TYPE,
 			UUID,
 			CONTENT_TYPE,

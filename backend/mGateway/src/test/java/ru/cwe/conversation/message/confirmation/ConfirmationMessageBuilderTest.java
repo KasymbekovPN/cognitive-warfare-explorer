@@ -1,4 +1,4 @@
-// TODO: 30.03.2023 restore
+// TODO: 01.04.2023 restore
 //package ru.cwe.conversation.message.confirmation;
 //
 //import lombok.SneakyThrows;
@@ -15,6 +15,16 @@
 //import static org.assertj.core.api.Assertions.catchThrowable;
 //
 //class ConfirmationMessageBuilderTest {
+//
+//	@SneakyThrows
+//	@Test
+//	void shouldCheckVersion() {
+//		int expectedVersion = 0;
+//		ConfirmationMessageBuilder builder = ConfirmationMessageBuilder.builder().version(expectedVersion);
+//		int version = Reflections.get(builder, "version", Integer.class);
+//
+//		assertThat(version).isEqualTo(expectedVersion);
+//	}
 //
 //	@SneakyThrows
 //	@Test
@@ -51,12 +61,23 @@
 //	void shouldCheckFromPayloadMessage_ifItIsRequest() {
 //		UUID expectedUuid = UUID.randomUUID();
 //		MessageType type = MessageType.REQUEST;
-//		TestPayloadMessage payloadMessage = new TestPayloadMessage(expectedUuid, type, null, null, null, null);
+//		int expectedVersion = 0;
+//		TestPayloadMessage payloadMessage = new TestPayloadMessage(
+//			expectedVersion,
+//			type,
+//			expectedUuid,
+//			null,
+//			null,
+//			null,
+//			null
+//		);
 //
 //		ConfirmationMessageBuilder builder = ConfirmationMessageBuilder.builder().fromPayloadMessage(payloadMessage);
+//		int version = Reflections.get(builder, "version", Integer.class);
 //		UUID uuid = Reflections.get(builder, "uuid", UUID.class);
 //		ConfirmationResult result = Reflections.get(builder, "result", ConfirmationResult.class);
 //
+//		assertThat(version).isEqualTo(expectedVersion);
 //		assertThat(uuid).isEqualTo(expectedUuid);
 //		assertThat(result).isEqualTo(ConfirmationResult.REQUEST);
 //	}
@@ -66,12 +87,23 @@
 //	void shouldCheckFromPayloadMessage_ifItIsResponse() {
 //		UUID expectedUuid = UUID.randomUUID();
 //		MessageType type = MessageType.RESPONSE;
-//		TestPayloadMessage payloadMessage = new TestPayloadMessage(expectedUuid, type, null, null, null, null);
+//		int expectedVersion = 0;
+//		TestPayloadMessage payloadMessage = new TestPayloadMessage(
+//			expectedVersion,
+//			type,
+//			expectedUuid,
+//			null,
+//			null,
+//			null,
+//			null
+//		);
 //
 //		ConfirmationMessageBuilder builder = ConfirmationMessageBuilder.builder().fromPayloadMessage(payloadMessage);
+//		int version = Reflections.get(builder, "version", Integer.class);
 //		UUID uuid = Reflections.get(builder, "uuid", UUID.class);
 //		ConfirmationResult result = Reflections.get(builder, "result", ConfirmationResult.class);
 //
+//		assertThat(version).isEqualTo(expectedVersion);
 //		assertThat(uuid).isEqualTo(expectedUuid);
 //		assertThat(result).isEqualTo(ConfirmationResult.RESPONSE);
 //	}
@@ -94,9 +126,12 @@
 //
 //	@ParameterizedTest
 //	@CsvFileSource(resources = "shouldCheckFailBuildingAttempt.csv")
-//	void shouldCheckFailBuildingAttempt(Long uuidSource, Integer resultSource, String expectedMessage) {
+//	void shouldCheckFailBuildingAttempt(Integer version, Long uuidSource, Integer resultSource, String expectedMessage) {
 //		Throwable throwable = catchThrowable(() -> {
 //			ConfirmationMessageBuilder builder = ConfirmationMessageBuilder.builder();
+//			if (version != null){
+//				builder.version(version);
+//			}
 //			if (uuidSource != null){
 //				builder.uuid(new UUID(0, uuidSource));
 //			}
@@ -113,34 +148,37 @@
 //
 //	@Test
 //	void shouldCheckBuilding() {
+//		int version = 123;
 //		UUID expectedUuid = UUID.randomUUID();
 //		ConfirmationResult expectedResult = ConfirmationResult.REQUEST;
 //		String expectedPayloadMessageType = "some.payload.message.type";
 //		ConfirmationMessage message = ConfirmationMessageBuilder.builder()
+//			.version(version)
 //			.uuid(expectedUuid)
 //			.result(expectedResult)
 //			.payloadMessageType(expectedPayloadMessageType)
 //			.build();
 //
+//		assertThat(message.getVersion()).isEqualTo(version);
 //		assertThat(message.getUuid()).isEqualTo(expectedUuid);
 //		assertThat(message.getResult()).isEqualTo(expectedResult);
 //		assertThat(message.getPayloadMessageType()).isEqualTo(expectedPayloadMessageType);
 //	}
 //
-//	@SneakyThrows
-//	@Test
-//	void shouldCheckReset() {
-//		UUID expectedUuid = UUID.randomUUID();
-//		ConfirmationResult expectedResult = ConfirmationResult.REQUEST;
-//		String expectedPayloadMessageType = "some.payload.message.type";
-//		ConfirmationMessageBuilder builder = ConfirmationMessageBuilder.builder()
-//			.uuid(expectedUuid)
-//			.result(expectedResult)
-//			.payloadMessageType(expectedPayloadMessageType)
-//			.reset();
-//
-//		assertThat(Reflections.get(builder, "uuid", UUID.class)).isNull();
-//		assertThat(Reflections.get(builder, "result", ConfirmationResult.class)).isNull();
-//		assertThat(Reflections.get(builder, "payloadMessageType", String.class)).isEmpty();
-//	}
+////	@SneakyThrows
+////	@Test
+////	void shouldCheckReset() {
+////		UUID expectedUuid = UUID.randomUUID();
+////		ConfirmationResult expectedResult = ConfirmationResult.REQUEST;
+////		String expectedPayloadMessageType = "some.payload.message.type";
+////		ConfirmationMessageBuilder builder = ConfirmationMessageBuilder.builder()
+////			.uuid(expectedUuid)
+////			.result(expectedResult)
+////			.payloadMessageType(expectedPayloadMessageType)
+////			.reset();
+////
+////		assertThat(Reflections.get(builder, "uuid", UUID.class)).isNull();
+////		assertThat(Reflections.get(builder, "result", ConfirmationResult.class)).isNull();
+////		assertThat(Reflections.get(builder, "payloadMessageType", String.class)).isEmpty();
+////	}
 //}
