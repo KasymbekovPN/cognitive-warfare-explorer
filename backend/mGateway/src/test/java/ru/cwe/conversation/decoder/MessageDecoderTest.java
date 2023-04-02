@@ -32,11 +32,11 @@ class MessageDecoderTest {
 	@Test
 	void shouldCheckDecoding_ifConfirmationMessage() {
 		TestConfirmationMessage message = new TestConfirmationMessage(
-			Fakers.version(),
-			Fakers.priority(),
-			Fakers.uuid(),
+			Fakers.message().version(),
+			Fakers.message().priority(),
+			Fakers.base().uuid().uuid(),
 			ConfirmationResult.REQUEST,
-			Fakers.string()
+			Fakers.base().string().string()
 		);
 
 		ArrayList<Object> out = new ArrayList<>();
@@ -50,14 +50,14 @@ class MessageDecoderTest {
 	@Test
 	void shouldCheckDecoding_ifPayloadMessage() {
 		TestPayloadMessage message = new TestPayloadMessage(
-			Fakers.version(),
-			Fakers.priority(),
+			Fakers.message().version(),
+			Fakers.message().priority(),
 			MessageType.REQUEST,
-			Fakers.uuid(),
-			Fakers.string(),
-			Fakers.string(),
-			Fakers.addressOld(),
-			Fakers.addressOld()
+			Fakers.base().uuid().uuid(),
+			Fakers.base().string().string(),
+			Fakers.base().string().string(),
+			Fakers.address().address(),
+			Fakers.address().address()
 		);
 
 		ArrayList<Object> out = new ArrayList<>();

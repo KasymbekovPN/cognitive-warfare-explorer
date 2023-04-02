@@ -8,7 +8,6 @@ import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-// TODO: 01.04.2023 !!!
 class UuidByteBufferValueWriterTest {
 
 	@Test

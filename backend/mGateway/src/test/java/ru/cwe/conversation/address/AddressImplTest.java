@@ -9,16 +9,16 @@ class AddressImplTest {
 
 	@Test
 	void shouldCheckHostGetting() {
-		String expectedHost = Fakers.host();
-		String host = new AddressImpl(expectedHost, Fakers.port()).getHost();
+		String expectedHost = Fakers.address().host();
+		String host = new AddressImpl(expectedHost, Fakers.address().port()).getHost();
 
 		assertThat(host).isEqualTo(expectedHost);
 	}
 
 	@Test
 	void shouldCheckPortGetting() {
-		Integer expectedPort = Fakers.port();
-		int port = new AddressImpl(Fakers.host(), expectedPort).getPort();
+		Integer expectedPort = Fakers.address().port();
+		int port = new AddressImpl(Fakers.address().host(), expectedPort).getPort();
 
 		assertThat(port).isEqualTo(expectedPort);
 	}

@@ -31,8 +31,8 @@ class AddressBuilderTest {
 
 	@Test
 	void shouldCheckBuilding() {
-		String expectedHost = Fakers.host();
-		int expectedPort = Fakers.port();
+		String expectedHost = Fakers.address().host();
+		int expectedPort = Fakers.address().port();
 		Address address = AddressBuilder.builder()
 			.host(expectedHost)
 			.port(expectedPort)
@@ -45,8 +45,8 @@ class AddressBuilderTest {
 	@SneakyThrows
 	@Test
 	void shouldCheckReset() {
-		String expectedHost = Fakers.host();
-		int expectedPort = Fakers.port();
+		String expectedHost = Fakers.address().host();
+		int expectedPort = Fakers.address().port();
 		AddressBuilder builder = AddressBuilder.builder()
 			.host(expectedHost)
 			.port(expectedPort)

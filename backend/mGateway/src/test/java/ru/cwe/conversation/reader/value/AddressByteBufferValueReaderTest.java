@@ -6,11 +6,11 @@ import ru.cwe.conversation.address.Address;
 import ru.cwe.conversation.address.AddressBuilder;
 import ru.cwe.conversation.address.AddressBuildingRuntimeException;
 import utils.BufferUtil;
+import utils.faker.Fakers;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
 
-// TODO: 01.04.2023 !!!
 class AddressByteBufferValueReaderTest {
 
 	@Test
@@ -38,7 +38,7 @@ class AddressByteBufferValueReaderTest {
 				new TestStringReader(),
 				AddressBuilder.builder()
 			);
-			reader.read(createBuffer(null, 0));
+			reader.read(createBuffer(null, Fakers.address().port()));
 		});
 
 		assertThat(throwable).isInstanceOf(AddressBuildingRuntimeException.class);
@@ -51,7 +51,7 @@ class AddressByteBufferValueReaderTest {
 				new TestStringReader(),
 				AddressBuilder.builder()
 			);
-			reader.read(createBuffer("host", -1));
+			reader.read(createBuffer(Fakers.address().host(), Fakers.base().number().lessThan(0)));
 		});
 
 		assertThat(throwable).isInstanceOf(AddressBuildingRuntimeException.class);
@@ -64,7 +64,7 @@ class AddressByteBufferValueReaderTest {
 				new TestStringReader(),
 				AddressBuilder.builder()
 			);
-			reader.read(createBuffer("host", 1_000_000));
+			reader.read(createBuffer(Fakers.address().host(), Fakers.base().number().moreThan(65535)));
 		});
 
 		assertThat(throwable).isInstanceOf(AddressBuildingRuntimeException.class);
@@ -72,8 +72,8 @@ class AddressByteBufferValueReaderTest {
 
 	@Test
 	void shouldCheckReading() {
-		String expectedHost = "host";
-		int expectedPort = 8080;
+		String expectedHost = Fakers.address().host();
+		int expectedPort = Fakers.address().port();
 
 		AddressByteBufferValueReader reader = new AddressByteBufferValueReader(
 			new TestStringReader(),

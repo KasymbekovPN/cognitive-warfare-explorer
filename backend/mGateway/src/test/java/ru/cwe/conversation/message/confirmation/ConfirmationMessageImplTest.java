@@ -3,45 +3,51 @@ package ru.cwe.conversation.message.confirmation;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import ru.cwe.conversation.message.MessageType;
+import utils.faker.Fakers;
+import utils.faker.UuidFaker;
 
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-// TODO: 01.04.2023 !!!
 class ConfirmationMessageImplTest {
-	private static final int EXPECTED_VERSION = 0;
-	private static final int EXPECTED_PRIORITY = 0;
-	private static final UUID EXPECTED_UUID = UUID.randomUUID();
-	private static final ConfirmationResult EXPECTED_RESULT = ConfirmationResult.RESPONSE;
-	private static final String EXPECTED_PAYLOAD_MESSAGE_TYPE = "some.payload.type";
+	private static int expectedVersion;
+	private static int expectedPriority;
+	private static UUID expectedUuid;
+	private static ConfirmationResult expectedResult;
+	private static String expectedPayloadMessageType;
 
 	private static ConfirmationMessageImpl message;
 
 	@BeforeAll
 	static void beforeAll() {
+		expectedVersion = Fakers.message().version();
+		expectedPriority = Fakers.message().priority();
+		expectedUuid = Fakers.base().uuid().uuid();
+		expectedResult = ConfirmationResult.RESPONSE;
+		expectedPayloadMessageType = Fakers.base().string().string();
 		message = new ConfirmationMessageImpl(
-			EXPECTED_VERSION,
-			EXPECTED_PRIORITY,
-			EXPECTED_UUID,
-			EXPECTED_RESULT,
-			EXPECTED_PAYLOAD_MESSAGE_TYPE
+			expectedVersion,
+			expectedPriority,
+			expectedUuid,
+			expectedResult,
+			expectedPayloadMessageType
 		);
 	}
 
 	@Test
 	void shouldCheckVersionGetting() {
-		assertThat(message.getVersion()).isEqualTo(EXPECTED_VERSION);
+		assertThat(message.getVersion()).isEqualTo(expectedVersion);
 	}
 
 	@Test
 	void shouldCheckPriorityGetting() {
-		assertThat(message.getPriority()).isEqualTo(EXPECTED_PRIORITY);
+		assertThat(message.getPriority()).isEqualTo(expectedPriority);
 	}
 
 	@Test
 	void shouldCheckUuidGetting() {
-		assertThat(message.getUuid()).isEqualTo(EXPECTED_UUID);
+		assertThat(message.getUuid()).isEqualTo(expectedUuid);
 	}
 
 	@Test
@@ -51,11 +57,11 @@ class ConfirmationMessageImplTest {
 
 	@Test
 	void shouldCheckResultGetting() {
-		assertThat(message.getResult()).isEqualTo(EXPECTED_RESULT);
+		assertThat(message.getResult()).isEqualTo(expectedResult);
 	}
 
 	@Test
 	void shouldCheckPayloadTypeGetting() {
-		assertThat(message.getPayloadMessageType()).isEqualTo(EXPECTED_PAYLOAD_MESSAGE_TYPE);
+		assertThat(message.getPayloadMessageType()).isEqualTo(expectedPayloadMessageType);
 	}
 }

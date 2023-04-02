@@ -3,6 +3,7 @@ package ru.cwe.conversation.reader.value;
 import io.netty.buffer.ByteBuf;
 import org.junit.jupiter.api.Test;
 import utils.BufferUtil;
+import utils.faker.Fakers;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -10,7 +11,6 @@ import java.nio.charset.StandardCharsets;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
 
-// TODO: 01.04.2023 !!!
 class StringByteBufferValueReaderTest {
 	private static final Charset CHARSET = StandardCharsets.UTF_8;
 
@@ -44,7 +44,7 @@ class StringByteBufferValueReaderTest {
 
 	@Test
 	void shouldCheckReading() {
-		String expectedLine = "some.line";
+		String expectedLine = Fakers.base().string().string();
 		ByteBuf buffer = BufferUtil.create();
 		BufferUtil.writeString(buffer, expectedLine);
 

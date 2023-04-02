@@ -4,6 +4,7 @@ import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import ru.cwe.utils.reflection.Reflections;
+import utils.faker.Fakers;
 
 import java.util.Optional;
 import java.util.function.Function;
@@ -12,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class AbsentFieldRuntimeExceptionBuilderImplTest {
 	private static Function<String, RuntimeException> creator;
-	private static RuntimeException exception = new RuntimeException("");
+	private static final RuntimeException exception = new RuntimeException("");
 
 	@BeforeAll
 	static void beforeAll() {
@@ -27,9 +28,9 @@ class AbsentFieldRuntimeExceptionBuilderImplTest {
 	@SneakyThrows
 	@Test
 	void shouldCheckFieldChecking() {
-		String name0 = "name0";
-		String name1 = "name1";
-		String name2 = "name2";
+		String name0 = Fakers.base().string().string();
+		String name1 = Fakers.base().string().string();
+		String name2 = Fakers.base().string().string();
 
 		AbsentFieldRuntimeExceptionBuilderImpl builder = new AbsentFieldRuntimeExceptionBuilderImpl(null);
 		builder.checkField(name0, null);

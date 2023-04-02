@@ -1,26 +1,35 @@
 package ru.cwe.conversation.reader.buffer;
 
 import io.netty.buffer.ByteBuf;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import ru.cwe.conversation.address.Address;
 import ru.cwe.conversation.reader.value.ByteBufferValueReader;
 import ru.cwe.conversation.message.MessageType;
 import ru.cwe.conversation.message.payload.PayloadMessage;
-import utils.TestAddress;
+import utils.faker.Fakers;
 
 import java.util.Optional;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-// TODO: 01.04.2023 !!!
 class PayloadByteBufferReaderTest {
-	private static final int EXPECTED_VERSION = 1;
-	private static final int EXPECTED_PRIORITY = 2;
-	private static final UUID EXPECTED_UUID = UUID.randomUUID();
-	private static final String EXPECTED_STRING = "some.content";
-	private static final Address EXPECTED_ADDRESS = new TestAddress("from", 8080);
+	private int expectedVersion;
+	private int expectedPriority;
+	private UUID expectedUuid;
+	private String expectedString;
+	private Address expectedAddress;
+
+	@BeforeEach
+	void setUp() {
+		expectedVersion = Fakers.message().version();
+		expectedPriority = Fakers.message().priority();
+		expectedUuid = Fakers.base().uuid().uuid();
+		expectedString = Fakers.base().string().string();
+		expectedAddress = Fakers.address().address();
+	}
 
 	@Test
 	void shouldCheckReading_ifException() {
@@ -38,7 +47,7 @@ class PayloadByteBufferReaderTest {
 	@Test
 	void shouldCheckReading_ifTypeInvalid() {
 		PayloadByteBufferReader reader = new PayloadByteBufferReader(
-			new TestHeaderReader(EXPECTED_VERSION, EXPECTED_PRIORITY, MessageType.INVALID),
+			new TestHeaderReader(expectedVersion, expectedPriority, MessageType.INVALID),
 			createUuidReader(),
 			createStringReader(),
 			createAddressReader()
@@ -51,7 +60,7 @@ class PayloadByteBufferReaderTest {
 	@Test
 	void shouldCheckReading_ifTypeConversation() {
 		PayloadByteBufferReader reader = new PayloadByteBufferReader(
-			new TestHeaderReader(EXPECTED_VERSION, EXPECTED_PRIORITY, MessageType.CONFIRMATION),
+			new TestHeaderReader(expectedVersion, expectedPriority, MessageType.CONFIRMATION),
 			createUuidReader(),
 			createStringReader(),
 			createAddressReader()
@@ -64,7 +73,7 @@ class PayloadByteBufferReaderTest {
 	@Test
 	void shouldCheckReading_ifTypeRequest() {
 		PayloadByteBufferReader reader = new PayloadByteBufferReader(
-			new TestHeaderReader(EXPECTED_VERSION, EXPECTED_PRIORITY, MessageType.REQUEST),
+			new TestHeaderReader(expectedVersion, expectedPriority, MessageType.REQUEST),
 			createUuidReader(),
 			createStringReader(),
 			createAddressReader()
@@ -74,20 +83,20 @@ class PayloadByteBufferReaderTest {
 		assertThat(result).isPresent();
 
 		PayloadMessage message = result.get();
-		assertThat(message.getVersion()).isEqualTo(EXPECTED_VERSION);
-		assertThat(message.getPriority()).isEqualTo(EXPECTED_PRIORITY);
-		assertThat(message.getUuid()).isEqualTo(EXPECTED_UUID);
+		assertThat(message.getVersion()).isEqualTo(expectedVersion);
+		assertThat(message.getPriority()).isEqualTo(expectedPriority);
+		assertThat(message.getUuid()).isEqualTo(expectedUuid);
 		assertThat(message.getType()).isEqualTo(MessageType.REQUEST);
-		assertThat(message.getContentType()).isEqualTo(EXPECTED_STRING);
-		assertThat(message.getContent()).isEqualTo(EXPECTED_STRING);
-		assertThat(message.getFrom()).isEqualTo(EXPECTED_ADDRESS);
-		assertThat(message.getTo()).isEqualTo(EXPECTED_ADDRESS);
+		assertThat(message.getContentType()).isEqualTo(expectedString);
+		assertThat(message.getContent()).isEqualTo(expectedString);
+		assertThat(message.getFrom()).isEqualTo(expectedAddress);
+		assertThat(message.getTo()).isEqualTo(expectedAddress);
 	}
 
 	@Test
 	void shouldCheckReading_ifTypeResponse() {
 		PayloadByteBufferReader reader = new PayloadByteBufferReader(
-			new TestHeaderReader(EXPECTED_VERSION, EXPECTED_PRIORITY, MessageType.RESPONSE),
+			new TestHeaderReader(expectedVersion, expectedPriority, MessageType.RESPONSE),
 			createUuidReader(),
 			createStringReader(),
 			createAddressReader()
@@ -97,21 +106,21 @@ class PayloadByteBufferReaderTest {
 		assertThat(result).isPresent();
 
 		PayloadMessage message = result.get();
-		assertThat(message.getVersion()).isEqualTo(EXPECTED_VERSION);
-		assertThat(message.getPriority()).isEqualTo(EXPECTED_PRIORITY);
-		assertThat(message.getUuid()).isEqualTo(EXPECTED_UUID);
+		assertThat(message.getVersion()).isEqualTo(expectedVersion);
+		assertThat(message.getPriority()).isEqualTo(expectedPriority);
+		assertThat(message.getUuid()).isEqualTo(expectedUuid);
 		assertThat(message.getType()).isEqualTo(MessageType.RESPONSE);
-		assertThat(message.getContentType()).isEqualTo(EXPECTED_STRING);
-		assertThat(message.getContent()).isEqualTo(EXPECTED_STRING);
-		assertThat(message.getFrom()).isEqualTo(EXPECTED_ADDRESS);
-		assertThat(message.getTo()).isEqualTo(EXPECTED_ADDRESS);
+		assertThat(message.getContentType()).isEqualTo(expectedString);
+		assertThat(message.getContent()).isEqualTo(expectedString);
+		assertThat(message.getFrom()).isEqualTo(expectedAddress);
+		assertThat(message.getTo()).isEqualTo(expectedAddress);
 	}
 
 	private TestUuidReader createUuidReader(){
 		TestUuidReader reader = Mockito.mock(TestUuidReader.class);
 		Mockito
 			.when(reader.read(Mockito.anyObject()))
-			.thenReturn(EXPECTED_UUID);
+			.thenReturn(expectedUuid);
 		return reader;
 	}
 
@@ -119,7 +128,7 @@ class PayloadByteBufferReaderTest {
 		TestStringReader reader = Mockito.mock(TestStringReader.class);
 		Mockito
 			.when(reader.read(Mockito.anyObject()))
-			.thenReturn(EXPECTED_STRING);
+			.thenReturn(expectedString);
 		return reader;
 	}
 
@@ -127,7 +136,7 @@ class PayloadByteBufferReaderTest {
 		TestAddressReader reader = Mockito.mock(TestAddressReader.class);
 		Mockito
 			.when(reader.read(Mockito.anyObject()))
-			.thenReturn(EXPECTED_ADDRESS);
+			.thenReturn(expectedAddress);
 		return reader;
 	}
 

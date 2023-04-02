@@ -3,12 +3,12 @@ package ru.cwe.conversation.writer.value;
 import io.netty.buffer.ByteBuf;
 import org.junit.jupiter.api.Test;
 import utils.BufferUtil;
+import utils.faker.Fakers;
 
 import java.nio.charset.StandardCharsets;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-// TODO: 01.04.2023 !!!
 class StringByteBufferValueWriterTest {
 
 	@Test
@@ -29,7 +29,7 @@ class StringByteBufferValueWriterTest {
 
 	@Test
 	void shouldCheckWriting() {
-		String expected = "some.string";
+		String expected = Fakers.base().string().string();
 		ByteBuf buffer = BufferUtil.create();
 		new StringByteBufferValueWriter(StandardCharsets.UTF_8).write(buffer, expected);
 

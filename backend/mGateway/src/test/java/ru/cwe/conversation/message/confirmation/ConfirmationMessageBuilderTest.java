@@ -20,7 +20,7 @@ class ConfirmationMessageBuilderTest {
 	@SneakyThrows
 	@Test
 	void shouldCheckVersion() {
-		int expectedVersion = Fakers.version();
+		int expectedVersion = Fakers.message().version();
 		ConfirmationMessageBuilder builder = ConfirmationMessageBuilder.builder().version(expectedVersion);
 		int version = Reflections.get(builder, "version", Integer.class);
 
@@ -30,7 +30,7 @@ class ConfirmationMessageBuilderTest {
 	@SneakyThrows
 	@Test
 	void shouldCheckPriority() {
-		int expectedPriority = Fakers.priority();
+		int expectedPriority = Fakers.message().priority();
 		ConfirmationMessageBuilder builder = ConfirmationMessageBuilder.builder().priority(expectedPriority);
 		int priority = Reflections.get(builder, "priority", Integer.class);
 
@@ -40,7 +40,7 @@ class ConfirmationMessageBuilderTest {
 	@SneakyThrows
 	@Test
 	void shouldCheckUuid() {
-		UUID expectedUuid = Fakers.uuid();
+		UUID expectedUuid = Fakers.base().uuid().uuid();
 		ConfirmationMessageBuilder builder = ConfirmationMessageBuilder.builder().uuid(expectedUuid);
 		UUID uuid = Reflections.get(builder, "uuid", UUID.class);
 
@@ -50,7 +50,7 @@ class ConfirmationMessageBuilderTest {
 	@SneakyThrows
 	@Test
 	void shouldCheckResult() {
-		ConfirmationResult expectedResult = Fakers.confirmationResult();
+		ConfirmationResult expectedResult = Fakers.message().confirmationResult();
 		ConfirmationMessageBuilder builder = ConfirmationMessageBuilder.builder().result(expectedResult);
 		ConfirmationResult result = Reflections.get(builder, "result", ConfirmationResult.class);
 
@@ -60,7 +60,7 @@ class ConfirmationMessageBuilderTest {
 	@SneakyThrows
 	@Test
 	void shouldCheckPayloadMessageType() {
-		String expectedType = Fakers.string();
+		String expectedType = Fakers.base().string().string();
 		ConfirmationMessageBuilder builder = ConfirmationMessageBuilder.builder().payloadMessageType(expectedType);
 		String payloadMessageType = Reflections.get(builder, "payloadMessageType", String.class);
 
@@ -70,19 +70,19 @@ class ConfirmationMessageBuilderTest {
 	@SneakyThrows
 	@Test
 	void shouldCheckFromPayloadMessage_ifItIsRequest() {
-		UUID expectedUuid = Fakers.uuid();
+		UUID expectedUuid = Fakers.base().uuid().uuid();
 		MessageType type = MessageType.REQUEST;
-		int expectedVersion = Fakers.version();
-		int expectedPriority = Fakers.priority();
+		int expectedVersion = Fakers.message().version();
+		int expectedPriority = Fakers.message().priority();
 		TestPayloadMessage payloadMessage = new TestPayloadMessage(
 			expectedVersion,
 			expectedPriority,
 			type,
 			expectedUuid,
-			Fakers.string(),
-			Fakers.string(),
-			Fakers.addressOld(),
-			Fakers.addressOld()
+			Fakers.base().string().string(),
+			Fakers.base().string().string(),
+			Fakers.address().address(),
+			Fakers.address().address()
 		);
 
 		ConfirmationMessageBuilder builder = ConfirmationMessageBuilder.builder().fromPayloadMessage(payloadMessage);
@@ -95,19 +95,19 @@ class ConfirmationMessageBuilderTest {
 	@SneakyThrows
 	@Test
 	void shouldCheckFromPayloadMessage_ifItIsResponse() {
-		UUID expectedUuid = Fakers.uuid();
+		UUID expectedUuid = Fakers.base().uuid().uuid();
 		MessageType type = MessageType.RESPONSE;
-		int expectedVersion = Fakers.version();
-		int expectedPriority = Fakers.priority();
+		int expectedVersion = Fakers.message().version();
+		int expectedPriority = Fakers.message().priority();
 		TestPayloadMessage payloadMessage = new TestPayloadMessage(
 			expectedVersion,
 			expectedPriority,
 			type,
 			expectedUuid,
-			Fakers.string(),
-			Fakers.string(),
-			Fakers.addressOld(),
-			Fakers.addressOld()
+			Fakers.base().string().string(),
+			Fakers.base().string().string(),
+			Fakers.address().address(),
+			Fakers.address().address()
 		);
 
 		ConfirmationMessageBuilder builder = ConfirmationMessageBuilder.builder().fromPayloadMessage(payloadMessage);
@@ -154,11 +154,11 @@ class ConfirmationMessageBuilderTest {
 
 	@Test
 	void shouldCheckBuilding() {
-		int version = Fakers.version();
-		int expectedPriority = Fakers.priority();
-		UUID expectedUuid = Fakers.uuid();
+		int version = Fakers.message().version();
+		int expectedPriority = Fakers.message().priority();
+		UUID expectedUuid = Fakers.base().uuid().uuid();
 		ConfirmationResult expectedResult = ConfirmationResult.REQUEST;
-		String expectedPayloadMessageType = Fakers.string();
+		String expectedPayloadMessageType = Fakers.base().string().string();
 		ConfirmationMessage message = ConfirmationMessageBuilder.builder()
 			.version(version)
 			.priority(expectedPriority)
@@ -177,11 +177,11 @@ class ConfirmationMessageBuilderTest {
 	@SneakyThrows
 	@Test
 	void shouldCheckReset() {
-		UUID expectedUuid = Fakers.uuid();
-		int version = Fakers.version();
-		int priority = Fakers.priority();
+		UUID expectedUuid = Fakers.base().uuid().uuid();
+		int version = Fakers.message().version();
+		int priority = Fakers.message().priority();
 		ConfirmationResult expectedResult = ConfirmationResult.REQUEST;
-		String expectedPayloadMessageType = Fakers.string();
+		String expectedPayloadMessageType = Fakers.base().string().string();
 		ConfirmationMessageBuilder builder = ConfirmationMessageBuilder.builder()
 			.version(version)
 			.priority(priority)

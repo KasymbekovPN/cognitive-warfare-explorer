@@ -3,25 +3,19 @@ package utils.faker;
 import com.github.javafaker.Faker;
 import lombok.RequiredArgsConstructor;
 
-import java.util.UUID;
-
 @RequiredArgsConstructor
 public final class BaseFaker {
 	private final Faker core;
 
-	public int digit(){
-		return core.number().randomDigit();
+	public NumberFaker number(){
+		return new NumberFaker(core);
 	}
 
-	public int numberBetween(int min, int max){
-		return core.number().numberBetween(min, max);
+	public StringFaker string(){
+		return new StringFaker(core);
 	}
 
-	public String string(){
-		return "randomString" + String.valueOf(core.number().randomNumber());
-	}
-
-	public UUID uuid(){
-		return UUID.randomUUID();
+	public UuidFaker uuid(){
+		return new UuidFaker(core);
 	}
 }

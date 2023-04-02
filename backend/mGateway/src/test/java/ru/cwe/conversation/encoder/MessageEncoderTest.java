@@ -19,11 +19,11 @@ class MessageEncoderTest {
 	@Test
 	void shouldCheckConfirmationMessageEncoding() {
 		TestConfirmationMessage message = new TestConfirmationMessage(
-			Fakers.version(),
-			Fakers.priority(),
-			Fakers.uuid(),
-			Fakers.confirmationResult(),
-			Fakers.string()
+			Fakers.message().version(),
+			Fakers.message().priority(),
+			Fakers.base().uuid().uuid(),
+			Fakers.message().confirmationResult(),
+			Fakers.base().string().string()
 		);
 		TestWriter writer = new TestWriter();
 		new MessageEncoder(writer, null).encode(null, message, null);
@@ -35,14 +35,14 @@ class MessageEncoderTest {
 	@Test
 	void shouldCheckRequestPayloadMessageEncoding() {
 		TestPayloadMessage message = new TestPayloadMessage(
-			Fakers.version(),
-			Fakers.priority(),
+			Fakers.message().version(),
+			Fakers.message().priority(),
 			MessageType.REQUEST,
-			Fakers.uuid(),
-			Fakers.string(),
-			Fakers.string(),
-			Fakers.addressOld(),
-			Fakers.addressOld()
+			Fakers.base().uuid().uuid(),
+			Fakers.base().string().string(),
+			Fakers.base().string().string(),
+			Fakers.address().address(),
+			Fakers.address().address()
 		);
 		TestWriter writer = new TestWriter();
 		new MessageEncoder(null, writer).encode(null, message, null);
@@ -54,14 +54,14 @@ class MessageEncoderTest {
 	@Test
 	void shouldCheckResponsePayloadMessageEncoding() {
 		TestPayloadMessage message = new TestPayloadMessage(
-			Fakers.version(),
-			Fakers.priority(),
+			Fakers.message().version(),
+			Fakers.message().priority(),
 			MessageType.RESPONSE,
-			Fakers.uuid(),
-			Fakers.string(),
-			Fakers.string(),
-			Fakers.addressOld(),
-			Fakers.addressOld()
+			Fakers.base().uuid().uuid(),
+			Fakers.base().string().string(),
+			Fakers.base().string().string(),
+			Fakers.address().address(),
+			Fakers.address().address()
 		);
 		TestWriter writer = new TestWriter();
 		new MessageEncoder(null, writer).encode(null, message, null);

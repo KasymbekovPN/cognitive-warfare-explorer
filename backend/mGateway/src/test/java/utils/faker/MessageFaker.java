@@ -10,16 +10,16 @@ public final class MessageFaker {
 	private final BaseFaker base;
 
 	public int version(){
-		return base.numberBetween(Versions.MIN, Versions.MAX + 1);
+		return base.number().between(Versions.MIN, Versions.MAX + 1);
 	}
 
 	public int priority(){
-		return base.numberBetween(Priorities.MIN, Priorities.MAX + 1);
+		return base.number().between(Priorities.MIN, Priorities.MAX + 1);
 	}
 
 	public ConfirmationResult confirmationResult(){
 		return ConfirmationResult.valueOf(
-			base.numberBetween(
+			base.number().between(
 				ConfirmationResult.INVALID.getValue(),
 				ConfirmationResult.RESPONSE.getValue() + 1)
 		);

@@ -3,13 +3,13 @@ package ru.cwe.conversation.reader.value;
 import io.netty.buffer.ByteBuf;
 import org.junit.jupiter.api.Test;
 import utils.BufferUtil;
+import utils.faker.Fakers;
 
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
 
-// TODO: 01.04.2023 !!!
 class UuidByteBufferValueReaderTest {
 
 	@Test
@@ -25,7 +25,7 @@ class UuidByteBufferValueReaderTest {
 
 	@Test
 	void shouldCheckReading() {
-		UUID expectedUuid = UUID.randomUUID();
+		UUID expectedUuid = Fakers.base().uuid().uuid();
 		ByteBuf buffer = BufferUtil.create();
 		BufferUtil.writeUuid(buffer, expectedUuid);
 
