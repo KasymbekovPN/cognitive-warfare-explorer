@@ -1,6 +1,7 @@
 package utils.faker;
 
 import lombok.RequiredArgsConstructor;
+import ru.cwe.conversation.message.MessageType;
 import ru.cwe.conversation.message.Priorities;
 import ru.cwe.conversation.message.Versions;
 import ru.cwe.conversation.message.confirmation.ConfirmationResult;
@@ -15,6 +16,14 @@ public final class MessageFaker {
 
 	public int priority(){
 		return base.number().between(Priorities.MIN, Priorities.MAX + 1);
+	}
+
+	public MessageType messageType(){
+		return MessageType.valueOf(
+			base.number().between(
+				MessageType.INVALID.getValue(),
+				MessageType.CONFIRMATION.getValue() + 1)
+		);
 	}
 
 	public ConfirmationResult confirmationResult(){

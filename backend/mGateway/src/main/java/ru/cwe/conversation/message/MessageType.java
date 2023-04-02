@@ -8,19 +8,23 @@ import java.util.Map;
 
 @RequiredArgsConstructor
 public enum MessageType {
-	INVALID(-1),
-	REQUEST(0),
-	RESPONSE(1),
-	CONFIRMATION(2);
+	INVALID(0),
+	REQUEST(1),
+	RESPONSE(2),
+	CONFIRMATION(3);
 
 	private static final Map<Integer, String> MESSAGE_TYPE_MAP = new HashMap<>(){{
-		put(0, "REQUEST");
-		put(1, "RESPONSE");
-		put(2, "CONFIRMATION");
+		put(1, "REQUEST");
+		put(2, "RESPONSE");
+		put(3, "CONFIRMATION");
 	}};
 
 	public static MessageType valueOf(int value){
 		return valueOf(MESSAGE_TYPE_MAP.containsKey(value) ? MESSAGE_TYPE_MAP.get(value) : INVALID.name());
+	}
+
+	public static boolean check(int value){
+		return value >= INVALID.getValue() && value <= CONFIRMATION.getValue();
 	}
 
 	@Getter

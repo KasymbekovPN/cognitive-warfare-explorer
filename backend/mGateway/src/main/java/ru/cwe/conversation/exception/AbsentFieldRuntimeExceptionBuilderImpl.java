@@ -10,8 +10,9 @@ import java.util.function.Function;
 @RequiredArgsConstructor
 public class AbsentFieldRuntimeExceptionBuilderImpl implements AbsentFieldRuntimeExceptionBuilder {
 	protected final StringBuilder messageSB = new StringBuilder();
-	protected final Delimiter delimiter = new FirstDelimiter("Absent fields: ", " & ");
 	private final Function<String, RuntimeException> creator;
+
+	protected Delimiter delimiter = new FirstDelimiter("Absent fields: ", " & ");
 
 	@Override
 	public AbsentFieldRuntimeExceptionBuilder checkField(String name, Object value) {

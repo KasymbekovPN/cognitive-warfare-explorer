@@ -9,7 +9,7 @@ public final class Priorities {
 	private static final int MORE_CHECK_RESULT = 1;
 
 	public static final int MIN = 0;
-	public static final int MAX = 127;
+	public static final int MAX = 63;
 
 	private static final Map<Integer, Integer> HOLD_RESULTS = new HashMap<>(){{
 		put(LESS_CHECK_RESULT, MIN);
