@@ -2,7 +2,6 @@ package ru.cwe.conversation.reader.value;
 
 import io.netty.buffer.ByteBuf;
 import ru.cwe.conversation.exception.AbsentFieldRuntimeExceptionBuilderImpl;
-import ru.cwe.conversation.message.MessageType;
 import ru.cwe.conversation.message.Priorities;
 import ru.cwe.conversation.message.Versions;
 import ru.cwe.conversation.message.confirmation.ConfirmationResult;
@@ -21,11 +20,10 @@ public final class ConfirmationHeaderByteBufferValueReader implements ByteBuffer
 
 		int version = header0 & Versions.MAX;
 		int priority = (header0 >> 10) & Priorities.MAX;
-		int messageType = header1 & 0b111;
-		int result = (header1 >> 3) & 0b11;
+		int messageType = header1 & 0b11;
+		int result = (header1 >> 2) & 0b11;
 
 		Optional<RuntimeException> maybeException = exceptionBuilder
-			.checkMessageType(messageType)
 			.checkResult(result)
 			.build();
 		if (maybeException.isPresent()){
@@ -45,20 +43,6 @@ public final class ConfirmationHeaderByteBufferValueReader implements ByteBuffer
 		public ExceptionBuilder(Function<String, RuntimeException> creator) {
 			super(creator);
 			this.delimiter = new FirstDelimiter("", "; ");
-		}
-
-		public ExceptionBuilder checkMessageType(int value){
-			if (!MessageType.check(value)){
-				appendPartDelimiterAndGet()
-					.append("type has invalid value (")
-					.append(value)
-					.append(") must be in range [")
-					.append(MessageType.INVALID.getValue())
-					.append("...")
-					.append(MessageType.CONFIRMATION.getValue())
-					.append("]");
-			}
-			return this;
 		}
 
 		public ExceptionBuilder checkResult(int value){

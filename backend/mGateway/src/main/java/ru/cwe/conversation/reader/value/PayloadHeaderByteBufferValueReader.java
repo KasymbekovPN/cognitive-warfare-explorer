@@ -20,7 +20,7 @@ public final class PayloadHeaderByteBufferValueReader implements ByteBufferValue
 
 		int version = header0 & Versions.MAX;
 		int priority = (header0 >> 10) & Priorities.MAX;
-		int messageType = header1 & 0b111;
+		int messageType = header1 & 0b11;
 
 		Optional<RuntimeException> maybeException = exceptionBuilder
 			.checkMessageType(messageType)

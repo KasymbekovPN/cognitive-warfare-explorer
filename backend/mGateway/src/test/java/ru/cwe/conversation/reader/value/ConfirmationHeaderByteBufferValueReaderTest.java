@@ -31,7 +31,7 @@ class ConfirmationHeaderByteBufferValueReaderTest {
 
 		ByteBuf buffer = BufferUtil.create();
 		buffer.writeChar(version + (priority << 10));
-		buffer.writeChar(type + (result << 3));
+		buffer.writeChar(type + (result << 2));
 
 		Throwable throwable = catchThrowable(() -> {
 			new ConfirmationHeaderByteBufferValueReader().read(buffer);
@@ -50,7 +50,7 @@ class ConfirmationHeaderByteBufferValueReaderTest {
 
 		ByteBuf buffer = BufferUtil.create();
 		buffer.writeChar(version + (priority << 10));
-		buffer.writeChar(type + (result << 3));
+		buffer.writeChar(type + (result << 2));
 
 		Integer[] headers = new ConfirmationHeaderByteBufferValueReader().read(buffer);
 		assertThat(headers[0]).isEqualTo(version);
