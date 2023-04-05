@@ -1,5 +1,5 @@
 package ru.cwe.conversation.container;
 
-public interface Container<M> {
+public interface MessageContainer<M> {
 	void append(M message);
 }
