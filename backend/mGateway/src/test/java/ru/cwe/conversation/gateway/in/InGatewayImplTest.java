@@ -6,8 +6,6 @@ import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
 import utils.TestChannelFuture;
 
-import java.util.function.Consumer;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 class InGatewayImplTest {
@@ -72,13 +70,13 @@ class InGatewayImplTest {
 		}
 	}
 
-	private static class TestFutureProcessor implements Consumer<ChannelFuture>{
+	private static class TestFutureProcessor implements FutureProcessor{
 		@Getter
 		private ChannelFuture channelFuture;
 
 		@Override
-		public void accept(ChannelFuture channelFuture) {
-			this.channelFuture = channelFuture;
+		public void process(ChannelFuture future) throws InterruptedException {
+			this.channelFuture = future;
 		}
 	}
 }

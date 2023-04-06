@@ -1,19 +1,16 @@
 package ru.cwe.conversation.gateway.in;
 
-import io.netty.channel.ChannelFuture;
 import lombok.RequiredArgsConstructor;
-
-import java.util.function.Consumer;
 
 @RequiredArgsConstructor
 public final class InGatewayImpl implements InGateway{
 	private final ServerHolder serverHolder;
-	private final Consumer<ChannelFuture> futureProcessor;
+	private final FutureProcessor futureProcessor;
 
 	@Override
 	public void start() {
 		try{
-			futureProcessor.accept(serverHolder.getFuture());
+			futureProcessor.process(serverHolder.getFuture());
 		} catch (Throwable ignored){}
 		finally {
 			serverHolder.shutdown();
