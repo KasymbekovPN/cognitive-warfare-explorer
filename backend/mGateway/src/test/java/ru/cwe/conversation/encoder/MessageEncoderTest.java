@@ -27,7 +27,10 @@ class MessageEncoderTest {
 			Fakers.base().string().string()
 		);
 		TestWriter<ConfirmationMessage> writer = new TestWriter<>();
-		new MessageEncoder(writer, null).encode(null, message, null);
+		MessageEncoder.builder()
+			.confirmation(writer)
+			.build()
+			.encode(null, message, null);
 
 		assertThat(writer.getMessage()).isEqualTo(message);
 	}
@@ -46,7 +49,10 @@ class MessageEncoderTest {
 			Fakers.address().address()
 		);
 		TestWriter<PayloadMessage> writer = new TestWriter<>();
-		new MessageEncoder(null, writer).encode(null, message, null);
+		MessageEncoder.builder()
+			.payload(writer)
+			.build()
+			.encode(null, message, null);
 
 		assertThat(writer.getMessage()).isEqualTo(message);
 	}
@@ -65,7 +71,10 @@ class MessageEncoderTest {
 			Fakers.address().address()
 		);
 		TestWriter<PayloadMessage> writer = new TestWriter<>();
-		new MessageEncoder(null, writer).encode(null, message, null);
+		MessageEncoder.builder()
+			.payload(writer)
+			.build()
+			.encode(null, message, null);
 
 		assertThat(writer.getMessage()).isEqualTo(message);
 	}

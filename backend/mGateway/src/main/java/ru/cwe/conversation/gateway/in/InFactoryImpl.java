@@ -30,15 +30,7 @@ public final class InFactoryImpl implements InFactory {
 							int port) {
 
 		MessageDecoder decoder = MessageDecoder.instance();
-
-		// TODO: 08.04.2023 !!!
-		ConfirmationByteBufferWriter confirmationByteBufferWriter = ConfirmationByteBufferWriter.instance();
-
-		// TODO: 08.04.2023 !!!!
-		PayloadByteBufferWriter payloadByteBufferWriter = PayloadByteBufferWriter.instance();
-
-		// TODO: 08.04.2023 !!!
-		MessageEncoder encoder = new MessageEncoder(confirmationByteBufferWriter, payloadByteBufferWriter);
+		MessageEncoder encoder = MessageEncoder.instance();
 
 		// TODO: 08.04.2023 !!!
 		ServerMessageReceiver receiver = new ServerMessageReceiver(
