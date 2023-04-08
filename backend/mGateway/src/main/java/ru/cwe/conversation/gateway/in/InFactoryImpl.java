@@ -5,7 +5,6 @@ import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import ru.cwe.conversation.address.AddressBuilder;
 import ru.cwe.conversation.container.MessageContainer;
 import ru.cwe.conversation.converter.PayloadToConfirmationMessageConverter;
 import ru.cwe.conversation.converter.ToPayloadMessageConverter;
@@ -61,7 +60,7 @@ public final class InFactoryImpl implements InFactory {
 			new PayloadHeaderByteBufferValueWriter(),
 			new UuidByteBufferValueWriter(),
 			StringByteBufferValueWriter.instance(),
-			new AddressByteBufferValueWriter(StringByteBufferValueWriter.instance())
+			AddressByteBufferValueWriter.instance()
 		);
 
 		// TODO: 08.04.2023 !!!

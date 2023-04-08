@@ -18,7 +18,8 @@ class AddressByteBufferValueWriterTest {
 
 		TestHostWriter hostWriter = new TestHostWriter();
 		ByteBuf buffer = BufferUtil.create();
-		new AddressByteBufferValueWriter(hostWriter).write(buffer, new TestAddress(expectedHost, expectedPort));
+		AddressByteBufferValueWriter.builder().string(hostWriter).build()
+			.write(buffer, new TestAddress(expectedHost, expectedPort));
 
 		assertThat(hostWriter.getHost()).isEqualTo(expectedHost);
 		assertThat(BufferUtil.readInt(buffer)).isEqualTo(expectedPort);
