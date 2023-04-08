@@ -42,12 +42,13 @@ class PayloadByteBufferWriterTest {
 		TestUuidWriter uuidWriter = new TestUuidWriter();
 		TestStringWriter stringWriter = new TestStringWriter();
 		TestAddressWriter addressWriter = new TestAddressWriter();
-		new PayloadByteBufferWriter(
-			headersWriter,
-			uuidWriter,
-			stringWriter,
-			addressWriter
-		).write(null, message);
+		PayloadByteBufferWriter.builder()
+			.header(headersWriter)
+			.uuid(uuidWriter)
+			.string(stringWriter)
+			.address(addressWriter)
+			.build()
+			.write(null, message);
 
 		assertThat(headersWriter.getVersion()).isEqualTo(expectedVersion);
 		assertThat(headersWriter.getPriority()).isEqualTo(expectedPriority);

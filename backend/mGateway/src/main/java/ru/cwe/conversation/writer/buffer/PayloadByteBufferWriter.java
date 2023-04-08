@@ -1,19 +1,35 @@
 package ru.cwe.conversation.writer.buffer;
 
 import io.netty.buffer.ByteBuf;
-import lombok.RequiredArgsConstructor;
 import ru.cwe.conversation.address.Address;
 import ru.cwe.conversation.message.payload.PayloadMessage;
-import ru.cwe.conversation.writer.value.ByteBufferValueWriter;
+import ru.cwe.conversation.writer.value.*;
 
 import java.util.UUID;
 
-@RequiredArgsConstructor
 public final class PayloadByteBufferWriter implements ByteBufferWriter<PayloadMessage> {
 	private final ByteBufferValueWriter<Integer[]> headerWriter;
 	private final ByteBufferValueWriter<UUID> uuidWriter;
 	private final ByteBufferValueWriter<String> stringWriter;
 	private final ByteBufferValueWriter<Address> addressWriter;
+
+	public static Builder builder(){
+		return new Builder();
+	}
+
+	public static PayloadByteBufferWriter instance(){
+		return builder().build();
+	}
+
+	private PayloadByteBufferWriter(ByteBufferValueWriter<Integer[]> headerWriter,
+								    ByteBufferValueWriter<UUID> uuidWriter,
+								    ByteBufferValueWriter<String> stringWriter,
+								    ByteBufferValueWriter<Address> addressWriter) {
+		this.headerWriter = headerWriter;
+		this.uuidWriter = uuidWriter;
+		this.stringWriter = stringWriter;
+		this.addressWriter = addressWriter;
+	}
 
 	@Override
 	public void write(ByteBuf buffer, PayloadMessage element) {
@@ -27,5 +43,41 @@ public final class PayloadByteBufferWriter implements ByteBufferWriter<PayloadMe
 		stringWriter.write(buffer, element.getContent());
 		addressWriter.write(buffer, element.getFrom());
 		addressWriter.write(buffer, element.getTo());
+	}
+
+	public static class Builder {
+		private ByteBufferValueWriter<Integer[]> headerWriter;
+		private ByteBufferValueWriter<UUID> uuidWriter;
+		private ByteBufferValueWriter<String> stringWriter;
+		private ByteBufferValueWriter<Address> addressWriter;
+
+		public Builder header(ByteBufferValueWriter<Integer[]> headerWriter){
+			this.headerWriter = headerWriter;
+			return this;
+		}
+
+		public Builder uuid(ByteBufferValueWriter<UUID> uuidWriter){
+			this.uuidWriter = uuidWriter;
+			return this;
+		}
+
+		public Builder string(ByteBufferValueWriter<String> stringWriter){
+			this.stringWriter = stringWriter;
+			return this;
+		}
+
+		public Builder address(ByteBufferValueWriter<Address> addressWriter){
+			this.addressWriter = addressWriter;
+			return this;
+		}
+
+		public PayloadByteBufferWriter build(){
+			return new PayloadByteBufferWriter(
+				headerWriter != null ? headerWriter : new PayloadHeaderByteBufferValueWriter(),
+				uuidWriter != null ? uuidWriter : new UuidByteBufferValueWriter(),
+				stringWriter != null ? stringWriter : StringByteBufferValueWriter.instance(),
+				addressWriter != null ? addressWriter : AddressByteBufferValueWriter.instance()
+			);
+		}
 	}
 }
