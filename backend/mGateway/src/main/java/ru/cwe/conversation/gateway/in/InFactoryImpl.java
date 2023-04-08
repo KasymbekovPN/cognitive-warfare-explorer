@@ -31,11 +31,7 @@ public final class InFactoryImpl implements InFactory {
 							int port) {
 
 		// TODO: 08.04.2023 !!!
-		ConfirmationByteBufferReader confirmationByteBufferReader = new ConfirmationByteBufferReader(
-			new ConfirmationHeaderByteBufferValueReader(),
-			new UuidByteBufferValueReader(),
-			StringByteBufferValueReader.instance()
-		);
+		ConfirmationByteBufferReader confirmationByteBufferReader = ConfirmationByteBufferReader.instance();
 
 		// TODO: 08.04.2023 !!!
 		PayloadByteBufferReader payloadByteBufferReader = new PayloadByteBufferReader(

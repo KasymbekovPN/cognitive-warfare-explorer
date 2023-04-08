@@ -33,11 +33,11 @@ class ConfirmationByteBufferReaderTest {
 
 	@Test
 	void shouldCheckReading_readingException() {
-		ConfirmationByteBufferReader reader = new ConfirmationByteBufferReader(
-			new TestHeaderReader(true),
-			createUuidReader(),
-			createStringReader()
-		);
+		ConfirmationByteBufferReader reader = ConfirmationByteBufferReader.builder()
+			.header(new TestHeaderReader(true))
+			.uuid(createUuidReader())
+			.string(createStringReader())
+			.build();
 
 		Optional<ConfirmationMessage> maybeResult = reader.read(null);
 		assertThat(maybeResult).isEmpty();
@@ -51,11 +51,11 @@ class ConfirmationByteBufferReaderTest {
 			MessageType.REQUEST,
 			ConfirmationResult.RESPONSE
 		);
-		ConfirmationByteBufferReader reader = new ConfirmationByteBufferReader(
-			headerReader,
-			createUuidReader(),
-			createStringReader()
-		);
+		ConfirmationByteBufferReader reader = ConfirmationByteBufferReader.builder()
+			.header(headerReader)
+			.uuid(createUuidReader())
+			.string(createStringReader())
+			.build();
 		Optional<ConfirmationMessage> maybeResult = reader.read(null);
 
 		assertThat(maybeResult).isEmpty();
@@ -69,11 +69,11 @@ class ConfirmationByteBufferReaderTest {
 			MessageType.CONFIRMATION,
 			expectedResult
 		);
-		ConfirmationByteBufferReader reader = new ConfirmationByteBufferReader(
-			headerReader,
-			createUuidReader(),
-			createStringReader()
-		);
+		ConfirmationByteBufferReader reader = ConfirmationByteBufferReader.builder()
+			.header(headerReader)
+			.uuid(createUuidReader())
+			.string(createStringReader())
+			.build();
 		Optional<ConfirmationMessage> maybeResult = reader.read(null);
 
 		assertThat(maybeResult).isPresent();
