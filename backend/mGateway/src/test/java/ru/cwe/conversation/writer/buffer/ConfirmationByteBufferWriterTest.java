@@ -33,11 +33,12 @@ class ConfirmationByteBufferWriterTest {
 		TestHeaderWriter headersWriter = new TestHeaderWriter();
 		TestUuidWriter uuidWriter = new TestUuidWriter();
 		TestStringWriter stringWriter = new TestStringWriter();
-		new ConfirmationByteBufferWriter(
-			headersWriter,
-			uuidWriter,
-			stringWriter
-		).write(null, message);
+		ConfirmationByteBufferWriter.builder()
+			.header(headersWriter)
+			.uuid(uuidWriter)
+			.string(stringWriter)
+			.build()
+			.write(null, message);
 
 		assertThat(headersWriter.getVersion()).isEqualTo(expectedVersion);
 		assertThat(headersWriter.getPriority()).isEqualTo(expectedPriority);

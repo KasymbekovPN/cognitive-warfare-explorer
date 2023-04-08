@@ -32,11 +32,7 @@ public final class InFactoryImpl implements InFactory {
 		MessageDecoder decoder = MessageDecoder.instance();
 
 		// TODO: 08.04.2023 !!!
-		ConfirmationByteBufferWriter confirmationByteBufferWriter = new ConfirmationByteBufferWriter(
-			new ConfirmationHeaderByteBufferValueWriter(),
-			new UuidByteBufferValueWriter(),
-			StringByteBufferValueWriter.instance()
-		);
+		ConfirmationByteBufferWriter confirmationByteBufferWriter = ConfirmationByteBufferWriter.instance();
 
 		// TODO: 08.04.2023 !!!!
 		PayloadByteBufferWriter payloadByteBufferWriter = new PayloadByteBufferWriter(
