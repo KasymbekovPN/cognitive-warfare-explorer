@@ -33,12 +33,12 @@ class PayloadByteBufferReaderTest {
 
 	@Test
 	void shouldCheckReading_ifException() {
-		PayloadByteBufferReader reader = new PayloadByteBufferReader(
-			new TestHeaderReader(true),
-			createUuidReader(),
-			createStringReader(),
-			createAddressReader()
-		);
+		PayloadByteBufferReader reader = PayloadByteBufferReader.builder()
+			.header(new TestHeaderReader(true))
+			.uuid(createUuidReader())
+			.string(createStringReader())
+			.address(createAddressReader())
+			.build();
 
 		Optional<PayloadMessage> result = reader.read(null);
 		assertThat(result).isEmpty();
@@ -46,12 +46,12 @@ class PayloadByteBufferReaderTest {
 
 	@Test
 	void shouldCheckReading_ifTypeInvalid() {
-		PayloadByteBufferReader reader = new PayloadByteBufferReader(
-			new TestHeaderReader(expectedVersion, expectedPriority, MessageType.INVALID),
-			createUuidReader(),
-			createStringReader(),
-			createAddressReader()
-		);
+		PayloadByteBufferReader reader = PayloadByteBufferReader.builder()
+			.header(new TestHeaderReader(expectedVersion, expectedPriority, MessageType.INVALID))
+			.uuid(createUuidReader())
+			.string(createStringReader())
+			.address(createAddressReader())
+			.build();
 
 		Optional<PayloadMessage> result = reader.read(null);
 		assertThat(result).isEmpty();
@@ -59,12 +59,12 @@ class PayloadByteBufferReaderTest {
 
 	@Test
 	void shouldCheckReading_ifTypeConversation() {
-		PayloadByteBufferReader reader = new PayloadByteBufferReader(
-			new TestHeaderReader(expectedVersion, expectedPriority, MessageType.CONFIRMATION),
-			createUuidReader(),
-			createStringReader(),
-			createAddressReader()
-		);
+		PayloadByteBufferReader reader = PayloadByteBufferReader.builder()
+			.header(new TestHeaderReader(expectedVersion, expectedPriority, MessageType.CONFIRMATION))
+			.uuid(createUuidReader())
+			.string(createStringReader())
+			.address(createAddressReader())
+			.build();
 
 		Optional<PayloadMessage> result = reader.read(null);
 		assertThat(result).isEmpty();
@@ -72,12 +72,12 @@ class PayloadByteBufferReaderTest {
 
 	@Test
 	void shouldCheckReading_ifTypeRequest() {
-		PayloadByteBufferReader reader = new PayloadByteBufferReader(
-			new TestHeaderReader(expectedVersion, expectedPriority, MessageType.REQUEST),
-			createUuidReader(),
-			createStringReader(),
-			createAddressReader()
-		);
+		PayloadByteBufferReader reader = PayloadByteBufferReader.builder()
+			.header(new TestHeaderReader(expectedVersion, expectedPriority, MessageType.REQUEST))
+			.uuid(createUuidReader())
+			.string(createStringReader())
+			.address(createAddressReader())
+			.build();
 
 		Optional<PayloadMessage> result = reader.read(null);
 		assertThat(result).isPresent();
@@ -95,12 +95,12 @@ class PayloadByteBufferReaderTest {
 
 	@Test
 	void shouldCheckReading_ifTypeResponse() {
-		PayloadByteBufferReader reader = new PayloadByteBufferReader(
-			new TestHeaderReader(expectedVersion, expectedPriority, MessageType.RESPONSE),
-			createUuidReader(),
-			createStringReader(),
-			createAddressReader()
-		);
+		PayloadByteBufferReader reader = PayloadByteBufferReader.builder()
+			.header(new TestHeaderReader(expectedVersion, expectedPriority, MessageType.RESPONSE))
+			.uuid(createUuidReader())
+			.string(createStringReader())
+			.address(createAddressReader())
+			.build();
 
 		Optional<PayloadMessage> result = reader.read(null);
 		assertThat(result).isPresent();

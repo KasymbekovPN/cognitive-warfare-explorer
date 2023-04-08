@@ -14,7 +14,6 @@ import ru.cwe.conversation.message.payload.PayloadMessage;
 import ru.cwe.conversation.processing.ServerMessageReceiver;
 import ru.cwe.conversation.reader.buffer.ConfirmationByteBufferReader;
 import ru.cwe.conversation.reader.buffer.PayloadByteBufferReader;
-import ru.cwe.conversation.reader.value.*;
 import ru.cwe.conversation.writer.buffer.ConfirmationByteBufferWriter;
 import ru.cwe.conversation.writer.buffer.PayloadByteBufferWriter;
 import ru.cwe.conversation.writer.value.*;
@@ -34,12 +33,7 @@ public final class InFactoryImpl implements InFactory {
 		ConfirmationByteBufferReader confirmationByteBufferReader = ConfirmationByteBufferReader.instance();
 
 		// TODO: 08.04.2023 !!!
-		PayloadByteBufferReader payloadByteBufferReader = new PayloadByteBufferReader(
-			new PayloadHeaderByteBufferValueReader(),
-			new UuidByteBufferValueReader(),
-			StringByteBufferValueReader.instance(),
-			AddressByteBufferValueReader.instance()
-		);
+		PayloadByteBufferReader payloadByteBufferReader = PayloadByteBufferReader.instance();
 
 		// TODO: 08.04.2023 !!!
 		MessageDecoder decoder = new MessageDecoder(confirmationByteBufferReader, payloadByteBufferReader);
