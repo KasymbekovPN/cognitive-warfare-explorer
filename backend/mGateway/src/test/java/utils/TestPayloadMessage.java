@@ -1,5 +1,6 @@
 package utils;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import ru.cwe.conversation.address.Address;
@@ -8,6 +9,7 @@ import ru.cwe.conversation.message.payload.PayloadMessage;
 
 import java.util.UUID;
 
+@EqualsAndHashCode
 @RequiredArgsConstructor
 @Getter
 public final class TestPayloadMessage implements PayloadMessage {

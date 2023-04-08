@@ -4,8 +4,9 @@ import io.netty.buffer.ByteBuf;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
+import ru.cwe.conversation.message.confirmation.ConfirmationMessage;
+import ru.cwe.conversation.message.payload.PayloadMessage;
 import ru.cwe.conversation.writer.buffer.ByteBufferWriter;
-import ru.cwe.conversation.message.Message;
 import ru.cwe.conversation.message.MessageType;
 import utils.faker.Fakers;
 import utils.TestConfirmationMessage;
@@ -25,10 +26,10 @@ class MessageEncoderTest {
 			Fakers.message().confirmationResult(),
 			Fakers.base().string().string()
 		);
-		TestWriter writer = new TestWriter();
+		TestWriter<ConfirmationMessage> writer = new TestWriter<>();
 		new MessageEncoder(writer, null).encode(null, message, null);
 
-		assertThat(writer.getType()).isEqualTo(MessageType.CONFIRMATION);
+		assertThat(writer.getMessage()).isEqualTo(message);
 	}
 
 	@SneakyThrows
@@ -44,10 +45,10 @@ class MessageEncoderTest {
 			Fakers.address().address(),
 			Fakers.address().address()
 		);
-		TestWriter writer = new TestWriter();
+		TestWriter<PayloadMessage> writer = new TestWriter<>();
 		new MessageEncoder(null, writer).encode(null, message, null);
 
-		assertThat(writer.getType()).isEqualTo(MessageType.REQUEST);
+		assertThat(writer.getMessage()).isEqualTo(message);
 	}
 
 	@SneakyThrows
@@ -63,19 +64,19 @@ class MessageEncoderTest {
 			Fakers.address().address(),
 			Fakers.address().address()
 		);
-		TestWriter writer = new TestWriter();
+		TestWriter<PayloadMessage> writer = new TestWriter<>();
 		new MessageEncoder(null, writer).encode(null, message, null);
 
-		assertThat(writer.getType()).isEqualTo(MessageType.RESPONSE);
+		assertThat(writer.getMessage()).isEqualTo(message);
 	}
 
-	private static class TestWriter implements ByteBufferWriter<Message>{
+	private static class TestWriter<M> implements ByteBufferWriter<M>{
 		@Getter
-		private MessageType type;
+		private M message;
 
 		@Override
-		public void write(ByteBuf buffer, Message element) {
-			type = element.getType();
+		public void write(ByteBuf buffer, M element) {
+			this.message = element;
 		}
 	}
 }

@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 import ru.cwe.conversation.reader.buffer.ByteBufferReader;
-import ru.cwe.conversation.message.Message;
 import ru.cwe.conversation.message.MessageType;
 import ru.cwe.conversation.message.confirmation.ConfirmationResult;
 import utils.faker.Fakers;
@@ -23,7 +22,7 @@ class MessageDecoderTest {
 	@Test
 	void shouldCheckDecoding_ifInvalidMessage() {
 		ArrayList<Object> out = new ArrayList<>();
-		new MessageDecoder(new TestReader(), new TestReader()).decode(null, null, out);
+		new MessageDecoder(new TestReader<>(), new TestReader<>()).decode(null, null, out);
 
 		assertThat(out).isEmpty();
 	}
@@ -40,7 +39,7 @@ class MessageDecoderTest {
 		);
 
 		ArrayList<Object> out = new ArrayList<>();
-		new MessageDecoder(new TestReader(message), new TestReader()).decode(null, null, out);
+		new MessageDecoder(new TestReader<>(message), new TestReader<>()).decode(null, null, out);
 
 		assertThat(out.size()).isEqualTo(1);
 		assertThat(out.get(0)).isEqualTo(message);
@@ -61,17 +60,17 @@ class MessageDecoderTest {
 		);
 
 		ArrayList<Object> out = new ArrayList<>();
-		new MessageDecoder(new TestReader(), new TestReader(message)).decode(null, null, out);
+		new MessageDecoder(new TestReader<>(), new TestReader<>(message)).decode(null, null, out);
 
 		assertThat(out.size()).isEqualTo(1);
 		assertThat(out.get(0)).isEqualTo(message);
 	}
 
 	@Getter
-	private static class TestReader implements ByteBufferReader<Message>{
-		private Message message;
+	private static class TestReader<M> implements ByteBufferReader<M>{
+		private M message;
 
-		public TestReader(Message message) {
+		public TestReader(M message) {
 			this.message = message;
 		}
 
@@ -79,7 +78,7 @@ class MessageDecoderTest {
 		}
 
 		@Override
-		public Optional<Message> read(ByteBuf buffer) {
+		public Optional<M> read(ByteBuf buffer) {
 			return message != null ? Optional.of(message) :  Optional.empty();
 		}
 	}

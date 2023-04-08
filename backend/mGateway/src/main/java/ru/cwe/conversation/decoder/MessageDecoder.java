@@ -4,6 +4,8 @@ import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ReplayingDecoder;
 import lombok.RequiredArgsConstructor;
+import ru.cwe.conversation.message.confirmation.ConfirmationMessage;
+import ru.cwe.conversation.message.payload.PayloadMessage;
 import ru.cwe.conversation.reader.buffer.ByteBufferReader;
 import ru.cwe.conversation.message.Message;
 
@@ -12,12 +14,12 @@ import java.util.Optional;
 
 @RequiredArgsConstructor
 public final class MessageDecoder extends ReplayingDecoder<Message> {
-	private final ByteBufferReader<Message> confirmationReader;
-	private final ByteBufferReader<Message> payloadReader;
+	private final ByteBufferReader<ConfirmationMessage> confirmationReader;
+	private final ByteBufferReader<PayloadMessage> payloadReader;
 
 	@Override
 	protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
-		Optional<Message> readingResult = confirmationReader.read(in);
+		Optional<?> readingResult = confirmationReader.read(in);
 		if (readingResult.isEmpty()){
 			readingResult = payloadReader.read(in);
 		}
