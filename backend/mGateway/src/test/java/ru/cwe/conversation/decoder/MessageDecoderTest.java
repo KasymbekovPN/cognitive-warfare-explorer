@@ -22,7 +22,11 @@ class MessageDecoderTest {
 	@Test
 	void shouldCheckDecoding_ifInvalidMessage() {
 		ArrayList<Object> out = new ArrayList<>();
-		new MessageDecoder(new TestReader<>(), new TestReader<>()).decode(null, null, out);
+		MessageDecoder.builder()
+			.confirmation(new TestReader<>())
+			.payload(new TestReader<>())
+			.build()
+			.decode(null, null, out);
 
 		assertThat(out).isEmpty();
 	}
@@ -39,7 +43,11 @@ class MessageDecoderTest {
 		);
 
 		ArrayList<Object> out = new ArrayList<>();
-		new MessageDecoder(new TestReader<>(message), new TestReader<>()).decode(null, null, out);
+		MessageDecoder.builder()
+			.confirmation(new TestReader<>(message))
+			.payload(new TestReader<>())
+			.build()
+			.decode(null, null, out);
 
 		assertThat(out.size()).isEqualTo(1);
 		assertThat(out.get(0)).isEqualTo(message);
@@ -60,7 +68,11 @@ class MessageDecoderTest {
 		);
 
 		ArrayList<Object> out = new ArrayList<>();
-		new MessageDecoder(new TestReader<>(), new TestReader<>(message)).decode(null, null, out);
+		MessageDecoder.builder()
+			.confirmation(new TestReader<>())
+			.payload(new TestReader<>(message))
+			.build()
+			.decode(null, null, out);
 
 		assertThat(out.size()).isEqualTo(1);
 		assertThat(out.get(0)).isEqualTo(message);

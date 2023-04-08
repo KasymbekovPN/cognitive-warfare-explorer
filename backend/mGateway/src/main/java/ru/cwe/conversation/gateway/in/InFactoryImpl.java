@@ -29,14 +29,7 @@ public final class InFactoryImpl implements InFactory {
 							MessageContainer<PayloadMessage> responseMessageContainer,
 							int port) {
 
-		// TODO: 08.04.2023 !!!
-		ConfirmationByteBufferReader confirmationByteBufferReader = ConfirmationByteBufferReader.instance();
-
-		// TODO: 08.04.2023 !!!
-		PayloadByteBufferReader payloadByteBufferReader = PayloadByteBufferReader.instance();
-
-		// TODO: 08.04.2023 !!!
-		MessageDecoder decoder = new MessageDecoder(confirmationByteBufferReader, payloadByteBufferReader);
+		MessageDecoder decoder = MessageDecoder.instance();
 
 		// TODO: 08.04.2023 !!!
 		ConfirmationByteBufferWriter confirmationByteBufferWriter = new ConfirmationByteBufferWriter(
