@@ -6,23 +6,12 @@ import io.netty.channel.ChannelOption;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import ru.cwe.conversation.container.MessageContainer;
-import ru.cwe.conversation.converter.PayloadToConfirmationMessageConverter;
-import ru.cwe.conversation.converter.ToPayloadMessageConverter;
 import ru.cwe.conversation.decoder.MessageDecoder;
 import ru.cwe.conversation.encoder.MessageEncoder;
 import ru.cwe.conversation.message.payload.PayloadMessage;
 import ru.cwe.conversation.processing.ServerMessageReceiver;
-import ru.cwe.conversation.reader.buffer.ConfirmationByteBufferReader;
-import ru.cwe.conversation.reader.buffer.PayloadByteBufferReader;
-import ru.cwe.conversation.writer.buffer.ConfirmationByteBufferWriter;
-import ru.cwe.conversation.writer.buffer.PayloadByteBufferWriter;
-import ru.cwe.conversation.writer.value.*;
-
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 
 public final class InFactoryImpl implements InFactory {
-	private static final Charset CHARSET = StandardCharsets.UTF_8;
 
 	@Override
 	public InGateway create(MessageContainer<PayloadMessage> requestMessageContainer,
@@ -31,14 +20,7 @@ public final class InFactoryImpl implements InFactory {
 
 		MessageDecoder decoder = MessageDecoder.instance();
 		MessageEncoder encoder = MessageEncoder.instance();
-
-		// TODO: 08.04.2023 !!!
-		ServerMessageReceiver receiver = new ServerMessageReceiver(
-			requestMessageContainer,
-			responseMessageContainer,
-			new ToPayloadMessageConverter(),
-			new PayloadToConfirmationMessageConverter()
-		);
+		ServerMessageReceiver receiver = ServerMessageReceiver.instance(requestMessageContainer, responseMessageContainer);
 
 		ServerBootstrap bootstrap = new ServerBootstrap()
 			.channel(NioServerSocketChannel.class)

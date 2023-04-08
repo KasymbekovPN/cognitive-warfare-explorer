@@ -27,12 +27,9 @@ class ServerMessageReceiverTest {
 		Object message = new Object();
 		TestMessageContainer<PayloadMessage> requestContainer = new TestMessageContainer<>();
 		TestMessageContainer<PayloadMessage> responseContainer = new TestMessageContainer<>();
-		ServerMessageReceiver processing = new ServerMessageReceiver(
-			requestContainer,
-			responseContainer,
-			createConverter(null, message),
-			null
-		);
+		ServerMessageReceiver processing = ServerMessageReceiver.builder()
+			.toPayloadConverter(createConverter(null, message))
+			.build(requestContainer, responseContainer);
 
 		processing.channelRead(null, message);
 		assertThat(requestContainer.getMessages()).isEmpty();
@@ -63,12 +60,10 @@ class ServerMessageReceiverTest {
 
 		TestMessageContainer<PayloadMessage> requestContainer = new TestMessageContainer<>();
 		TestMessageContainer<PayloadMessage> responseContainer = new TestMessageContainer<>();
-		ServerMessageReceiver processing = new ServerMessageReceiver(
-			requestContainer,
-			responseContainer,
-			createConverter(payloadMessage, payloadMessage),
-			createConfirmationConverter(confirmationMessage, payloadMessage)
-		);
+		ServerMessageReceiver processing = ServerMessageReceiver.builder()
+			.toPayloadConverter(createConverter(payloadMessage, payloadMessage))
+			.toConfirmationConverter(createConfirmationConverter(confirmationMessage, payloadMessage))
+			.build(requestContainer, responseContainer);
 
 		TestChannelHandlerContext ctx = new TestChannelHandlerContext();
 		processing.channelRead(ctx, payloadMessage);
@@ -102,12 +97,10 @@ class ServerMessageReceiverTest {
 
 		TestMessageContainer<PayloadMessage> requestContainer = new TestMessageContainer<>();
 		TestMessageContainer<PayloadMessage> responseContainer = new TestMessageContainer<>();
-		ServerMessageReceiver processing = new ServerMessageReceiver(
-			requestContainer,
-			responseContainer,
-			createConverter(payloadMessage, payloadMessage),
-			createConfirmationConverter(confirmationMessage, payloadMessage)
-		);
+		ServerMessageReceiver processing = ServerMessageReceiver.builder()
+			.toPayloadConverter(createConverter(payloadMessage, payloadMessage))
+			.toConfirmationConverter(createConfirmationConverter(confirmationMessage, payloadMessage))
+			.build(requestContainer, responseContainer);
 
 		TestChannelHandlerContext ctx = new TestChannelHandlerContext();
 		processing.channelRead(ctx, payloadMessage);
