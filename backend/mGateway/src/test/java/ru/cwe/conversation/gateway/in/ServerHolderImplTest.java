@@ -23,32 +23,28 @@ class ServerHolderImplTest {
 	@Test
 	void shouldCheckGroupsBinding() {
 		TestServerBootstrap serverBootstrap = new TestServerBootstrap();
-		NioEventLoopGroup boos = new NioEventLoopGroup();
+		NioEventLoopGroup boss = new NioEventLoopGroup();
 		NioEventLoopGroup worker = new NioEventLoopGroup();
-		ServerHolderImpl holder = new ServerHolderImpl(
-			serverBootstrap,
-			boos,
-			worker,
-			Fakers.address().port()
-		);
+		ServerHolderImpl holder = ServerHolderImpl.builder()
+			.boss(boss)
+			.worker(worker)
+			.build(serverBootstrap, Fakers.address().port());
 
-		assertThat(serverBootstrap.getBoos()).isEqualTo(boos);
+		assertThat(serverBootstrap.getBoss()).isEqualTo(boss);
 		assertThat(serverBootstrap.getWorker()).isEqualTo(worker);
 	}
 
 	@Test
 	void shouldCheckShutdown() {
-		TestEventLoopGroup boos = new TestEventLoopGroup();
+		TestEventLoopGroup boss = new TestEventLoopGroup();
 		TestEventLoopGroup worker = new TestEventLoopGroup();
-		ServerHolderImpl holder = new ServerHolderImpl(
-			new TestServerBootstrap(),
-			boos,
-			worker,
-			Fakers.address().port()
-		);
+		ServerHolderImpl holder = ServerHolderImpl.builder()
+			.boss(boss)
+			.worker(worker)
+			.build(new TestServerBootstrap(), Fakers.address().port());
 
 		holder.shutdown();
-		assertThat(boos.isSd()).isTrue();
+		assertThat(boss.isSd()).isTrue();
 		assertThat(worker.isSd()).isTrue();
 	}
 
@@ -66,12 +62,8 @@ class ServerHolderImplTest {
 			.childOption(ChannelOption.SO_KEEPALIVE, true);
 
 		int port = Fakers.address().port();
-		ServerHolderImpl holder = new ServerHolderImpl(
-			serverBootstrap,
-			new NioEventLoopGroup(),
-			new NioEventLoopGroup(),
-			port
-		);
+		ServerHolderImpl holder = ServerHolderImpl.builder()
+			.build(serverBootstrap, port);
 
 		ChannelFuture future = holder.getFuture();
 		assertThat(future).isInstanceOf(TestChannelFutureImpl.class);
@@ -81,12 +73,12 @@ class ServerHolderImplTest {
 
 	@Getter
 	private static class TestServerBootstrap extends ServerBootstrap {
-		private EventLoopGroup boos;
+		private EventLoopGroup boss;
 		private EventLoopGroup worker;
 
 		@Override
 		public ServerBootstrap group(EventLoopGroup parentGroup, EventLoopGroup childGroup) {
-			this.boos = parentGroup;
+			this.boss = parentGroup;
 			this.worker = childGroup;
 			return this;
 		}

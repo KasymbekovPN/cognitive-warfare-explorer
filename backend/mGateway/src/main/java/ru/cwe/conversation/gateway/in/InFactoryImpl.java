@@ -84,7 +84,7 @@ public final class InFactoryImpl implements InFactory {
 			.option(ChannelOption.SO_BACKLOG, 128)
 			.childOption(ChannelOption.SO_KEEPALIVE, true);
 
-		ServerHolderImpl holder = new ServerHolderImpl(bootstrap, new NioEventLoopGroup(), new NioEventLoopGroup(), port);
+		ServerHolderImpl holder = ServerHolderImpl.builder().build(bootstrap, port);
 
 		return new InGatewayImpl(holder, new FutureProcessorImpl());
 	}

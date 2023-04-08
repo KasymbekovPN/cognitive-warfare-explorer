@@ -37,12 +37,12 @@ class InFactoryImplTest {
 		assertThat(holder).isNotNull();
 
 		ServerBootstrap bootstrap = Reflections.get(holder, "serverBootstrap", ServerBootstrap.class);
-		NioEventLoopGroup boos = Reflections.get(holder, "boos", NioEventLoopGroup.class);
+		NioEventLoopGroup boss = Reflections.get(holder, "boss", NioEventLoopGroup.class);
 		NioEventLoopGroup worker = Reflections.get(holder, "worker", NioEventLoopGroup.class);
 		Integer port = Reflections.get(holder, "port", Integer.class);
 
 		assertThat(bootstrap).isNotNull();
-		assertThat(boos).isNotNull();
+		assertThat(boss).isNotNull();
 		assertThat(worker).isNotNull();
 		assertThat(port).isEqualTo(expectedPort);
 	}
