@@ -35,15 +35,15 @@ public final class InFactoryImpl implements InFactory {
 		ConfirmationByteBufferReader confirmationByteBufferReader = new ConfirmationByteBufferReader(
 			new ConfirmationHeaderByteBufferValueReader(),
 			new UuidByteBufferValueReader(),
-			StringByteBufferValueReader.builder().build()
+			StringByteBufferValueReader.instance()
 		);
 
 		// TODO: 08.04.2023 !!!
 		PayloadByteBufferReader payloadByteBufferReader = new PayloadByteBufferReader(
 			new PayloadHeaderByteBufferValueReader(),
 			new UuidByteBufferValueReader(),
-			StringByteBufferValueReader.builder().build(),
-			AddressByteBufferValueReader.builder().build()
+			StringByteBufferValueReader.instance(),
+			AddressByteBufferValueReader.instance()
 		);
 
 		// TODO: 08.04.2023 !!!
@@ -53,15 +53,15 @@ public final class InFactoryImpl implements InFactory {
 		ConfirmationByteBufferWriter confirmationByteBufferWriter = new ConfirmationByteBufferWriter(
 			new ConfirmationHeaderByteBufferValueWriter(),
 			new UuidByteBufferValueWriter(),
-			new StringByteBufferValueWriter(CHARSET)
+			StringByteBufferValueWriter.instance()
 		);
 
 		// TODO: 08.04.2023 !!!!
 		PayloadByteBufferWriter payloadByteBufferWriter = new PayloadByteBufferWriter(
 			new PayloadHeaderByteBufferValueWriter(),
 			new UuidByteBufferValueWriter(),
-			new StringByteBufferValueWriter(CHARSET),
-			new AddressByteBufferValueWriter(new StringByteBufferValueWriter(CHARSET))
+			StringByteBufferValueWriter.instance(),
+			new AddressByteBufferValueWriter(StringByteBufferValueWriter.instance())
 		);
 
 		// TODO: 08.04.2023 !!!

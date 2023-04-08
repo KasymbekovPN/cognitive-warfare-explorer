@@ -14,7 +14,7 @@ class StringByteBufferValueWriterTest {
 	@Test
 	void shouldCheckWriting_ifNull() {
 		ByteBuf buffer = BufferUtil.create();
-		new StringByteBufferValueWriter(StandardCharsets.UTF_8).write(buffer, null);
+		StringByteBufferValueWriter.instance().write(buffer, null);
 
 		assertThat(BufferUtil.readString(buffer)).isNull();
 	}
@@ -22,7 +22,7 @@ class StringByteBufferValueWriterTest {
 	@Test
 	void shouldCheckWriting_ifEmpty() {
 		ByteBuf buffer = BufferUtil.create();
-		new StringByteBufferValueWriter(StandardCharsets.UTF_8).write(buffer, "");
+		StringByteBufferValueWriter.instance().write(buffer, "");
 
 		assertThat(BufferUtil.readString(buffer)).isEmpty();
 	}
@@ -31,7 +31,7 @@ class StringByteBufferValueWriterTest {
 	void shouldCheckWriting() {
 		String expected = Fakers.base().string().string();
 		ByteBuf buffer = BufferUtil.create();
-		new StringByteBufferValueWriter(StandardCharsets.UTF_8).write(buffer, expected);
+		StringByteBufferValueWriter.instance().write(buffer, expected);
 
 		assertThat(BufferUtil.readString(buffer)).isEqualTo(expected);
 	}

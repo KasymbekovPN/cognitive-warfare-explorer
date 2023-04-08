@@ -15,6 +15,10 @@ public final class StringByteBufferValueReader implements ByteBufferValueReader<
 		return new Builder();
 	}
 
+	public static StringByteBufferValueReader instance(){
+		return builder().build();
+	}
+
 	private StringByteBufferValueReader(Charset charset) {
 		this.charset = charset;
 	}

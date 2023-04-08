@@ -1,7 +1,6 @@
 package ru.cwe.conversation.reader.value;
 
 import io.netty.buffer.ByteBuf;
-import lombok.RequiredArgsConstructor;
 import ru.cwe.conversation.address.Address;
 import ru.cwe.conversation.address.AddressBuilder;
 
@@ -11,6 +10,10 @@ public final class AddressByteBufferValueReader implements ByteBufferValueReader
 
 	public static Builder builder(){
 		return new Builder();
+	}
+
+	public static AddressByteBufferValueReader instance(){
+		return builder().build();
 	}
 
 	private AddressByteBufferValueReader(ByteBufferValueReader<String> stringReader, AddressBuilder builder) {
@@ -29,14 +32,14 @@ public final class AddressByteBufferValueReader implements ByteBufferValueReader
 	public static class Builder {
 		private ByteBufferValueReader<String> stringReader;
 
-		public Builder stringReader(ByteBufferValueReader<String> stringReader){
+		public Builder string(ByteBufferValueReader<String> stringReader){
 			this.stringReader = stringReader;
 			return this;
 		}
 
 		public AddressByteBufferValueReader build(){
 			return new AddressByteBufferValueReader(
-				stringReader != null ? stringReader : StringByteBufferValueReader.builder().build(),
+				stringReader != null ? stringReader : StringByteBufferValueReader.instance(),
 				AddressBuilder.builder()
 			);
 		}

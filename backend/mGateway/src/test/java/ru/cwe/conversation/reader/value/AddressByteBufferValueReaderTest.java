@@ -3,7 +3,6 @@ package ru.cwe.conversation.reader.value;
 import io.netty.buffer.ByteBuf;
 import org.junit.jupiter.api.Test;
 import ru.cwe.conversation.address.Address;
-import ru.cwe.conversation.address.AddressBuilder;
 import ru.cwe.conversation.address.AddressBuildingRuntimeException;
 import utils.BufferUtil;
 import utils.faker.Fakers;
@@ -23,7 +22,7 @@ class AddressByteBufferValueReaderTest {
 		};
 
 		Throwable throwable = catchThrowable(() -> {
-			AddressByteBufferValueReader.builder().stringReader(reader).build().read(
+			AddressByteBufferValueReader.builder().string(reader).build().read(
 				BufferUtil.create()
 			);
 		});
@@ -35,8 +34,8 @@ class AddressByteBufferValueReaderTest {
 	void shouldCheckReading_ifHostIsNull() {
 		Throwable throwable = catchThrowable(() -> {
 			AddressByteBufferValueReader reader = AddressByteBufferValueReader.builder()
-					.stringReader(new TestStringReader())
-						.build();
+				.string(new TestStringReader())
+				.build();
 			reader.read(createBuffer(null, Fakers.address().port()));
 		});
 
@@ -47,8 +46,8 @@ class AddressByteBufferValueReaderTest {
 	void shouldCheckReading_ifPortLessThenMin() {
 		Throwable throwable = catchThrowable(() -> {
 			AddressByteBufferValueReader reader = AddressByteBufferValueReader.builder()
-					.stringReader(new TestStringReader())
-						.build();
+				.string(new TestStringReader())
+				.build();
 			reader.read(createBuffer(Fakers.address().host(), Fakers.base().number().lessThan(0)));
 		});
 
@@ -59,8 +58,8 @@ class AddressByteBufferValueReaderTest {
 	void shouldCheckReading_ifPortMpo0reThenMax() {
 		Throwable throwable = catchThrowable(() -> {
 			AddressByteBufferValueReader reader = AddressByteBufferValueReader.builder()
-					.stringReader(new TestStringReader())
-						.build();
+				.string(new TestStringReader())
+				.build();
 			reader.read(createBuffer(Fakers.address().host(), Fakers.base().number().moreThan(65535)));
 		});
 
@@ -73,7 +72,7 @@ class AddressByteBufferValueReaderTest {
 		int expectedPort = Fakers.address().port();
 
 		AddressByteBufferValueReader reader = AddressByteBufferValueReader.builder()
-			.stringReader(new TestStringReader())
+			.string(new TestStringReader())
 			.build();
 		Address address = reader.read(createBuffer(expectedHost, expectedPort));
 
