@@ -3,7 +3,6 @@ package ru.cwe.conversation.gateway.in;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
-import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import ru.cwe.conversation.address.AddressBuilder;
@@ -32,27 +31,32 @@ public final class InFactoryImpl implements InFactory {
 							MessageContainer<PayloadMessage> responseMessageContainer,
 							int port) {
 
+		// TODO: 08.04.2023 !!!
 		ConfirmationByteBufferReader confirmationByteBufferReader = new ConfirmationByteBufferReader(
 			new ConfirmationHeaderByteBufferValueReader(),
 			new UuidByteBufferValueReader(),
-			new StringByteBufferValueReader(CHARSET)
+			StringByteBufferValueReader.builder().build()
 		);
 
+		// TODO: 08.04.2023 !!!
 		PayloadByteBufferReader payloadByteBufferReader = new PayloadByteBufferReader(
 			new PayloadHeaderByteBufferValueReader(),
 			new UuidByteBufferValueReader(),
-			new StringByteBufferValueReader(CHARSET),
-			new AddressByteBufferValueReader(new StringByteBufferValueReader(CHARSET), AddressBuilder.builder())
+			StringByteBufferValueReader.builder().build(),
+			AddressByteBufferValueReader.builder().build()
 		);
 
+		// TODO: 08.04.2023 !!!
 		MessageDecoder decoder = new MessageDecoder(confirmationByteBufferReader, payloadByteBufferReader);
 
+		// TODO: 08.04.2023 !!!
 		ConfirmationByteBufferWriter confirmationByteBufferWriter = new ConfirmationByteBufferWriter(
 			new ConfirmationHeaderByteBufferValueWriter(),
 			new UuidByteBufferValueWriter(),
 			new StringByteBufferValueWriter(CHARSET)
 		);
 
+		// TODO: 08.04.2023 !!!!
 		PayloadByteBufferWriter payloadByteBufferWriter = new PayloadByteBufferWriter(
 			new PayloadHeaderByteBufferValueWriter(),
 			new UuidByteBufferValueWriter(),
@@ -60,8 +64,10 @@ public final class InFactoryImpl implements InFactory {
 			new AddressByteBufferValueWriter(new StringByteBufferValueWriter(CHARSET))
 		);
 
+		// TODO: 08.04.2023 !!!
 		MessageEncoder encoder = new MessageEncoder(confirmationByteBufferWriter, payloadByteBufferWriter);
 
+		// TODO: 08.04.2023 !!!
 		ServerMessageReceiver receiver = new ServerMessageReceiver(
 			requestMessageContainer,
 			responseMessageContainer,

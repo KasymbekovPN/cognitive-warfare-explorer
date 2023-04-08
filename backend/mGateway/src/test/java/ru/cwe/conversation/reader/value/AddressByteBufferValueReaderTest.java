@@ -23,7 +23,7 @@ class AddressByteBufferValueReaderTest {
 		};
 
 		Throwable throwable = catchThrowable(() -> {
-			new AddressByteBufferValueReader(reader, null).read(
+			AddressByteBufferValueReader.builder().stringReader(reader).build().read(
 				BufferUtil.create()
 			);
 		});
@@ -34,10 +34,9 @@ class AddressByteBufferValueReaderTest {
 	@Test
 	void shouldCheckReading_ifHostIsNull() {
 		Throwable throwable = catchThrowable(() -> {
-			AddressByteBufferValueReader reader = new AddressByteBufferValueReader(
-				new TestStringReader(),
-				AddressBuilder.builder()
-			);
+			AddressByteBufferValueReader reader = AddressByteBufferValueReader.builder()
+					.stringReader(new TestStringReader())
+						.build();
 			reader.read(createBuffer(null, Fakers.address().port()));
 		});
 
@@ -47,10 +46,9 @@ class AddressByteBufferValueReaderTest {
 	@Test
 	void shouldCheckReading_ifPortLessThenMin() {
 		Throwable throwable = catchThrowable(() -> {
-			AddressByteBufferValueReader reader = new AddressByteBufferValueReader(
-				new TestStringReader(),
-				AddressBuilder.builder()
-			);
+			AddressByteBufferValueReader reader = AddressByteBufferValueReader.builder()
+					.stringReader(new TestStringReader())
+						.build();
 			reader.read(createBuffer(Fakers.address().host(), Fakers.base().number().lessThan(0)));
 		});
 
@@ -60,10 +58,9 @@ class AddressByteBufferValueReaderTest {
 	@Test
 	void shouldCheckReading_ifPortMpo0reThenMax() {
 		Throwable throwable = catchThrowable(() -> {
-			AddressByteBufferValueReader reader = new AddressByteBufferValueReader(
-				new TestStringReader(),
-				AddressBuilder.builder()
-			);
+			AddressByteBufferValueReader reader = AddressByteBufferValueReader.builder()
+					.stringReader(new TestStringReader())
+						.build();
 			reader.read(createBuffer(Fakers.address().host(), Fakers.base().number().moreThan(65535)));
 		});
 
@@ -75,10 +72,9 @@ class AddressByteBufferValueReaderTest {
 		String expectedHost = Fakers.address().host();
 		int expectedPort = Fakers.address().port();
 
-		AddressByteBufferValueReader reader = new AddressByteBufferValueReader(
-			new TestStringReader(),
-			AddressBuilder.builder()
-		);
+		AddressByteBufferValueReader reader = AddressByteBufferValueReader.builder()
+			.stringReader(new TestStringReader())
+			.build();
 		Address address = reader.read(createBuffer(expectedHost, expectedPort));
 
 		assertThat(address.getHost()).isEqualTo(expectedHost);

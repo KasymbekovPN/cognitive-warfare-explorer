@@ -1,16 +1,23 @@
 package ru.cwe.conversation.reader.value;
 
 import io.netty.buffer.ByteBuf;
-import lombok.RequiredArgsConstructor;
 
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
-@RequiredArgsConstructor
 public final class StringByteBufferValueReader implements ByteBufferValueReader<String> {
 	private static final int LOWER_LEN_VALUE_THRESHOLD = -1;
 	private static final int EMPTY_STRING_LEN = 0;
 
 	private final Charset charset;
+
+	public static Builder builder(){
+		return new Builder();
+	}
+
+	private StringByteBufferValueReader(Charset charset) {
+		this.charset = charset;
+	}
 
 	@Override
 	public String read(ByteBuf buffer) {
@@ -23,5 +30,20 @@ public final class StringByteBufferValueReader implements ByteBufferValueReader<
 		}
 
 		return buffer.readCharSequence(len, charset).toString();
+	}
+
+	public static class Builder {
+		private Charset charset;
+
+		public Builder charset(Charset charset){
+			this.charset = charset;
+			return this;
+		}
+
+		public StringByteBufferValueReader build(){
+			return new StringByteBufferValueReader(
+				charset != null ? charset : StandardCharsets.UTF_8
+			);
+		}
 	}
 }

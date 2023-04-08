@@ -17,7 +17,7 @@ class StringByteBufferValueReaderTest {
 	@Test
 	void shouldCheckReading_ifFail() {
 		Throwable throwable = catchThrowable(() -> {
-			new StringByteBufferValueReader(CHARSET).read(
+			StringByteBufferValueReader.builder().build().read(
 				BufferUtil.create()
 			);
 		});
@@ -29,7 +29,7 @@ class StringByteBufferValueReaderTest {
 		ByteBuf buffer = BufferUtil.create();
 		BufferUtil.writeString(buffer, null);
 
-		String nullLine = new StringByteBufferValueReader(CHARSET).read(buffer);
+		String nullLine = StringByteBufferValueReader.builder().build().read(buffer);
 		assertThat(nullLine).isNull();
 	}
 
@@ -38,7 +38,7 @@ class StringByteBufferValueReaderTest {
 		ByteBuf buffer = BufferUtil.create();
 		BufferUtil.writeString(buffer, "");
 
-		String emptyLine = new StringByteBufferValueReader(CHARSET).read(buffer);
+		String emptyLine = StringByteBufferValueReader.builder().build().read(buffer);
 		assertThat(emptyLine).isEmpty();
 	}
 
@@ -48,7 +48,7 @@ class StringByteBufferValueReaderTest {
 		ByteBuf buffer = BufferUtil.create();
 		BufferUtil.writeString(buffer, expectedLine);
 
-		String line = new StringByteBufferValueReader(CHARSET).read(buffer);
+		String line = StringByteBufferValueReader.builder().build().read(buffer);
 		assertThat(line).isEqualTo(expectedLine);
 	}
 }
