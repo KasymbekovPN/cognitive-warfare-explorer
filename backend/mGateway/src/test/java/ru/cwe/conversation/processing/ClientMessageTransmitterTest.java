@@ -37,7 +37,7 @@ class ClientMessageTransmitterTest {
 		);
 
 		TestChannelHandlerContext ctx = new TestChannelHandlerContext();
-		ClientMessageTransmitter transmitter = new ClientMessageTransmitter(createMessageSource(payloadMessage), null, null);
+		ClientMessageTransmitter transmitter = ClientMessageTransmitter.instance(createMessageSource(payloadMessage), null);
 		transmitter.channelActive(ctx);
 
 		assertThat(ctx.getMsg()).isEqualTo(payloadMessage);
@@ -49,11 +49,10 @@ class ClientMessageTransmitterTest {
 		Object object = new Object();
 		TestChannelHandlerContext ctx = new TestChannelHandlerContext();
 		TestMessageContainer<ConfirmationMessage> container = new TestMessageContainer<>();
-		new ClientMessageTransmitter(
-			null,
-			createConverter(null, object),
-			container
-		).channelRead(ctx, object);
+		ClientMessageTransmitter.builder()
+			.converter(createConverter(null, object))
+			.build(null, container)
+			.channelRead(ctx, object);
 
 		assertThat(ctx.isClosed()).isTrue();
 		assertThat(container.getMessages()).isEmpty();
@@ -71,11 +70,10 @@ class ClientMessageTransmitterTest {
 		);
 		TestChannelHandlerContext ctx = new TestChannelHandlerContext();
 		TestMessageContainer<ConfirmationMessage> container = new TestMessageContainer<>();
-		new ClientMessageTransmitter(
-			null,
-			createConverter(message, message),
-			container
-		).channelRead(ctx, message);
+		ClientMessageTransmitter.builder()
+			.converter(createConverter(message, message))
+			.build(null, container)
+			.channelRead(ctx, message);
 
 		assertThat(ctx.isClosed()).isTrue();
 		assertThat(container.getMessages()).isEqualTo(List.of(message));
