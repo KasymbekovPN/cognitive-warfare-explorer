@@ -5,8 +5,9 @@ import io.netty.channel.ChannelFuture;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import lombok.RequiredArgsConstructor;
+import ru.cwe.conversation.gateway.BootstrapHolder;
 
-public final class ServerHolderImpl implements ServerHolder {
+public final class InBootstrapHolder implements BootstrapHolder {
 	private final ServerBootstrap serverBootstrap;
 	private final EventLoopGroup boss;
 	private final EventLoopGroup worker;
@@ -16,13 +17,18 @@ public final class ServerHolderImpl implements ServerHolder {
 		return new Builder();
 	}
 
-	private ServerHolderImpl(ServerBootstrap serverBootstrap, EventLoopGroup boss, EventLoopGroup worker, int port) {
+	private InBootstrapHolder(ServerBootstrap serverBootstrap, EventLoopGroup boss, EventLoopGroup worker, int port) {
 		this.serverBootstrap = serverBootstrap;
 		this.boss = boss;
 		this.worker = worker;
 		this.port = port;
 
 		this.serverBootstrap.group(this.boss, this.worker);
+	}
+
+	@Override
+	public ServerBootstrap getBootstrap() {
+		return serverBootstrap;
 	}
 
 	@Override
@@ -52,8 +58,8 @@ public final class ServerHolderImpl implements ServerHolder {
 			return this;
 		}
 
-		public ServerHolderImpl build(ServerBootstrap bootstrap, int port){
-			return new ServerHolderImpl(
+		public InBootstrapHolder build(ServerBootstrap bootstrap, int port){
+			return new InBootstrapHolder(
 				bootstrap,
 				boss != null ? boss : new NioEventLoopGroup(),
 				worker != null ? worker : new NioEventLoopGroup(),

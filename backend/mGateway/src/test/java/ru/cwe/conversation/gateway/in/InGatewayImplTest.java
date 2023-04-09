@@ -1,9 +1,11 @@
 package ru.cwe.conversation.gateway.in;
 
+import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
+import ru.cwe.conversation.gateway.BootstrapHolder;
 import utils.TestChannelFuture;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -12,7 +14,7 @@ class InGatewayImplTest {
 
 	@Test
 	void shouldCheckShutdown() {
-		TestServerHolder holder = new TestServerHolder(false, null);
+		TestBootstrapHolder holder = new TestBootstrapHolder(false, null);
 		InGatewayImpl inGateway = new InGatewayImpl(
 			holder,
 			new TestFutureProcessor()
@@ -24,7 +26,7 @@ class InGatewayImplTest {
 
 	@Test
 	void shouldCheckShutdown_onStart() {
-		TestServerHolder holder = new TestServerHolder(true, null);
+		TestBootstrapHolder holder = new TestBootstrapHolder(true, null);
 		InGatewayImpl inGateway = new InGatewayImpl(
 			holder,
 			new TestFutureProcessor()
@@ -37,7 +39,7 @@ class InGatewayImplTest {
 	@Test
 	void shouldCheckStart() {
 		TestChannelFuture expectedFuture = new TestChannelFuture();
-		TestServerHolder holder = new TestServerHolder(false, expectedFuture);
+		TestBootstrapHolder holder = new TestBootstrapHolder(false, expectedFuture);
 		TestFutureProcessor futureProcessor = new TestFutureProcessor();
 		InGatewayImpl inGateway = new InGatewayImpl(
 			holder,
@@ -49,7 +51,7 @@ class InGatewayImplTest {
 	}
 
 	@RequiredArgsConstructor
-	private static class TestServerHolder implements ServerHolder{
+	private static class TestBootstrapHolder implements BootstrapHolder {
 		private final boolean doThrow;
 		private final ChannelFuture channelFuture;
 
@@ -67,6 +69,11 @@ class InGatewayImplTest {
 				throw new RuntimeException("");
 			}
 			return channelFuture;
+		}
+
+		@Override
+		public ServerBootstrap getBootstrap() {
+			return null;
 		}
 	}
 

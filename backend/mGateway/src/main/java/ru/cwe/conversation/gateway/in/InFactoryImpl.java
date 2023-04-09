@@ -18,26 +18,22 @@ public final class InFactoryImpl implements InFactory {
 							MessageContainer<PayloadMessage> responseMessageContainer,
 							int port) {
 
-		MessageDecoder decoder = MessageDecoder.instance();
-		MessageEncoder encoder = MessageEncoder.instance();
-		ServerMessageReceiver receiver = ServerMessageReceiver.instance(requestMessageContainer, responseMessageContainer);
-
 		ServerBootstrap bootstrap = new ServerBootstrap()
 			.channel(NioServerSocketChannel.class)
 			.childHandler(new ChannelInitializer<SocketChannel>() {
 				@Override
 				protected void initChannel(SocketChannel ch) throws Exception {
 					ch.pipeline().addLast(
-						decoder,
-						encoder,
-						receiver
+						MessageDecoder.instance(),
+						MessageEncoder.instance(),
+						ServerMessageReceiver.instance(requestMessageContainer, responseMessageContainer)
 					);
 				}
 			})
 			.option(ChannelOption.SO_BACKLOG, 128)
 			.childOption(ChannelOption.SO_KEEPALIVE, true);
 
-		ServerHolderImpl holder = ServerHolderImpl.builder().build(bootstrap, port);
+		InBootstrapHolder holder = InBootstrapHolder.builder().build(bootstrap, port);
 
 		return new InGatewayImpl(holder, new FutureProcessorImpl());
 	}

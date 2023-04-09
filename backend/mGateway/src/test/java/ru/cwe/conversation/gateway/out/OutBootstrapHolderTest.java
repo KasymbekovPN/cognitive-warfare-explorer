@@ -1,4 +1,4 @@
-package ru.cwe.conversation.gateway.in;
+package ru.cwe.conversation.gateway.out;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -18,33 +18,27 @@ import utils.faker.Fakers;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class ServerHolderImplTest {
+class OutBootstrapHolderTest {
 
 	@Test
 	void shouldCheckGroupsBinding() {
 		TestServerBootstrap serverBootstrap = new TestServerBootstrap();
-		NioEventLoopGroup boss = new NioEventLoopGroup();
 		NioEventLoopGroup worker = new NioEventLoopGroup();
-		ServerHolderImpl holder = ServerHolderImpl.builder()
-			.boss(boss)
+		OutBootstrapHolder.builder()
 			.worker(worker)
-			.build(serverBootstrap, Fakers.address().port());
+			.build(serverBootstrap, Fakers.address().host(), Fakers.address().port());
 
-		assertThat(serverBootstrap.getBoss()).isEqualTo(boss);
 		assertThat(serverBootstrap.getWorker()).isEqualTo(worker);
 	}
 
 	@Test
 	void shouldCheckShutdown() {
-		TestEventLoopGroup boss = new TestEventLoopGroup();
 		TestEventLoopGroup worker = new TestEventLoopGroup();
-		ServerHolderImpl holder = ServerHolderImpl.builder()
-			.boss(boss)
+		OutBootstrapHolder.builder()
 			.worker(worker)
-			.build(new TestServerBootstrap(), Fakers.address().port());
+			.build(new TestServerBootstrap(), Fakers.address().host(), Fakers.address().port())
+			.shutdown();
 
-		holder.shutdown();
-		assertThat(boss.isSd()).isTrue();
 		assertThat(worker.isSd()).isTrue();
 	}
 
@@ -61,37 +55,41 @@ class ServerHolderImplTest {
 			.option(ChannelOption.SO_BACKLOG, 128)
 			.childOption(ChannelOption.SO_KEEPALIVE, true);
 
+		String host = Fakers.address().host();
 		int port = Fakers.address().port();
-		ServerHolderImpl holder = ServerHolderImpl.builder()
-			.build(serverBootstrap, port);
+		OutBootstrapHolder holder = OutBootstrapHolder.instance(
+			serverBootstrap,
+			host,
+			port
+		);
 
 		ChannelFuture future = holder.getFuture();
 		assertThat(future).isInstanceOf(TestChannelFutureImpl.class);
 		TestChannelFutureImpl castFuture = (TestChannelFutureImpl) future;
+		assertThat(castFuture.getHost()).isEqualTo(host);
 		assertThat(castFuture.getPort()).isEqualTo(port);
 	}
 
 	@Getter
 	private static class TestServerBootstrap extends ServerBootstrap {
-		private EventLoopGroup boss;
 		private EventLoopGroup worker;
 
 		@Override
 		public ServerBootstrap group(EventLoopGroup parentGroup, EventLoopGroup childGroup) {
-			this.boss = parentGroup;
 			this.worker = childGroup;
 			return this;
 		}
 
 		@Override
-		public ChannelFuture bind(int inetPort) {
-			return new TestChannelFutureImpl(inetPort);
+		public ChannelFuture bind(String inetHost, int inetPort) {
+			return new TestChannelFutureImpl(inetHost, inetPort);
 		}
 	}
 
 	@RequiredArgsConstructor
 	@Getter
 	private static class TestChannelFutureImpl extends TestChannelFuture {
+		private final String host;
 		private final int port;
 
 		@Override

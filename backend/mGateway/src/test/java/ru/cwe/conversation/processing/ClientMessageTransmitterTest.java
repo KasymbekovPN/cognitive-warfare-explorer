@@ -6,8 +6,6 @@ import org.mockito.Mockito;
 import ru.cwe.conversation.message.MessageType;
 import ru.cwe.conversation.message.confirmation.ConfirmationMessage;
 import ru.cwe.conversation.message.confirmation.ConfirmationResult;
-import ru.cwe.conversation.message.payload.PayloadMessage;
-import ru.cwe.conversation.messagesource.MessageSource;
 import utils.TestChannelHandlerContext;
 import utils.TestConfirmationMessage;
 import utils.TestMessageContainer;
@@ -37,7 +35,7 @@ class ClientMessageTransmitterTest {
 		);
 
 		TestChannelHandlerContext ctx = new TestChannelHandlerContext();
-		ClientMessageTransmitter transmitter = ClientMessageTransmitter.instance(createMessageSource(payloadMessage), null);
+		ClientMessageTransmitter transmitter = ClientMessageTransmitter.instance(payloadMessage, null);
 		transmitter.channelActive(ctx);
 
 		assertThat(ctx.getMsg()).isEqualTo(payloadMessage);
@@ -79,15 +77,6 @@ class ClientMessageTransmitterTest {
 		assertThat(container.getMessages()).isEqualTo(List.of(message));
 	}
 
-	private TestMessageSource createMessageSource(PayloadMessage message){
-		TestMessageSource source = Mockito.mock(TestMessageSource.class);
-		Mockito
-			.when(source.next())
-			.thenReturn(message);
-
-		return source;
-	}
-
 	private TestConverter createConverter(ConfirmationMessage message, Object object){
 		Optional<ConfirmationMessage> result = message != null
 			? Optional.of(message)
@@ -100,6 +89,5 @@ class ClientMessageTransmitterTest {
 		return converter;
 	}
 
-	private static abstract class TestMessageSource implements MessageSource<PayloadMessage>{}
 	private static abstract class TestConverter implements Function<Object, Optional<ConfirmationMessage>>{}
 }

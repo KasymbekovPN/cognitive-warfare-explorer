@@ -6,13 +6,12 @@ import ru.cwe.conversation.container.MessageContainer;
 import ru.cwe.conversation.converter.ToConfirmationMessageConverter;
 import ru.cwe.conversation.message.confirmation.ConfirmationMessage;
 import ru.cwe.conversation.message.payload.PayloadMessage;
-import ru.cwe.conversation.messagesource.MessageSource;
 
 import java.util.Optional;
 import java.util.function.Function;
 
 public final class ClientMessageTransmitter extends ChannelInboundHandlerAdapter {
-	private final MessageSource<PayloadMessage> messageSource;
+	private final PayloadMessage message;
 	private final MessageContainer<ConfirmationMessage> messageContainer;
 	private final Function<Object, Optional<ConfirmationMessage>> converter;
 
@@ -20,22 +19,22 @@ public final class ClientMessageTransmitter extends ChannelInboundHandlerAdapter
 		return new Builder();
 	}
 
-	public static ClientMessageTransmitter instance(MessageSource<PayloadMessage> source,
+	public static ClientMessageTransmitter instance(PayloadMessage message,
 													MessageContainer<ConfirmationMessage> container){
-		return builder().build(source, container);
+		return builder().build(message, container);
 	}
 
-	private ClientMessageTransmitter(MessageSource<PayloadMessage> messageSource,
+	private ClientMessageTransmitter(PayloadMessage message,
 									 MessageContainer<ConfirmationMessage> messageContainer,
 									 Function<Object, Optional<ConfirmationMessage>> converter) {
-		this.messageSource = messageSource;
+		this.message = message;
 		this.messageContainer = messageContainer;
 		this.converter = converter;
 	}
 
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) throws Exception {
-		ctx.writeAndFlush(messageSource.next());
+		ctx.writeAndFlush(message);
 	}
 
 	@Override
@@ -53,10 +52,10 @@ public final class ClientMessageTransmitter extends ChannelInboundHandlerAdapter
 			return this;
 		}
 
-		public ClientMessageTransmitter build(MessageSource<PayloadMessage> source,
+		public ClientMessageTransmitter build(PayloadMessage message,
 											  MessageContainer<ConfirmationMessage> container){
 			return new ClientMessageTransmitter(
-				source,
+				message,
 				container,
 				converter != null ? converter : new ToConfirmationMessageConverter()
 			);
