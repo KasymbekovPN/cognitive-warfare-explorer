@@ -1,13 +1,13 @@
 package ru.cwe.conversation.gateway.out;
 
-import io.netty.bootstrap.ServerBootstrap;
+import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
-import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.util.concurrent.Future;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -22,13 +22,13 @@ class OutBootstrapHolderTest {
 
 	@Test
 	void shouldCheckGroupsBinding() {
-		TestServerBootstrap serverBootstrap = new TestServerBootstrap();
+		TestBootstrap bootstrap = new TestBootstrap();
 		NioEventLoopGroup worker = new NioEventLoopGroup();
 		OutBootstrapHolder.builder()
 			.worker(worker)
-			.build(serverBootstrap, Fakers.address().host(), Fakers.address().port());
+			.build(bootstrap, Fakers.address().host(), Fakers.address().port());
 
-		assertThat(serverBootstrap.getWorker()).isEqualTo(worker);
+		assertThat(bootstrap.getWorker()).isEqualTo(worker);
 	}
 
 	@Test
@@ -36,7 +36,7 @@ class OutBootstrapHolderTest {
 		TestEventLoopGroup worker = new TestEventLoopGroup();
 		OutBootstrapHolder.builder()
 			.worker(worker)
-			.build(new TestServerBootstrap(), Fakers.address().host(), Fakers.address().port())
+			.build(new TestBootstrap(), Fakers.address().host(), Fakers.address().port())
 			.shutdown();
 
 		assertThat(worker.isSd()).isTrue();
@@ -45,20 +45,19 @@ class OutBootstrapHolderTest {
 	@SneakyThrows
 	@Test
 	void shouldCheckFutureGetting() {
-		TestServerBootstrap serverBootstrap = new TestServerBootstrap();
-		serverBootstrap
-			.channel(NioServerSocketChannel.class)
-			.childHandler(new ChannelInitializer<SocketChannel>() {
+		TestBootstrap bootstrap = new TestBootstrap();
+		bootstrap
+			.channel(NioSocketChannel.class)
+			.handler(new ChannelInitializer<SocketChannel>() {
 				@Override
 				protected void initChannel(SocketChannel ch) throws Exception {}
 			})
-			.option(ChannelOption.SO_BACKLOG, 128)
-			.childOption(ChannelOption.SO_KEEPALIVE, true);
+			.option(ChannelOption.SO_KEEPALIVE, true);
 
 		String host = Fakers.address().host();
 		int port = Fakers.address().port();
 		OutBootstrapHolder holder = OutBootstrapHolder.instance(
-			serverBootstrap,
+			bootstrap,
 			host,
 			port
 		);
@@ -70,13 +69,40 @@ class OutBootstrapHolderTest {
 		assertThat(castFuture.getPort()).isEqualTo(port);
 	}
 
+	@SneakyThrows
+	@Test
+	void shouldCheckFutureGetting_withHostAndPort() {
+		TestBootstrap bootstrap = new TestBootstrap();
+		bootstrap
+			.channel(NioSocketChannel.class)
+			.handler(new ChannelInitializer<SocketChannel>() {
+				@Override
+				protected void initChannel(SocketChannel ch) throws Exception {}
+			})
+			.option(ChannelOption.SO_KEEPALIVE, true);
+
+		OutBootstrapHolder holder = OutBootstrapHolder.instance(
+			bootstrap,
+			Fakers.address().host(),
+			Fakers.address().port()
+		);
+
+		String expectedHost = Fakers.address().host();
+		int expectedPort = Fakers.address().port();
+		ChannelFuture future = holder.getFuture(expectedHost, expectedPort);
+		assertThat(future).isInstanceOf(TestChannelFutureImpl.class);
+		TestChannelFutureImpl castFuture = (TestChannelFutureImpl) future;
+		assertThat(castFuture.getHost()).isEqualTo(expectedHost);
+		assertThat(castFuture.getPort()).isEqualTo(expectedPort);
+	}
+
 	@Getter
-	private static class TestServerBootstrap extends ServerBootstrap {
+	private static class TestBootstrap extends Bootstrap {
 		private EventLoopGroup worker;
 
 		@Override
-		public ServerBootstrap group(EventLoopGroup parentGroup, EventLoopGroup childGroup) {
-			this.worker = childGroup;
+		public Bootstrap group(EventLoopGroup group) {
+			this.worker = group;
 			return this;
 		}
 

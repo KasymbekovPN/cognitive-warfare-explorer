@@ -8,6 +8,7 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import ru.cwe.conversation.container.MessageContainer;
 import ru.cwe.conversation.decoder.MessageDecoder;
 import ru.cwe.conversation.encoder.MessageEncoder;
+import ru.cwe.conversation.gateway.FutureProcessorImpl;
 import ru.cwe.conversation.message.payload.PayloadMessage;
 import ru.cwe.conversation.processing.ServerMessageReceiver;
 

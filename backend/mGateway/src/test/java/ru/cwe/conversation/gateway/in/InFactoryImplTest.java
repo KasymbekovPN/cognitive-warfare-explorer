@@ -4,6 +4,7 @@ import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.nio.NioEventLoopGroup;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
+import ru.cwe.conversation.gateway.FutureProcessorImpl;
 import ru.cwe.utils.reflection.Reflections;
 import utils.TestMessageContainer;
 import utils.faker.Fakers;

@@ -2,6 +2,7 @@ package ru.cwe.conversation.gateway.in;
 
 import lombok.RequiredArgsConstructor;
 import ru.cwe.conversation.gateway.BootstrapHolder;
+import ru.cwe.conversation.gateway.FutureProcessor;
 
 @RequiredArgsConstructor
 public final class InGatewayImpl implements InGateway{

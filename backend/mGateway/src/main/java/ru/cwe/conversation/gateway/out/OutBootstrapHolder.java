@@ -1,6 +1,6 @@
 package ru.cwe.conversation.gateway.out;
 
-import io.netty.bootstrap.ServerBootstrap;
+import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -9,7 +9,7 @@ import ru.cwe.conversation.gateway.BootstrapHolder;
 
 public final class OutBootstrapHolder implements BootstrapHolder {
 	@Getter
-	private final ServerBootstrap bootstrap;
+	private final Bootstrap bootstrap;
 	private final EventLoopGroup worker;
 	private final String host;
 	private final int port;
@@ -18,13 +18,13 @@ public final class OutBootstrapHolder implements BootstrapHolder {
 		return new Builder();
 	}
 
-	public static OutBootstrapHolder instance(ServerBootstrap bootstrap,
+	public static OutBootstrapHolder instance(Bootstrap bootstrap,
 											  String host,
 											  int port){
 		return builder().build(bootstrap, host, port);
 	}
 
-	private OutBootstrapHolder(ServerBootstrap bootstrap,
+	private OutBootstrapHolder(Bootstrap bootstrap,
 							   EventLoopGroup worker,
 							   String host,
 							   int port) {
@@ -46,6 +46,11 @@ public final class OutBootstrapHolder implements BootstrapHolder {
 		return bootstrap.bind(host, port).sync();
 	}
 
+	@Override
+	public ChannelFuture getFuture(String host, int port) throws InterruptedException {
+		return bootstrap.bind(host, port).sync();
+	}
+
 	public static class Builder {
 		private EventLoopGroup worker;
 
@@ -54,7 +59,7 @@ public final class OutBootstrapHolder implements BootstrapHolder {
 			return this;
 		}
 
-		public OutBootstrapHolder build(ServerBootstrap bootstrap,
+		public OutBootstrapHolder build(Bootstrap bootstrap,
 										String host,
 										int port){
 			return new OutBootstrapHolder(

@@ -27,7 +27,7 @@ public final class InBootstrapHolder implements BootstrapHolder {
 	}
 
 	@Override
-	public ServerBootstrap getBootstrap() {
+	public ServerBootstrap getServerBootstrap() {
 		return serverBootstrap;
 	}
 

@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
 import ru.cwe.conversation.gateway.BootstrapHolder;
+import ru.cwe.conversation.gateway.FutureProcessor;
 import utils.TestChannelFuture;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -72,12 +73,12 @@ class InGatewayImplTest {
 		}
 
 		@Override
-		public ServerBootstrap getBootstrap() {
+		public ServerBootstrap getServerBootstrap() {
 			return null;
 		}
 	}
 
-	private static class TestFutureProcessor implements FutureProcessor{
+	private static class TestFutureProcessor implements FutureProcessor {
 		@Getter
 		private ChannelFuture channelFuture;
 
