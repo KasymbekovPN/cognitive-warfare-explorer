@@ -1,11 +1,9 @@
 package ru.cwe.conversation.gateway.in;
 
-import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
-import ru.cwe.conversation.gateway.BootstrapHolder;
 import ru.cwe.conversation.gateway.FutureProcessor;
 import utils.TestChannelFuture;
 
@@ -52,7 +50,7 @@ class InGatewayImplTest {
 	}
 
 	@RequiredArgsConstructor
-	private static class TestBootstrapHolder implements BootstrapHolder {
+	private static class TestBootstrapHolder implements ServerBootstrapHolder {
 		private final boolean doThrow;
 		private final ChannelFuture channelFuture;
 
@@ -70,11 +68,6 @@ class InGatewayImplTest {
 				throw new RuntimeException("");
 			}
 			return channelFuture;
-		}
-
-		@Override
-		public ServerBootstrap getServerBootstrap() {
-			return null;
 		}
 	}
 

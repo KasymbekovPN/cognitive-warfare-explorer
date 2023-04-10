@@ -18,13 +18,13 @@ import utils.faker.Fakers;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class OutBootstrapHolderTest {
+class BootstrapHolderImplTest {
 
 	@Test
 	void shouldCheckGroupsBinding() {
 		TestBootstrap bootstrap = new TestBootstrap();
 		NioEventLoopGroup worker = new NioEventLoopGroup();
-		OutBootstrapHolder.builder()
+		BootstrapHolderImpl.builder()
 			.worker(worker)
 			.build(bootstrap, Fakers.address().host(), Fakers.address().port());
 
@@ -34,7 +34,7 @@ class OutBootstrapHolderTest {
 	@Test
 	void shouldCheckShutdown() {
 		TestEventLoopGroup worker = new TestEventLoopGroup();
-		OutBootstrapHolder.builder()
+		BootstrapHolderImpl.builder()
 			.worker(worker)
 			.build(new TestBootstrap(), Fakers.address().host(), Fakers.address().port())
 			.shutdown();
@@ -54,19 +54,15 @@ class OutBootstrapHolderTest {
 			})
 			.option(ChannelOption.SO_KEEPALIVE, true);
 
-		String host = Fakers.address().host();
-		int port = Fakers.address().port();
-		OutBootstrapHolder holder = OutBootstrapHolder.instance(
-			bootstrap,
-			host,
-			port
-		);
+		String expectedHost = Fakers.address().host();
+		int expectedPort = Fakers.address().port();
+		BootstrapHolderImpl holder = BootstrapHolderImpl.instance(bootstrap, expectedHost, expectedPort);
 
 		ChannelFuture future = holder.getFuture();
 		assertThat(future).isInstanceOf(TestChannelFutureImpl.class);
 		TestChannelFutureImpl castFuture = (TestChannelFutureImpl) future;
-		assertThat(castFuture.getHost()).isEqualTo(host);
-		assertThat(castFuture.getPort()).isEqualTo(port);
+		assertThat(castFuture.getHost()).isEqualTo(expectedHost);
+		assertThat(castFuture.getPort()).isEqualTo(expectedPort);
 	}
 
 	@SneakyThrows
@@ -81,11 +77,7 @@ class OutBootstrapHolderTest {
 			})
 			.option(ChannelOption.SO_KEEPALIVE, true);
 
-		OutBootstrapHolder holder = OutBootstrapHolder.instance(
-			bootstrap,
-			Fakers.address().host(),
-			Fakers.address().port()
-		);
+		BootstrapHolderImpl holder = BootstrapHolderImpl.instance(bootstrap, Fakers.address().host(), Fakers.address().port());
 
 		String expectedHost = Fakers.address().host();
 		int expectedPort = Fakers.address().port();

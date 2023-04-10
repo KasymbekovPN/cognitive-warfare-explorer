@@ -5,9 +5,8 @@ import io.netty.channel.ChannelFuture;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import lombok.RequiredArgsConstructor;
-import ru.cwe.conversation.gateway.BootstrapHolder;
 
-public final class InBootstrapHolder implements BootstrapHolder {
+public final class ServerBootstrapHolderImpl implements ServerBootstrapHolder {
 	private final ServerBootstrap serverBootstrap;
 	private final EventLoopGroup boss;
 	private final EventLoopGroup worker;
@@ -17,18 +16,21 @@ public final class InBootstrapHolder implements BootstrapHolder {
 		return new Builder();
 	}
 
-	private InBootstrapHolder(ServerBootstrap serverBootstrap, EventLoopGroup boss, EventLoopGroup worker, int port) {
+	public static ServerBootstrapHolderImpl instance(ServerBootstrap serverBootstrap,
+													 int port){
+		return builder().build(serverBootstrap, port);
+	}
+
+	private ServerBootstrapHolderImpl(ServerBootstrap serverBootstrap,
+									  EventLoopGroup boss,
+									  EventLoopGroup worker,
+									  int port) {
 		this.serverBootstrap = serverBootstrap;
 		this.boss = boss;
 		this.worker = worker;
 		this.port = port;
 
-		this.serverBootstrap.group(this.boss, this.worker);
-	}
-
-	@Override
-	public ServerBootstrap getServerBootstrap() {
-		return serverBootstrap;
+		this.serverBootstrap.group(boss, worker);
 	}
 
 	@Override
@@ -38,7 +40,7 @@ public final class InBootstrapHolder implements BootstrapHolder {
 	}
 
 	@Override
-	public ChannelFuture getFuture() throws InterruptedException{
+	public ChannelFuture getFuture() throws InterruptedException {
 		return serverBootstrap.bind(port).sync();
 	}
 
@@ -58,8 +60,8 @@ public final class InBootstrapHolder implements BootstrapHolder {
 			return this;
 		}
 
-		public InBootstrapHolder build(ServerBootstrap bootstrap, int port){
-			return new InBootstrapHolder(
+		public ServerBootstrapHolderImpl build(ServerBootstrap bootstrap, int port){
+			return new ServerBootstrapHolderImpl(
 				bootstrap,
 				boss != null ? boss : new NioEventLoopGroup(),
 				worker != null ? worker : new NioEventLoopGroup(),

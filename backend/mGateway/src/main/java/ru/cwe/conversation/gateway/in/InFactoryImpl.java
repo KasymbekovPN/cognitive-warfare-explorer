@@ -34,7 +34,7 @@ public final class InFactoryImpl implements InFactory {
 			.option(ChannelOption.SO_BACKLOG, 128)
 			.childOption(ChannelOption.SO_KEEPALIVE, true);
 
-		InBootstrapHolder holder = InBootstrapHolder.builder().build(bootstrap, port);
+		ServerBootstrapHolderImpl holder = ServerBootstrapHolderImpl.builder().build(bootstrap, port);
 
 		return new InGatewayImpl(holder, new FutureProcessorImpl());
 	}

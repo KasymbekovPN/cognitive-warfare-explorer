@@ -18,14 +18,14 @@ import utils.faker.Fakers;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class InBootstrapHolderTest {
+class ServerBootstrapHolderImplTest {
 
 	@Test
 	void shouldCheckGroupsBinding() {
 		TestServerBootstrap serverBootstrap = new TestServerBootstrap();
 		NioEventLoopGroup boss = new NioEventLoopGroup();
 		NioEventLoopGroup worker = new NioEventLoopGroup();
-		InBootstrapHolder holder = InBootstrapHolder.builder()
+		ServerBootstrapHolderImpl.builder()
 			.boss(boss)
 			.worker(worker)
 			.build(serverBootstrap, Fakers.address().port());
@@ -36,14 +36,15 @@ class InBootstrapHolderTest {
 
 	@Test
 	void shouldCheckShutdown() {
+		TestServerBootstrap serverBootstrap = new TestServerBootstrap();
 		TestEventLoopGroup boss = new TestEventLoopGroup();
 		TestEventLoopGroup worker = new TestEventLoopGroup();
-		InBootstrapHolder holder = InBootstrapHolder.builder()
+		ServerBootstrapHolderImpl.builder()
 			.boss(boss)
 			.worker(worker)
-			.build(new TestServerBootstrap(), Fakers.address().port());
+			.build(serverBootstrap, Fakers.address().port())
+			.shutdown();
 
-		holder.shutdown();
 		assertThat(boss.isSd()).isTrue();
 		assertThat(worker.isSd()).isTrue();
 	}
@@ -62,8 +63,7 @@ class InBootstrapHolderTest {
 			.childOption(ChannelOption.SO_KEEPALIVE, true);
 
 		int port = Fakers.address().port();
-		InBootstrapHolder holder = InBootstrapHolder.builder()
-			.build(serverBootstrap, port);
+		ServerBootstrapHolderImpl holder = ServerBootstrapHolderImpl.instance(serverBootstrap, port);
 
 		ChannelFuture future = holder.getFuture();
 		assertThat(future).isInstanceOf(TestChannelFutureImpl.class);

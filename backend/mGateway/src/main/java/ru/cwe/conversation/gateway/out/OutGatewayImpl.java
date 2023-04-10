@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import ru.cwe.conversation.container.MessageContainer;
 import ru.cwe.conversation.decoder.MessageDecoder;
 import ru.cwe.conversation.encoder.MessageEncoder;
-import ru.cwe.conversation.gateway.BootstrapHolder;
 import ru.cwe.conversation.gateway.FutureProcessor;
 import ru.cwe.conversation.message.confirmation.ConfirmationMessage;
 import ru.cwe.conversation.message.payload.PayloadMessage;
@@ -15,7 +14,7 @@ import ru.cwe.conversation.processing.ClientMessageTransmitter;
 
 @RequiredArgsConstructor
 public final class OutGatewayImpl implements OutGateway {
-	private final BootstrapHolder holder;
+	private final BootstrapHolder bootstrapHolder;
 	private final FutureProcessor futureProcessor;
 	private final MessageContainer<ConfirmationMessage> confirmationContainer;
 
@@ -24,7 +23,7 @@ public final class OutGatewayImpl implements OutGateway {
 		ChannelFutureSupplier supplier = new ChannelFutureSupplier() {
 			@Override
 			public ChannelFuture get() throws InterruptedException {
-				return holder.getFuture();
+				return bootstrapHolder.getFuture();
 			}
 		};
 		send(message, supplier);
@@ -35,7 +34,7 @@ public final class OutGatewayImpl implements OutGateway {
 		ChannelFutureSupplier supplier = new ChannelFutureSupplier() {
 			@Override
 			public ChannelFuture get() throws InterruptedException {
-				return holder.getFuture(host, port);
+				return bootstrapHolder.getFuture(host, port);
 			}
 		};
 		send(message, supplier);
@@ -43,11 +42,11 @@ public final class OutGatewayImpl implements OutGateway {
 
 	@Override
 	public void shutdown() {
-		holder.shutdown();
+		bootstrapHolder.shutdown();
 	}
 
 	private void send(final PayloadMessage message, final ChannelFutureSupplier supplier){
-		holder.getBootstrap().handler(new ChannelInitializer<SocketChannel>() {
+		bootstrapHolder.getBootstrap().handler(new ChannelInitializer<SocketChannel>() {
 			@Override
 			protected void initChannel(SocketChannel ch) throws Exception {
 				ch.pipeline().addLast(
@@ -62,7 +61,7 @@ public final class OutGatewayImpl implements OutGateway {
 			futureProcessor.process(supplier.get());
 		} catch (Throwable ignored){}
 		finally {
-			holder.shutdown();
+			bootstrapHolder.shutdown();
 		}
 	}
 

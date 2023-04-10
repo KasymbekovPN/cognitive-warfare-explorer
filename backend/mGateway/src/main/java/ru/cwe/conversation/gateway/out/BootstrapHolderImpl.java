@@ -5,11 +5,9 @@ import io.netty.channel.ChannelFuture;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import lombok.Getter;
-import ru.cwe.conversation.gateway.BootstrapHolder;
 
-public final class OutBootstrapHolder implements BootstrapHolder {
-	@Getter
-	private final Bootstrap bootstrap;
+public final class BootstrapHolderImpl implements BootstrapHolder {
+	@Getter private final Bootstrap bootstrap;
 	private final EventLoopGroup worker;
 	private final String host;
 	private final int port;
@@ -18,22 +16,22 @@ public final class OutBootstrapHolder implements BootstrapHolder {
 		return new Builder();
 	}
 
-	public static OutBootstrapHolder instance(Bootstrap bootstrap,
-											  String host,
-											  int port){
+	public static BootstrapHolderImpl instance(Bootstrap bootstrap,
+											   String host,
+											   int port){
 		return builder().build(bootstrap, host, port);
 	}
 
-	private OutBootstrapHolder(Bootstrap bootstrap,
-							   EventLoopGroup worker,
-							   String host,
-							   int port) {
+	private BootstrapHolderImpl(Bootstrap bootstrap,
+								EventLoopGroup worker,
+								String host,
+								int port) {
 		this.bootstrap = bootstrap;
 		this.worker = worker;
 		this.host = host;
 		this.port = port;
 
-		this.bootstrap.group(this.worker);
+		this.bootstrap.group(worker);
 	}
 
 	@Override
@@ -43,11 +41,11 @@ public final class OutBootstrapHolder implements BootstrapHolder {
 
 	@Override
 	public ChannelFuture getFuture() throws InterruptedException {
-		return bootstrap.bind(host, port).sync();
+		return getFuture(host, port);
 	}
 
 	@Override
-	public ChannelFuture getFuture(String host, int port) throws InterruptedException {
+	public ChannelFuture getFuture(final String host, final int port) throws InterruptedException {
 		return bootstrap.bind(host, port).sync();
 	}
 
@@ -59,10 +57,10 @@ public final class OutBootstrapHolder implements BootstrapHolder {
 			return this;
 		}
 
-		public OutBootstrapHolder build(Bootstrap bootstrap,
-										String host,
-										int port){
-			return new OutBootstrapHolder(
+		public BootstrapHolderImpl build(Bootstrap bootstrap,
+										   String host,
+										   int port){
+			return new BootstrapHolderImpl(
 				bootstrap,
 				worker != null ? worker : new NioEventLoopGroup(),
 				host,

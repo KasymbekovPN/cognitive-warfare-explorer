@@ -34,7 +34,7 @@ class InFactoryImplTest {
 			expectedPort
 		);
 
-		InBootstrapHolder holder = Reflections.get(inGateway, "bootstrapHolder", InBootstrapHolder.class);
+		ServerBootstrapHolder holder = Reflections.get(inGateway, "serverBootstrapHolder", ServerBootstrapHolder.class);
 		assertThat(holder).isNotNull();
 
 		ServerBootstrap bootstrap = Reflections.get(holder, "serverBootstrap", ServerBootstrap.class);

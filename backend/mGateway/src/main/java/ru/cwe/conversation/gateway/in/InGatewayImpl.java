@@ -1,26 +1,25 @@
 package ru.cwe.conversation.gateway.in;
 
 import lombok.RequiredArgsConstructor;
-import ru.cwe.conversation.gateway.BootstrapHolder;
 import ru.cwe.conversation.gateway.FutureProcessor;
 
 @RequiredArgsConstructor
 public final class InGatewayImpl implements InGateway{
-	private final BootstrapHolder bootstrapHolder;
+	private final ServerBootstrapHolder serverBootstrapHolder;
 	private final FutureProcessor futureProcessor;
 
 	@Override
 	public void start() {
 		try{
-			futureProcessor.process(bootstrapHolder.getFuture());
+			futureProcessor.process(serverBootstrapHolder.getFuture());
 		} catch (Throwable ignored){}
 		finally {
-			bootstrapHolder.shutdown();
+			serverBootstrapHolder.shutdown();
 		}
 	}
 
 	@Override
 	public void shutdown() {
-		bootstrapHolder.shutdown();
+		serverBootstrapHolder.shutdown();
 	}
 }

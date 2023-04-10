@@ -5,7 +5,6 @@ import io.netty.channel.ChannelFuture;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
-import ru.cwe.conversation.gateway.BootstrapHolder;
 import ru.cwe.conversation.gateway.FutureProcessor;
 import utils.TestChannelFuture;
 import utils.TestMessageContainer;
@@ -73,6 +72,11 @@ class OutGatewayImplTest {
 				throw new RuntimeException("");
 			}
 			return channelFuture;
+		}
+
+		@Override
+		public ChannelFuture getFuture(String host, int port) throws InterruptedException {
+			return null;
 		}
 
 		@Override
