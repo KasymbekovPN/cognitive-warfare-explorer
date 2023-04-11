@@ -7,7 +7,7 @@ public final class Ports {
 	private static final int IN_RANGE = 0;
 	private static final int RIGHT_TO_RANGE = 1;
 
-	public static int checkInRange(int port){
+	public static int checkInRange(final int port){
 		if (port < MIN) return LEFT_TO_RANGE;
 		if (port > MAX) return RIGHT_TO_RANGE;
 		return IN_RANGE;

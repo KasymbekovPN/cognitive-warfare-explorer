@@ -25,14 +25,14 @@ public final class MessageDecoder extends ReplayingDecoder<Message> {
 		return builder().build();
 	}
 
-	private MessageDecoder(ByteBufferReader<ConfirmationMessage> confirmationReader,
-						  ByteBufferReader<PayloadMessage> payloadReader) {
+	private MessageDecoder(final ByteBufferReader<ConfirmationMessage> confirmationReader,
+						   final ByteBufferReader<PayloadMessage> payloadReader) {
 		this.confirmationReader = confirmationReader;
 		this.payloadReader = payloadReader;
 	}
 
 	@Override
-	protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
+	protected void decode(final ChannelHandlerContext ctx, final ByteBuf in, final List<Object> out) throws Exception {
 		Optional<?> readingResult = confirmationReader.read(in);
 		if (readingResult.isEmpty()){
 			readingResult = payloadReader.read(in);
@@ -44,12 +44,12 @@ public final class MessageDecoder extends ReplayingDecoder<Message> {
 		private ByteBufferReader<ConfirmationMessage> confirmationReader;
 		private ByteBufferReader<PayloadMessage> payloadReader;
 
-		public Builder confirmation(ByteBufferReader<ConfirmationMessage> confirmationReader){
+		public Builder confirmation(final ByteBufferReader<ConfirmationMessage> confirmationReader){
 			this.confirmationReader = confirmationReader;
 			return this;
 		}
 
-		public Builder payload(ByteBufferReader<PayloadMessage> payloadReader){
+		public Builder payload(final ByteBufferReader<PayloadMessage> payloadReader){
 			this.payloadReader = payloadReader;
 			return this;
 		}

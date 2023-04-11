@@ -19,11 +19,11 @@ public enum MessageType {
 		put(3, "CONFIRMATION");
 	}};
 
-	public static MessageType valueOf(int value){
+	public static MessageType valueOf(final int value){
 		return valueOf(MESSAGE_TYPE_MAP.containsKey(value) ? MESSAGE_TYPE_MAP.get(value) : INVALID.name());
 	}
 
-	public static boolean check(int value){
+	public static boolean check(final int value){
 		return value >= INVALID.getValue() && value <= CONFIRMATION.getValue();
 	}
 

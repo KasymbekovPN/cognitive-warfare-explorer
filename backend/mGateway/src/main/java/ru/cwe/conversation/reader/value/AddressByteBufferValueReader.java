@@ -16,13 +16,14 @@ public final class AddressByteBufferValueReader implements ByteBufferValueReader
 		return builder().build();
 	}
 
-	private AddressByteBufferValueReader(ByteBufferValueReader<String> stringReader, AddressBuilder builder) {
+	private AddressByteBufferValueReader(final ByteBufferValueReader<String> stringReader,
+										 final AddressBuilder builder) {
 		this.stringReader = stringReader;
 		this.builder = builder;
 	}
 
 	@Override
-	public Address read(ByteBuf buffer) {
+	public Address read(final ByteBuf buffer) {
 		String host = stringReader.read(buffer);
 		int port = buffer.readInt();
 
@@ -32,7 +33,7 @@ public final class AddressByteBufferValueReader implements ByteBufferValueReader
 	public static class Builder {
 		private ByteBufferValueReader<String> stringReader;
 
-		public Builder string(ByteBufferValueReader<String> stringReader){
+		public Builder string(final ByteBufferValueReader<String> stringReader){
 			this.stringReader = stringReader;
 			return this;
 		}

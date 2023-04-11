@@ -30,42 +30,42 @@ public final class PayloadMessageBuilder {
 	private PayloadMessageBuilder() {
 	}
 
-	public PayloadMessageBuilder version(int version){
+	public PayloadMessageBuilder version(final int version){
 		this.version = version;
 		return this;
 	}
 
-	public PayloadMessageBuilder priority(int priority){
+	public PayloadMessageBuilder priority(final int priority){
 		this.priority = Priorities.adjust(priority);
 		return this;
 	}
 
-	public PayloadMessageBuilder uuid(UUID uuid){
+	public PayloadMessageBuilder uuid(final UUID uuid){
 		this.uuid = uuid;
 		return this;
 	}
 
-	public PayloadMessageBuilder type(MessageType type){
+	public PayloadMessageBuilder type(final MessageType type){
 		this.type = type;
 		return this;
 	}
 
-	public PayloadMessageBuilder contentType(String contentType){
+	public PayloadMessageBuilder contentType(final String contentType){
 		this.contentType = contentType;
 		return this;
 	}
 
-	public PayloadMessageBuilder content(String content){
+	public PayloadMessageBuilder content(final String content){
 		this.content = content;
 		return this;
 	}
 
-	public PayloadMessageBuilder from(Address from){
+	public PayloadMessageBuilder from(final Address from){
 		this.from = from;
 		return this;
 	}
 
-	public PayloadMessageBuilder to(Address to){
+	public PayloadMessageBuilder to(final Address to){
 		this.to = to;
 		return this;
 	}
@@ -76,7 +76,7 @@ public final class PayloadMessageBuilder {
 		return this;
 	}
 
-	public PayloadMessageBuilder response(PayloadMessage request){
+	public PayloadMessageBuilder response(final PayloadMessage request){
 		if (request.getType().equals(MessageType.REQUEST)){
 			this.version = request.getVersion();
 			this.priority = request.getPriority();
@@ -124,11 +124,11 @@ public final class PayloadMessageBuilder {
 	}
 
 	private static class ExceptionBuilder extends AbsentFieldRuntimeExceptionBuilderImpl{
-		public ExceptionBuilder(Function<String, RuntimeException> creator) {
+		public ExceptionBuilder(final Function<String, RuntimeException> creator) {
 			super(creator);
 		}
 
-		public ExceptionBuilder checkType(MessageType type){
+		public ExceptionBuilder checkType(final MessageType type){
 			if (type != null && !type.equals(MessageType.REQUEST) && !type.equals(MessageType.RESPONSE)){
 				appendPartDelimiterAndGet().append("type is invalid it must be either REQUEST or RESPONSE");
 			}
@@ -136,14 +136,14 @@ public final class PayloadMessageBuilder {
 		}
 
 
-		public ExceptionBuilder checkContentType(String contentType) {
+		public ExceptionBuilder checkContentType(final String contentType) {
 			if (contentType != null && contentType.isBlank()){
 				appendPartDelimiterAndGet().append("contentType must not be empty");
 			}
 			return this;
 		}
 
-		public ExceptionBuilder checkContent(String content) {
+		public ExceptionBuilder checkContent(final String content) {
 			if (content != null && content.isBlank()){
 				appendPartDelimiterAndGet().append("content must not be empty");
 			}

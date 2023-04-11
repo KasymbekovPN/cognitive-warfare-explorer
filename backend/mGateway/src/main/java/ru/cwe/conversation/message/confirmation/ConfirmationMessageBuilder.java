@@ -26,32 +26,32 @@ public final class ConfirmationMessageBuilder {
 	private ConfirmationMessageBuilder() {
 	}
 
-	public ConfirmationMessageBuilder version(int version){
+	public ConfirmationMessageBuilder version(final int version){
 		this.version = version;
 		return this;
 	}
 
-	public ConfirmationMessageBuilder priority(int priority){
+	public ConfirmationMessageBuilder priority(final int priority){
 		this.priority = Priorities.adjust(priority);
 		return this;
 	}
 
-	public ConfirmationMessageBuilder uuid(UUID uuid){
+	public ConfirmationMessageBuilder uuid(final UUID uuid){
 		this.uuid = uuid;
 		return this;
 	}
 
-	public ConfirmationMessageBuilder result(ConfirmationResult result){
+	public ConfirmationMessageBuilder result(final ConfirmationResult result){
 		this.result = result;
 		return this;
 	}
 
-	public ConfirmationMessageBuilder payloadMessageType(String payloadMessageType){
+	public ConfirmationMessageBuilder payloadMessageType(final String payloadMessageType){
 		this.payloadMessageType = payloadMessageType;
 		return this;
 	}
 
-	public ConfirmationMessageBuilder fromPayloadMessage(PayloadMessage payloadMessage){
+	public ConfirmationMessageBuilder fromPayloadMessage(final PayloadMessage payloadMessage){
 		this.uuid = payloadMessage.getUuid();
 		this.result = payloadMessage.getType().equals(MessageType.REQUEST)
 			? ConfirmationResult.REQUEST
@@ -61,7 +61,7 @@ public final class ConfirmationMessageBuilder {
 		return this;
 	}
 
-	public ConfirmationMessageBuilder error(Object invalidMessage){
+	public ConfirmationMessageBuilder error(final Object invalidMessage){
 		this.version = 0;
 		this.priority = Priorities.MAX;
 		this.uuid = new UUID(0, 0);
@@ -99,7 +99,7 @@ public final class ConfirmationMessageBuilder {
 			super(creator);
 		}
 
-		public ExceptionBuilder checkVersion(Integer version){
+		public ExceptionBuilder checkVersion(final Integer version){
 			if (version != null && !Versions.check(version)){
 				appendPartDelimiterAndGet().append("invalid version");
 			}

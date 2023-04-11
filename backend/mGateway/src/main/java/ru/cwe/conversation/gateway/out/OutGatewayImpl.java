@@ -30,7 +30,9 @@ public final class OutGatewayImpl implements OutGateway {
 	}
 
 	@Override
-	public void send(final PayloadMessage message, final String host, final int port) {
+	public void send(final PayloadMessage message,
+					 final String host,
+					 final int port) {
 		ChannelFutureSupplier supplier = new ChannelFutureSupplier() {
 			@Override
 			public ChannelFuture get() throws InterruptedException {
@@ -45,7 +47,8 @@ public final class OutGatewayImpl implements OutGateway {
 		bootstrapHolder.shutdown();
 	}
 
-	private void send(final PayloadMessage message, final ChannelFutureSupplier supplier){
+	private void send(final PayloadMessage message,
+					  final ChannelFutureSupplier supplier){
 		bootstrapHolder.getBootstrap().handler(new ChannelInitializer<SocketChannel>() {
 			@Override
 			protected void initChannel(SocketChannel ch) throws Exception {

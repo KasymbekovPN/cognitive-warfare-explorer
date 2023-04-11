@@ -16,12 +16,12 @@ public final class StringByteBufferValueWriter implements ByteBufferValueWriter<
 		return builder().build();
 	}
 
-	private StringByteBufferValueWriter(Charset charset) {
+	private StringByteBufferValueWriter(final Charset charset) {
 		this.charset = charset;
 	}
 
 	@Override
-	public void write(ByteBuf buffer, String element) {
+	public void write(final ByteBuf buffer, final String element) {
 		int length = element == null ? -1 : element.length();
 		buffer.writeInt(length);
 		if (length > 0){
@@ -32,7 +32,7 @@ public final class StringByteBufferValueWriter implements ByteBufferValueWriter<
 	public static class Builder {
 		private Charset charset;
 
-		public Builder charset(Charset charset){
+		public Builder charset(final Charset charset){
 			this.charset = charset;
 			return this;
 		}

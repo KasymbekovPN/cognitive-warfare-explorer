@@ -24,15 +24,15 @@ public final class ServerMessageReceiver extends ChannelInboundHandlerAdapter {
 		return new Builder();
 	}
 
-	public static ServerMessageReceiver instance(MessageContainer<PayloadMessage> requestContainer,
-												 MessageContainer<PayloadMessage> responseContainer){
+	public static ServerMessageReceiver instance(final MessageContainer<PayloadMessage> requestContainer,
+												 final MessageContainer<PayloadMessage> responseContainer){
 		return builder().build(requestContainer, responseContainer);
 	}
 
-	private ServerMessageReceiver(MessageContainer<PayloadMessage> requestMessageContainer,
-								  MessageContainer<PayloadMessage> responseMessageContainer,
-								  Function<Object, Optional<PayloadMessage>> toPayloadMessageConverter,
-								  Function<PayloadMessage, ConfirmationMessage> toConfirmationMessageConverter) {
+	private ServerMessageReceiver(final MessageContainer<PayloadMessage> requestMessageContainer,
+								  final MessageContainer<PayloadMessage> responseMessageContainer,
+								  final Function<Object, Optional<PayloadMessage>> toPayloadMessageConverter,
+								  final Function<PayloadMessage, ConfirmationMessage> toConfirmationMessageConverter) {
 		this.requestMessageContainer = requestMessageContainer;
 		this.responseMessageContainer = responseMessageContainer;
 		this.toPayloadMessageConverter = toPayloadMessageConverter;
@@ -40,7 +40,8 @@ public final class ServerMessageReceiver extends ChannelInboundHandlerAdapter {
 	}
 
 	@Override
-	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+	public void channelRead(final ChannelHandlerContext ctx,
+							final Object msg) throws Exception {
 		Optional<PayloadMessage> result = toPayloadMessageConverter.apply(msg);
 		if (result.isPresent()){
 			PayloadMessage payloadMessage = result.get();
@@ -57,18 +58,18 @@ public final class ServerMessageReceiver extends ChannelInboundHandlerAdapter {
 		private Function<Object, Optional<PayloadMessage>> toPayloadMessageConverter;
 		private Function<PayloadMessage, ConfirmationMessage> toConfirmationMessageConverter;
 
-		public Builder toPayloadConverter(Function<Object, Optional<PayloadMessage>> toPayloadMessageConverter){
+		public Builder toPayloadConverter(final Function<Object, Optional<PayloadMessage>> toPayloadMessageConverter){
 			this.toPayloadMessageConverter = toPayloadMessageConverter;
 			return this;
 		}
 
-		public Builder toConfirmationConverter(Function<PayloadMessage, ConfirmationMessage> toConfirmationMessageConverter){
+		public Builder toConfirmationConverter(final Function<PayloadMessage, ConfirmationMessage> toConfirmationMessageConverter){
 			this.toConfirmationMessageConverter = toConfirmationMessageConverter;
 			return this;
 		}
 
-		public ServerMessageReceiver build(MessageContainer<PayloadMessage> requestContainer,
-										   MessageContainer<PayloadMessage> responseContainer){
+		public ServerMessageReceiver build(final MessageContainer<PayloadMessage> requestContainer,
+										   final MessageContainer<PayloadMessage> responseContainer){
 			return new ServerMessageReceiver(
 				requestContainer,
 				responseContainer,

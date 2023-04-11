@@ -26,16 +26,16 @@ public final class ConfirmationByteBufferReader extends BaseByteBufferReader<Con
 		return builder().build();
 	}
 
-	private ConfirmationByteBufferReader(ByteBufferValueReader<Integer[]> headerReader,
-										ByteBufferValueReader<UUID> uuidReader,
-										ByteBufferValueReader<String> payloadMessageTypeReader) {
+	private ConfirmationByteBufferReader(final ByteBufferValueReader<Integer[]> headerReader,
+										 final ByteBufferValueReader<UUID> uuidReader,
+										 final ByteBufferValueReader<String> payloadMessageTypeReader) {
 		this.headerReader = headerReader;
 		this.uuidReader = uuidReader;
 		this.payloadMessageTypeReader = payloadMessageTypeReader;
 	}
 
 	@Override
-	protected Optional<ConfirmationMessage> readUnsafe(ByteBuf buffer) {
+	protected Optional<ConfirmationMessage> readUnsafe(final ByteBuf buffer) {
 		Integer[] header = headerReader.read(buffer);
 		MessageType messageType = MessageType.valueOf(header[2]);
 		ConfirmationResult result = ConfirmationResult.valueOf(header[3]);
@@ -58,17 +58,17 @@ public final class ConfirmationByteBufferReader extends BaseByteBufferReader<Con
 		private ByteBufferValueReader<UUID> uuid;
 		private ByteBufferValueReader<String> string;
 
-		public Builder header(ByteBufferValueReader<Integer[]> header){
+		public Builder header(final ByteBufferValueReader<Integer[]> header){
 			this.header = header;
 			return this;
 		}
 
-		public Builder uuid(ByteBufferValueReader<UUID> uuid){
+		public Builder uuid(final ByteBufferValueReader<UUID> uuid){
 			this.uuid = uuid;
 			return this;
 		}
 
-		public Builder string(ByteBufferValueReader<String> string){
+		public Builder string(final ByteBufferValueReader<String> string){
 			this.string = string;
 			return this;
 		}

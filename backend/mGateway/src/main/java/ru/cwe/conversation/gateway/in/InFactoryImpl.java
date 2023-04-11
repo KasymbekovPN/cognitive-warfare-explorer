@@ -15,9 +15,9 @@ import ru.cwe.conversation.processing.ServerMessageReceiver;
 public final class InFactoryImpl implements InFactory {
 
 	@Override
-	public InGateway create(MessageContainer<PayloadMessage> requestMessageContainer,
-							MessageContainer<PayloadMessage> responseMessageContainer,
-							int port) {
+	public InGateway create(final MessageContainer<PayloadMessage> requestMessageContainer,
+							final MessageContainer<PayloadMessage> responseMessageContainer,
+							final int port) {
 
 		ServerBootstrap bootstrap = new ServerBootstrap()
 			.channel(NioServerSocketChannel.class)

@@ -19,12 +19,12 @@ public final class StringByteBufferValueReader implements ByteBufferValueReader<
 		return builder().build();
 	}
 
-	private StringByteBufferValueReader(Charset charset) {
+	private StringByteBufferValueReader(final Charset charset) {
 		this.charset = charset;
 	}
 
 	@Override
-	public String read(ByteBuf buffer) {
+	public String read(final ByteBuf buffer) {
 		int len = buffer.readInt();
 		if (len <= LOWER_LEN_VALUE_THRESHOLD){
 			return null;
@@ -39,7 +39,7 @@ public final class StringByteBufferValueReader implements ByteBufferValueReader<
 	public static class Builder {
 		private Charset charset;
 
-		public Builder charset(Charset charset){
+		public Builder charset(final Charset charset){
 			this.charset = charset;
 			return this;
 		}

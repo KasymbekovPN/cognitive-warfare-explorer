@@ -9,7 +9,9 @@ import ru.cwe.conversation.message.confirmation.ConfirmationMessage;
 
 public final class OutFactoryImpl implements OutFactory {
 	@Override
-	public OutGateway create(MessageContainer<ConfirmationMessage> container, String host, int port) {
+	public OutGateway create(final MessageContainer<ConfirmationMessage> container,
+							 final String host,
+							 final int port) {
 		Bootstrap bootstrap = new Bootstrap()
 			.channel(NioSocketChannel.class)
 			.option(ChannelOption.SO_KEEPALIVE, true);

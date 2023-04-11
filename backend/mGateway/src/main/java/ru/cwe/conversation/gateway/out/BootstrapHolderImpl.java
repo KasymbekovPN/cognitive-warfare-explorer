@@ -16,16 +16,16 @@ public final class BootstrapHolderImpl implements BootstrapHolder {
 		return new Builder();
 	}
 
-	public static BootstrapHolderImpl instance(Bootstrap bootstrap,
-											   String host,
-											   int port){
+	public static BootstrapHolderImpl instance(final Bootstrap bootstrap,
+											   final String host,
+											   final int port){
 		return builder().build(bootstrap, host, port);
 	}
 
-	private BootstrapHolderImpl(Bootstrap bootstrap,
-								EventLoopGroup worker,
-								String host,
-								int port) {
+	private BootstrapHolderImpl(final Bootstrap bootstrap,
+								final EventLoopGroup worker,
+								final String host,
+								final int port) {
 		this.bootstrap = bootstrap;
 		this.worker = worker;
 		this.host = host;
@@ -45,21 +45,22 @@ public final class BootstrapHolderImpl implements BootstrapHolder {
 	}
 
 	@Override
-	public ChannelFuture getFuture(final String host, final int port) throws InterruptedException {
+	public ChannelFuture getFuture(final String host,
+								   final int port) throws InterruptedException {
 		return bootstrap.bind(host, port).sync();
 	}
 
 	public static class Builder {
 		private EventLoopGroup worker;
 
-		public Builder worker(EventLoopGroup worker){
+		public Builder worker(final EventLoopGroup worker){
 			this.worker = worker;
 			return this;
 		}
 
-		public BootstrapHolderImpl build(Bootstrap bootstrap,
-										   String host,
-										   int port){
+		public BootstrapHolderImpl build(final Bootstrap bootstrap,
+										 final String host,
+										 final int port){
 			return new BootstrapHolderImpl(
 				bootstrap,
 				worker != null ? worker : new NioEventLoopGroup(),

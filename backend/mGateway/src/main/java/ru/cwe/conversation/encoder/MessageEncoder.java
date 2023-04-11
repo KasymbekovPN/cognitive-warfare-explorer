@@ -23,14 +23,14 @@ public final class MessageEncoder extends MessageToByteEncoder<Message> {
 		return builder().build();
 	}
 
-	private MessageEncoder(ByteBufferWriter<ConfirmationMessage> confirmationWriter,
-						   ByteBufferWriter<PayloadMessage> payloadWriter) {
+	private MessageEncoder(final ByteBufferWriter<ConfirmationMessage> confirmationWriter,
+						   final ByteBufferWriter<PayloadMessage> payloadWriter) {
 		this.confirmationWriter = confirmationWriter;
 		this.payloadWriter = payloadWriter;
 	}
 
 	@Override
-	protected void encode(ChannelHandlerContext ctx, Message msg, ByteBuf out) throws Exception {
+	protected void encode(final ChannelHandlerContext ctx, final Message msg, final ByteBuf out) throws Exception {
 		if (msg.getType().equals(MessageType.CONFIRMATION)){
 			confirmationWriter.write(out, (ConfirmationMessage) msg);
 		} else {
@@ -42,12 +42,12 @@ public final class MessageEncoder extends MessageToByteEncoder<Message> {
 		private ByteBufferWriter<ConfirmationMessage> confirmationWriter;
 		private ByteBufferWriter<PayloadMessage> payloadWriter;
 
-		public Builder confirmation(ByteBufferWriter<ConfirmationMessage> confirmationWriter){
+		public Builder confirmation(final ByteBufferWriter<ConfirmationMessage> confirmationWriter){
 			this.confirmationWriter = confirmationWriter;
 			return this;
 		}
 
-		public Builder payload(ByteBufferWriter<PayloadMessage> payloadWriter){
+		public Builder payload(final ByteBufferWriter<PayloadMessage> payloadWriter){
 			this.payloadWriter = payloadWriter;
 			return this;
 		}

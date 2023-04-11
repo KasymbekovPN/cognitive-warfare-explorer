@@ -7,7 +7,7 @@ import java.util.Optional;
 public abstract class BaseByteBufferReader<R> implements ByteBufferReader<R> {
 
 	@Override
-	public Optional<R> read(ByteBuf buffer) {
+	public Optional<R> read(final ByteBuf buffer) {
 		try {
 			return readUnsafe(buffer);
 		} catch (RuntimeException ex){

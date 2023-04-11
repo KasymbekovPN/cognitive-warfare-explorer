@@ -15,7 +15,7 @@ public class AbsentFieldRuntimeExceptionBuilderImpl implements AbsentFieldRuntim
 	protected Delimiter delimiter = new FirstDelimiter("Absent fields: ", " & ");
 
 	@Override
-	public AbsentFieldRuntimeExceptionBuilder checkField(String name, Object value) {
+	public AbsentFieldRuntimeExceptionBuilder checkField(final String name, final Object value) {
 		if (value == null){
 			messageSB.append(delimiter.next()).append(name);
 		}

@@ -7,7 +7,7 @@ import ru.cwe.conversation.message.Versions;
 public final class PayloadHeaderByteBufferValueWriter implements ByteBufferValueWriter<Integer[]>{
 
 	@Override
-	public void write(ByteBuf buffer, Integer[] element) {
+	public void write(final ByteBuf buffer, final Integer[] element) {
 		int version = Versions.MAX & element[0];
 		int priority = Priorities.MAX & element[1];
 		int type = 0b11 & element[2];

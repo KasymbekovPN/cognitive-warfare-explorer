@@ -21,10 +21,10 @@ public final class PayloadByteBufferWriter implements ByteBufferWriter<PayloadMe
 		return builder().build();
 	}
 
-	private PayloadByteBufferWriter(ByteBufferValueWriter<Integer[]> headerWriter,
-								    ByteBufferValueWriter<UUID> uuidWriter,
-								    ByteBufferValueWriter<String> stringWriter,
-								    ByteBufferValueWriter<Address> addressWriter) {
+	private PayloadByteBufferWriter(final ByteBufferValueWriter<Integer[]> headerWriter,
+								    final ByteBufferValueWriter<UUID> uuidWriter,
+								    final ByteBufferValueWriter<String> stringWriter,
+								    final ByteBufferValueWriter<Address> addressWriter) {
 		this.headerWriter = headerWriter;
 		this.uuidWriter = uuidWriter;
 		this.stringWriter = stringWriter;
@@ -32,7 +32,7 @@ public final class PayloadByteBufferWriter implements ByteBufferWriter<PayloadMe
 	}
 
 	@Override
-	public void write(ByteBuf buffer, PayloadMessage element) {
+	public void write(final ByteBuf buffer, final PayloadMessage element) {
 		Integer[] headers = new Integer[4];
 		headers[0] = element.getVersion();
 		headers[1] = element.getPriority();
@@ -51,22 +51,22 @@ public final class PayloadByteBufferWriter implements ByteBufferWriter<PayloadMe
 		private ByteBufferValueWriter<String> stringWriter;
 		private ByteBufferValueWriter<Address> addressWriter;
 
-		public Builder header(ByteBufferValueWriter<Integer[]> headerWriter){
+		public Builder header(final ByteBufferValueWriter<Integer[]> headerWriter){
 			this.headerWriter = headerWriter;
 			return this;
 		}
 
-		public Builder uuid(ByteBufferValueWriter<UUID> uuidWriter){
+		public Builder uuid(final ByteBufferValueWriter<UUID> uuidWriter){
 			this.uuidWriter = uuidWriter;
 			return this;
 		}
 
-		public Builder string(ByteBufferValueWriter<String> stringWriter){
+		public Builder string(final ByteBufferValueWriter<String> stringWriter){
 			this.stringWriter = stringWriter;
 			return this;
 		}
 
-		public Builder address(ByteBufferValueWriter<Address> addressWriter){
+		public Builder address(final ByteBufferValueWriter<Address> addressWriter){
 			this.addressWriter = addressWriter;
 			return this;
 		}

@@ -19,12 +19,12 @@ public final class AddressBuilder {
 	private AddressBuilder() {
 	}
 
-	public AddressBuilder host(String host){
+	public AddressBuilder host(final String host){
 		this.host = host;
 		return this;
 	}
 
-	public AddressBuilder port(int port){
+	public AddressBuilder port(final int port){
 		this.port = port;
 		return this;
 	}
@@ -51,11 +51,11 @@ public final class AddressBuilder {
 	}
 
 	private static class ExceptionBuilder extends AbsentFieldRuntimeExceptionBuilderImpl{
-		public ExceptionBuilder(Function<String, RuntimeException> creator) {
+		public ExceptionBuilder(final Function<String, RuntimeException> creator) {
 			super(creator);
 		}
 
-		public ExceptionBuilder checkPort(Integer port){
+		public ExceptionBuilder checkPort(final Integer port){
 			if (port != null && Ports.checkInRange(port) != 0){
 				appendPartDelimiterAndGet()
 					.append("port is out of range (")

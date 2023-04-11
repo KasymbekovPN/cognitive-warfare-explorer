@@ -24,10 +24,10 @@ public final class PayloadByteBufferReader extends BaseByteBufferReader<PayloadM
 		return builder().build();
 	}
 
-	private PayloadByteBufferReader(ByteBufferValueReader<Integer[]> headerReader,
-									ByteBufferValueReader<UUID> uuidReader,
-									ByteBufferValueReader<String> stringReader,
-									ByteBufferValueReader<Address> addressReader) {
+	private PayloadByteBufferReader(final ByteBufferValueReader<Integer[]> headerReader,
+									final ByteBufferValueReader<UUID> uuidReader,
+									final ByteBufferValueReader<String> stringReader,
+									final ByteBufferValueReader<Address> addressReader) {
 		this.headerReader = headerReader;
 		this.uuidReader = uuidReader;
 		this.stringReader = stringReader;
@@ -35,7 +35,7 @@ public final class PayloadByteBufferReader extends BaseByteBufferReader<PayloadM
 	}
 
 	@Override
-	protected Optional<PayloadMessage> readUnsafe(ByteBuf buffer) {
+	protected Optional<PayloadMessage> readUnsafe(final ByteBuf buffer) {
 		Integer[] headers = headerReader.read(buffer);
 		MessageType messageType = MessageType.valueOf(headers[2]);
 		if (messageType.equals(MessageType.REQUEST) || messageType.equals(MessageType.RESPONSE)){
@@ -61,22 +61,22 @@ public final class PayloadByteBufferReader extends BaseByteBufferReader<PayloadM
 		private ByteBufferValueReader<String> string;
 		private ByteBufferValueReader<Address> address;
 
-		public Builder header(ByteBufferValueReader<Integer[]> header){
+		public Builder header(final ByteBufferValueReader<Integer[]> header){
 			this.header = header;
 			return this;
 		}
 
-		public Builder uuid(ByteBufferValueReader<UUID> uuid){
+		public Builder uuid(final ByteBufferValueReader<UUID> uuid){
 			this.uuid = uuid;
 			return this;
 		}
 
-		public Builder string(ByteBufferValueReader<String> string){
+		public Builder string(final ByteBufferValueReader<String> string){
 			this.string = string;
 			return this;
 		}
 
-		public Builder address(ByteBufferValueReader<Address> address){
+		public Builder address(final ByteBufferValueReader<Address> address){
 			this.address = address;
 			return this;
 		}

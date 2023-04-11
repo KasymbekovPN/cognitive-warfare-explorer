@@ -20,11 +20,11 @@ public enum ConfirmationResult {
 		put(2, "RESPONSE");
 	}};
 
-	public static ConfirmationResult valueOf(int value){
+	public static ConfirmationResult valueOf(final int value){
 		return valueOf(CONFIRMATION_RESULT_MAP.containsKey(value) ? CONFIRMATION_RESULT_MAP.get(value) : INVALID.name());
 	}
 
-	public static boolean check(int value){
+	public static boolean check(final int value){
 		return value >= INVALID.getValue() && value <= RESPONSE.getValue();
 	}
 }

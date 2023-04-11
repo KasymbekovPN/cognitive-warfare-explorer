@@ -19,41 +19,41 @@ public final class ClientMessageTransmitter extends ChannelInboundHandlerAdapter
 		return new Builder();
 	}
 
-	public static ClientMessageTransmitter instance(PayloadMessage message,
-													MessageContainer<ConfirmationMessage> container){
+	public static ClientMessageTransmitter instance(final PayloadMessage message,
+													final MessageContainer<ConfirmationMessage> container){
 		return builder().build(message, container);
 	}
 
-	private ClientMessageTransmitter(PayloadMessage message,
-									 MessageContainer<ConfirmationMessage> messageContainer,
-									 Function<Object, Optional<ConfirmationMessage>> converter) {
+	private ClientMessageTransmitter(final PayloadMessage message,
+									 final MessageContainer<ConfirmationMessage> messageContainer,
+									 final Function<Object, Optional<ConfirmationMessage>> converter) {
 		this.message = message;
 		this.messageContainer = messageContainer;
 		this.converter = converter;
 	}
 
 	@Override
-	public void channelActive(ChannelHandlerContext ctx) throws Exception {
+	public void channelActive(final ChannelHandlerContext ctx) throws Exception {
 		ctx.writeAndFlush(message);
 	}
 
 	@Override
-	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+	public void channelRead(final ChannelHandlerContext ctx, Object msg) throws Exception {
 		Optional<ConfirmationMessage> result = converter.apply(msg);
 		result.ifPresent(messageContainer::append);
 		ctx.close();
 	}
 
-	public static class Builder{
+	public static class Builder {
 		private Function<Object, Optional<ConfirmationMessage>> converter;
 
-		public Builder converter(Function<Object, Optional<ConfirmationMessage>> converter){
+		public Builder converter(final Function<Object, Optional<ConfirmationMessage>> converter){
 			this.converter = converter;
 			return this;
 		}
 
-		public ClientMessageTransmitter build(PayloadMessage message,
-											  MessageContainer<ConfirmationMessage> container){
+		public ClientMessageTransmitter build(final PayloadMessage message,
+											  final MessageContainer<ConfirmationMessage> container){
 			return new ClientMessageTransmitter(
 				message,
 				container,

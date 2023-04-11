@@ -22,16 +22,16 @@ public final class ConfirmationByteBufferWriter implements ByteBufferWriter<Conf
 		return builder().build();
 	}
 
-	private ConfirmationByteBufferWriter(ByteBufferValueWriter<Integer[]> headersWriter,
-										 ByteBufferValueWriter<UUID> uuidWriter,
-										 ByteBufferValueWriter<String> stringWriter) {
+	private ConfirmationByteBufferWriter(final ByteBufferValueWriter<Integer[]> headersWriter,
+										 final ByteBufferValueWriter<UUID> uuidWriter,
+										 final ByteBufferValueWriter<String> stringWriter) {
 		this.headersWriter = headersWriter;
 		this.uuidWriter = uuidWriter;
 		this.stringWriter = stringWriter;
 	}
 
 	@Override
-	public void write(ByteBuf buffer, ConfirmationMessage element) {
+	public void write(final ByteBuf buffer, final ConfirmationMessage element) {
 		Integer[] headers = new Integer[4];
 		headers[0] = element.getVersion();
 		headers[1] = element.getPriority();
@@ -47,17 +47,17 @@ public final class ConfirmationByteBufferWriter implements ByteBufferWriter<Conf
 		private ByteBufferValueWriter<UUID> uuidWriter;
 		private ByteBufferValueWriter<String> stringWriter;
 
-		public Builder header(ByteBufferValueWriter<Integer[]> headersWriter){
+		public Builder header(final ByteBufferValueWriter<Integer[]> headersWriter){
 			this.headersWriter = headersWriter;
 			return this;
 		}
 
-		public Builder uuid(ByteBufferValueWriter<UUID> uuidWriter){
+		public Builder uuid(final ByteBufferValueWriter<UUID> uuidWriter){
 			this.uuidWriter = uuidWriter;
 			return this;
 		}
 
-		public Builder string(ByteBufferValueWriter<String> stringWriter){
+		public Builder string(final ByteBufferValueWriter<String> stringWriter){
 			this.stringWriter = stringWriter;
 			return this;
 		}

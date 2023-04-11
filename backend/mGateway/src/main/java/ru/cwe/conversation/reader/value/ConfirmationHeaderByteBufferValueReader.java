@@ -14,7 +14,7 @@ public final class ConfirmationHeaderByteBufferValueReader implements ByteBuffer
 	private final ExceptionBuilder exceptionBuilder = new ExceptionBuilder(HeaderReadingException::new);
 
 	@Override
-	public Integer[] read(ByteBuf buffer) {
+	public Integer[] read(final ByteBuf buffer) {
 		char header0 = buffer.readChar();
 		char header1 = buffer.readChar();
 
@@ -40,12 +40,12 @@ public final class ConfirmationHeaderByteBufferValueReader implements ByteBuffer
 	}
 
 	private static class ExceptionBuilder extends AbsentFieldRuntimeExceptionBuilderImpl{
-		public ExceptionBuilder(Function<String, RuntimeException> creator) {
+		public ExceptionBuilder(final Function<String, RuntimeException> creator) {
 			super(creator);
 			this.delimiter = new FirstDelimiter("", "; ");
 		}
 
-		public ExceptionBuilder checkResult(int value){
+		public ExceptionBuilder checkResult(final int value){
 			if (!ConfirmationResult.check(value)){
 				appendPartDelimiterAndGet()
 					.append("result has invalid value (")

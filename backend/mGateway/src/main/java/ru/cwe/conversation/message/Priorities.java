@@ -16,13 +16,13 @@ public final class Priorities {
 		put(MORE_CHECK_RESULT, MAX);
 	}};
 
-	public static int check(int priority){
+	public static int check(final int priority){
 		if (priority < MIN) return LESS_CHECK_RESULT;
 		else if (priority > MAX) return MORE_CHECK_RESULT;
 		return EQ_CHECK_RESULT;
 	}
 
-	public static int adjust(int priority){
+	public static int adjust(final int priority){
 		return HOLD_RESULTS.getOrDefault(check(priority), priority);
 	}
 }

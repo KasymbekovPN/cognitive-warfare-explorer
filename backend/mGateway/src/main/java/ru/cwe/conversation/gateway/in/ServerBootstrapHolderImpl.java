@@ -16,15 +16,15 @@ public final class ServerBootstrapHolderImpl implements ServerBootstrapHolder {
 		return new Builder();
 	}
 
-	public static ServerBootstrapHolderImpl instance(ServerBootstrap serverBootstrap,
-													 int port){
+	public static ServerBootstrapHolderImpl instance(final ServerBootstrap serverBootstrap,
+													 final int port){
 		return builder().build(serverBootstrap, port);
 	}
 
-	private ServerBootstrapHolderImpl(ServerBootstrap serverBootstrap,
-									  EventLoopGroup boss,
-									  EventLoopGroup worker,
-									  int port) {
+	private ServerBootstrapHolderImpl(final ServerBootstrap serverBootstrap,
+									  final EventLoopGroup boss,
+									  final EventLoopGroup worker,
+									  final int port) {
 		this.serverBootstrap = serverBootstrap;
 		this.boss = boss;
 		this.worker = worker;
@@ -50,17 +50,18 @@ public final class ServerBootstrapHolderImpl implements ServerBootstrapHolder {
 		private EventLoopGroup boss;
 		private EventLoopGroup worker;
 
-		public Builder boss(EventLoopGroup boss){
+		public Builder boss(final EventLoopGroup boss){
 			this.boss = boss;
 			return this;
 		}
 
-		public Builder worker(EventLoopGroup worker){
+		public Builder worker(final EventLoopGroup worker){
 			this.worker = worker;
 			return this;
 		}
 
-		public ServerBootstrapHolderImpl build(ServerBootstrap bootstrap, int port){
+		public ServerBootstrapHolderImpl build(final ServerBootstrap bootstrap,
+											   final int port){
 			return new ServerBootstrapHolderImpl(
 				bootstrap,
 				boss != null ? boss : new NioEventLoopGroup(),

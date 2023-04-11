@@ -14,12 +14,12 @@ public final class AddressByteBufferValueWriter implements ByteBufferValueWriter
 		return builder().build();
 	}
 
-	private AddressByteBufferValueWriter(ByteBufferValueWriter<String> hostWriter) {
+	private AddressByteBufferValueWriter(final ByteBufferValueWriter<String> hostWriter) {
 		this.hostWriter = hostWriter;
 	}
 
 	@Override
-	public void write(ByteBuf buffer, Address element) {
+	public void write(final ByteBuf buffer, final Address element) {
 		hostWriter.write(buffer, element.getHost());
 		buffer.writeInt(element.getPort());
 	}
@@ -27,7 +27,7 @@ public final class AddressByteBufferValueWriter implements ByteBufferValueWriter
 	public static class Builder {
 		private ByteBufferValueWriter<String> writer;
 
-		public Builder string(ByteBufferValueWriter<String> writer){
+		public Builder string(final ByteBufferValueWriter<String> writer){
 			this.writer = writer;
 			return this;
 		}
