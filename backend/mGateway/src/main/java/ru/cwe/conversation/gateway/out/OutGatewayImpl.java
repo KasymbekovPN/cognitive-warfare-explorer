@@ -5,7 +5,7 @@ import io.netty.channel.ChannelInitializer;
 import io.netty.channel.socket.SocketChannel;
 import lombok.RequiredArgsConstructor;
 import ru.cwe.conversation.container.MessageContainer;
-import ru.cwe.conversation.decoder.MessageDecoder;
+import ru.cwe.conversation.decoder.ConfirmationMessageDecoder;
 import ru.cwe.conversation.encoder.MessageEncoder;
 import ru.cwe.conversation.gateway.FutureProcessor;
 import ru.cwe.conversation.message.confirmation.ConfirmationMessage;
@@ -54,17 +54,17 @@ public final class OutGatewayImpl implements OutGateway {
 			protected void initChannel(SocketChannel ch) throws Exception {
 				ch.pipeline().addLast(
 					MessageEncoder.instance(),
-					MessageDecoder.instance(),
+					ConfirmationMessageDecoder.instance(),
 					ClientMessageTransmitter.instance(message, confirmationContainer)
 				);
 			}
 		});
 
 		try{
-			futureProcessor.process(supplier.get());
-		} catch (Throwable ignored){}
-		finally {
-			bootstrapHolder.shutdown();
+			ChannelFuture future = supplier.get();
+			futureProcessor.process(future);
+		} catch (Throwable ex){
+			ex.printStackTrace();
 		}
 	}
 

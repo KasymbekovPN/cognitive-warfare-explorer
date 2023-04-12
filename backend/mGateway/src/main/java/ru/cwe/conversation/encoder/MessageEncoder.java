@@ -30,7 +30,7 @@ public final class MessageEncoder extends MessageToByteEncoder<Message> {
 	}
 
 	@Override
-	protected void encode(final ChannelHandlerContext ctx, final Message msg, final ByteBuf out) throws Exception {
+	protected void encode(final ChannelHandlerContext ctx, final Message msg, ByteBuf out) throws Exception {
 		if (msg.getType().equals(MessageType.CONFIRMATION)){
 			confirmationWriter.write(out, (ConfirmationMessage) msg);
 		} else {

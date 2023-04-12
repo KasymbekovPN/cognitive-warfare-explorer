@@ -26,18 +26,6 @@ class OutGatewayImplTest {
 	}
 
 	@Test
-	void shouldCheckShutdown_onStart() {
-		TestBootstrapHolder holder = new TestBootstrapHolder(true, null);
-		new OutGatewayImpl(
-			holder,
-			new TestFutureProcessor(),
-			new TestMessageContainer<>()
-		).send(null);
-
-		assertThat(holder.isShutdown()).isTrue();
-	}
-
-	@Test
 	void shouldCheckStart() {
 		TestChannelFuture expectedFuture = new TestChannelFuture();
 		TestBootstrapHolder holder = new TestBootstrapHolder(false, expectedFuture);

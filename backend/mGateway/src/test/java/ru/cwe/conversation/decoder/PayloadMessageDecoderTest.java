@@ -16,41 +16,18 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class MessageDecoderTest {
+class PayloadMessageDecoderTest {
 
 	@SneakyThrows
 	@Test
 	void shouldCheckDecoding_ifInvalidMessage() {
 		ArrayList<Object> out = new ArrayList<>();
-		MessageDecoder.builder()
-			.confirmation(new TestReader<>())
+		PayloadMessageDecoder.builder()
 			.payload(new TestReader<>())
 			.build()
 			.decode(null, null, out);
 
 		assertThat(out).isEmpty();
-	}
-
-	@SneakyThrows
-	@Test
-	void shouldCheckDecoding_ifConfirmationMessage() {
-		TestConfirmationMessage message = new TestConfirmationMessage(
-			Fakers.message().version(),
-			Fakers.message().priority(),
-			Fakers.base().uuid().uuid(),
-			ConfirmationResult.REQUEST,
-			Fakers.base().string().string()
-		);
-
-		ArrayList<Object> out = new ArrayList<>();
-		MessageDecoder.builder()
-			.confirmation(new TestReader<>(message))
-			.payload(new TestReader<>())
-			.build()
-			.decode(null, null, out);
-
-		assertThat(out.size()).isEqualTo(1);
-		assertThat(out.get(0)).isEqualTo(message);
 	}
 
 	@SneakyThrows
@@ -68,8 +45,7 @@ class MessageDecoderTest {
 		);
 
 		ArrayList<Object> out = new ArrayList<>();
-		MessageDecoder.builder()
-			.confirmation(new TestReader<>())
+		PayloadMessageDecoder.builder()
 			.payload(new TestReader<>(message))
 			.build()
 			.decode(null, null, out);

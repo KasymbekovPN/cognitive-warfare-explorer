@@ -1,5 +1,6 @@
 package ru.cwe.conversation.gateway.in;
 
+import io.netty.channel.ChannelFuture;
 import lombok.RequiredArgsConstructor;
 import ru.cwe.conversation.gateway.FutureProcessor;
 
@@ -11,8 +12,11 @@ public final class InGatewayImpl implements InGateway{
 	@Override
 	public void start() {
 		try{
-			futureProcessor.process(serverBootstrapHolder.getFuture());
-		} catch (Throwable ignored){}
+			ChannelFuture future = serverBootstrapHolder.getFuture();
+			futureProcessor.process(future);
+		} catch (Throwable ex){
+			ex.printStackTrace();
+		}
 		finally {
 			serverBootstrapHolder.shutdown();
 		}

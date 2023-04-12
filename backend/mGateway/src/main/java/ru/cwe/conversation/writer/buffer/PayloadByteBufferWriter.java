@@ -32,11 +32,12 @@ public final class PayloadByteBufferWriter implements ByteBufferWriter<PayloadMe
 	}
 
 	@Override
-	public void write(final ByteBuf buffer, final PayloadMessage element) {
-		Integer[] headers = new Integer[4];
+	public void write(ByteBuf buffer, final PayloadMessage element) {
+		Integer[] headers = new Integer[3];
 		headers[0] = element.getVersion();
 		headers[1] = element.getPriority();
 		headers[2] = element.getType().getValue();
+
 		headerWriter.write(buffer, headers);
 		uuidWriter.write(buffer, element.getUuid());
 		stringWriter.write(buffer, element.getContentType());

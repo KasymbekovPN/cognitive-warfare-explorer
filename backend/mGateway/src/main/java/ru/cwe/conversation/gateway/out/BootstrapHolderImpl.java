@@ -47,7 +47,7 @@ public final class BootstrapHolderImpl implements BootstrapHolder {
 	@Override
 	public ChannelFuture getFuture(final String host,
 								   final int port) throws InterruptedException {
-		return bootstrap.bind(host, port).sync();
+		return bootstrap.connect(host, port).sync();
 	}
 
 	public static class Builder {

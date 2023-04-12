@@ -6,7 +6,7 @@ import io.netty.channel.ChannelOption;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import ru.cwe.conversation.container.MessageContainer;
-import ru.cwe.conversation.decoder.MessageDecoder;
+import ru.cwe.conversation.decoder.PayloadMessageDecoder;
 import ru.cwe.conversation.encoder.MessageEncoder;
 import ru.cwe.conversation.gateway.FutureProcessorImpl;
 import ru.cwe.conversation.message.payload.PayloadMessage;
@@ -25,7 +25,7 @@ public final class InFactoryImpl implements InFactory {
 				@Override
 				protected void initChannel(SocketChannel ch) throws Exception {
 					ch.pipeline().addLast(
-						MessageDecoder.instance(),
+						PayloadMessageDecoder.instance(),
 						MessageEncoder.instance(),
 						ServerMessageReceiver.instance(requestMessageContainer, responseMessageContainer)
 					);

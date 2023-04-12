@@ -99,7 +99,7 @@ class BootstrapHolderImplTest {
 		}
 
 		@Override
-		public ChannelFuture bind(String inetHost, int inetPort) {
+		public ChannelFuture connect(String inetHost, int inetPort) {
 			return new TestChannelFutureImpl(inetHost, inetPort);
 		}
 	}
