@@ -2,6 +2,6 @@ package ru.cwe.conversation.filter;
 
 import ru.cwe.conversation.message.Message;
 
-public interface Filter {
-	boolean filter(Message message);
+public interface Filter<M> {
+	boolean filter(M message);
 }
