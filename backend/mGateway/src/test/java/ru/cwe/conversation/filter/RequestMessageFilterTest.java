@@ -8,8 +8,7 @@ import utils.faker.Fakers;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class ResponseMessageFilterTest {
-
+class RequestMessageFilterTest {
 	@Test
 	void shouldCheckFilter_ifNotConfirmationMessage() {
 		TestConfirmationMessage message = new TestConfirmationMessage(
@@ -19,24 +18,7 @@ class ResponseMessageFilterTest {
 			Fakers.message().confirmationResult(),
 			Fakers.base().string().string()
 		);
-		boolean result = new ResponseMessageFilter().filter(message);
-
-		assertThat(result).isFalse();
-	}
-
-	@Test
-	void shouldCheckFilter_ifRequest() {
-		TestPayloadMessage message = new TestPayloadMessage(
-			Fakers.message().version(),
-			Fakers.message().priority(),
-			MessageType.REQUEST,
-			Fakers.base().uuid().uuid(),
-			Fakers.base().string().string(),
-			Fakers.base().string().string(),
-			Fakers.address().address(),
-			Fakers.address().address()
-		);
-		boolean result = new ResponseMessageFilter().filter(message);
+		boolean result = new RequestMessageFilter().filter(message);
 
 		assertThat(result).isFalse();
 	}
@@ -53,7 +35,24 @@ class ResponseMessageFilterTest {
 			Fakers.address().address(),
 			Fakers.address().address()
 		);
-		boolean result = new ResponseMessageFilter().filter(message);
+		boolean result = new RequestMessageFilter().filter(message);
+
+		assertThat(result).isFalse();
+	}
+
+	@Test
+	void shouldCheckFilter_ifRequest() {
+		TestPayloadMessage message = new TestPayloadMessage(
+			Fakers.message().version(),
+			Fakers.message().priority(),
+			MessageType.REQUEST,
+			Fakers.base().uuid().uuid(),
+			Fakers.base().string().string(),
+			Fakers.base().string().string(),
+			Fakers.address().address(),
+			Fakers.address().address()
+		);
+		boolean result = new RequestMessageFilter().filter(message);
 
 		assertThat(result).isTrue();
 	}
