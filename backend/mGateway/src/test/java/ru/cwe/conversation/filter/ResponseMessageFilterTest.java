@@ -7,8 +7,9 @@ import utils.TestPayloadMessage;
 import utils.faker.Fakers;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
-class PayloadMessageFilterTest {
+class ResponseMessageFilterTest {
 
 	@Test
 	void shouldCheckFilter_ifNotConfirmationMessage() {
@@ -19,7 +20,7 @@ class PayloadMessageFilterTest {
 			Fakers.message().confirmationResult(),
 			Fakers.base().string().string()
 		);
-		boolean result = new PayloadMessageFilter().filter(message);
+		boolean result = new ResponseMessageFilter().filter(message);
 
 		assertThat(result).isFalse();
 	}
@@ -36,9 +37,9 @@ class PayloadMessageFilterTest {
 			Fakers.address().address(),
 			Fakers.address().address()
 		);
-		boolean result = new PayloadMessageFilter().filter(message);
+		boolean result = new ResponseMessageFilter().filter(message);
 
-		assertThat(result).isTrue();
+		assertThat(result).isFalse();
 	}
 
 	@Test
@@ -53,7 +54,7 @@ class PayloadMessageFilterTest {
 			Fakers.address().address(),
 			Fakers.address().address()
 		);
-		boolean result = new PayloadMessageFilter().filter(message);
+		boolean result = new ResponseMessageFilter().filter(message);
 
 		assertThat(result).isTrue();
 	}
