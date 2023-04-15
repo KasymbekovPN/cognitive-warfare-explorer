@@ -1,0 +1,50 @@
+plugins {
+    id 'java'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation "org.projectlombok:lombok:$lombokVersion"
+    implementation project(":mGateway")
+
+    annotationProcessor "org.projectlombok:lombok:$lombokVersion"
+
+    testImplementation "org.projectlombok:lombok:$lombokVersion"
+    testImplementation "org.assertj:assertj-core:$assertjVersion"
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$junitJupiterVersion"
+    testImplementation "org.junit.jupiter:junit-jupiter-params:$junitJupiterVersion"
+
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitJupiterVersion"
+
+    testAnnotationProcessor "org.projectlombok:lombok:$lombokVersion"
+
+    //--------
+
+
+    implementation "org.projectlombok:lombok:$lombokVersion"
+    implementation "io.netty:netty-all:$nettyVersion"
+    implementation "ch.qos.logback:logback-classic:$logbackVersion"
+    implementation project(":mCommon")
+
+    annotationProcessor "org.projectlombok:lombok:$lombokVersion"
+
+    testImplementation "org.projectlombok:lombok:$lombokVersion"
+    testImplementation "org.assertj:assertj-core:$assertjVersion"
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$junitJupiterVersion"
+    testImplementation "org.junit.jupiter:junit-jupiter-params:$junitJupiterVersion"
+    testImplementation "io.netty:netty-all:$nettyVersion"
+    testImplementation "ch.qos.logback:logback-classic:$logbackVersion"
+    testImplementation "org.mockito:mockito-all:$mackitoVersion"
+    testImplementation "com.github.javafaker:javafaker:$javafakerVersion"
+
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitJupiterVersion"
+
+    testAnnotationProcessor "org.projectlombok:lombok:$lombokVersion"
+}
+
+test {
+    useJUnitPlatform()
+}
