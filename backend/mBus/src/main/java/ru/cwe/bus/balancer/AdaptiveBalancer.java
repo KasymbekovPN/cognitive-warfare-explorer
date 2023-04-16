@@ -18,7 +18,7 @@ public final class AdaptiveBalancer implements Balancer {
 	}
 
 	@Override
-	public void balance(PayloadMessage message) {
+	public void balance(final PayloadMessage message) {
 		int min = Integer.MAX_VALUE;
 		int index = -1;
 		for (Map.Entry<Integer, Tube> entry : tubes.entrySet()) {

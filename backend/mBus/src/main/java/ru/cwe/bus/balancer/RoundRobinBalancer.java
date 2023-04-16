@@ -20,7 +20,7 @@ public final class RoundRobinBalancer implements Balancer {
 	}
 
 	@Override
-	public void balance(PayloadMessage message) {
+	public void balance(final PayloadMessage message) {
 		int index = counter.getAndIncrement() % tubes.size();
 		this.tubes.get(index).send(message);
 	}
