@@ -9,10 +9,10 @@ public final class TubeDatumImpl implements TubeDatum {
 	private final String host;
 	private final int port;
 
-	public TubeDatumImpl(PayloadMessage message, String host, int port) {
+	public TubeDatumImpl(PayloadMessage message, String host, Integer port) {
 		this.message = message;
-		this.host = host;
-		this.port = port;
+		this.host = host != null ? host : message.getTo().getHost();
+		this.port = port != null ? port : message.getTo().getPort();
 	}
 
 	public TubeDatumImpl(PayloadMessage message) {
