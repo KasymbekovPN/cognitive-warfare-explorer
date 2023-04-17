@@ -1,7 +1,8 @@
 package ru.cwe.conversation.tube;
 
 public interface Tube {
-	void send(TubeDatum datum);
+	boolean put(TubeDatum datum);
+	void dispose() throws InterruptedException;
 	int size();
 	DatumCreator creator();
 }

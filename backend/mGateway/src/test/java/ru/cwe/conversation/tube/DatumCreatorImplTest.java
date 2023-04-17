@@ -2,7 +2,6 @@ package ru.cwe.conversation.tube;
 
 import lombok.Getter;
 import lombok.SneakyThrows;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import ru.cwe.conversation.message.MessageType;
 import ru.cwe.conversation.message.payload.PayloadMessage;
@@ -11,7 +10,6 @@ import utils.TestPayloadMessage;
 import utils.faker.Fakers;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 class DatumCreatorImplTest {
 
@@ -91,9 +89,13 @@ class DatumCreatorImplTest {
 		private TubeDatum datum;
 
 		@Override
-		public void send(TubeDatum datum) {
+		public boolean put(TubeDatum datum) {
 			this.datum = datum;
+			return true;
 		}
+
+		@Override
+		public void dispose() throws InterruptedException {}
 
 		@Override
 		public int size() { return 0; }

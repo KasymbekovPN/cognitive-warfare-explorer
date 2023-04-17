@@ -31,7 +31,7 @@ public final class DatumCreatorImpl implements DatumCreator {
 
 	@Override
 	public Tube put() {
-		tube.send(new TubeDatumImpl(message, host, port));
+		tube.put(new TubeDatumImpl(message, host, port));
 		return tube;
 	}
 }
