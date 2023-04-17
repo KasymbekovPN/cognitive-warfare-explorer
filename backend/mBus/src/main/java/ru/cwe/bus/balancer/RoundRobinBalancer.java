@@ -1,7 +1,8 @@
 package ru.cwe.bus.balancer;
 
 import ru.cwe.conversation.message.payload.PayloadMessage;
-import ru.cwe.conversation.tube.TubeOld;
+import ru.cwe.conversation.tube.Tube;
+import ru.cwe.conversation.tube.TubeDatumImpl;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,28 +10,28 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public final class RoundRobinBalancer implements Balancer {
 	private final AtomicInteger counter = new AtomicInteger(0);
-	private final Map<Integer, TubeOld> tubes;
+	private final Map<Integer, Tube> tubes;
 
 	public static Builder builder(){
 		return new Builder();
 	}
 
-	private RoundRobinBalancer(Map<Integer, TubeOld> tubes) {
+	private RoundRobinBalancer(Map<Integer, Tube> tubes) {
 		this.tubes = tubes;
 	}
 
 	@Override
 	public void balance(final PayloadMessage message) {
 		int index = counter.getAndIncrement() % tubes.size();
-		this.tubes.get(index).send(message);
+		this.tubes.get(index).put(new TubeDatumImpl(message));
 	}
 
 	public static class Builder {
-		private final Map<Integer, TubeOld> tubes = new HashMap<>();
+		private final Map<Integer, Tube> tubes = new HashMap<>();
 
 		private int counter = 0;
 
-		public Builder tube(TubeOld tubeOld) {
+		public Builder tube(Tube tubeOld) {
 			tubes.put(counter++, tubeOld);
 			return this;
 		}

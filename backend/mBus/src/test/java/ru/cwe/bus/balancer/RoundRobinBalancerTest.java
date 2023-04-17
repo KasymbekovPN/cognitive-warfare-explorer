@@ -3,7 +3,9 @@ package ru.cwe.bus.balancer;
 import org.junit.jupiter.api.Test;
 import ru.cwe.conversation.message.MessageType;
 import ru.cwe.conversation.message.payload.PayloadMessage;
-import ru.cwe.conversation.tube.TubeOld;
+import ru.cwe.conversation.tube.DatumCreator;
+import ru.cwe.conversation.tube.Tube;
+import ru.cwe.conversation.tube.TubeDatum;
 import utils.TestPayloadMessage;
 import utils.faker.Fakers;
 
@@ -27,9 +29,9 @@ class RoundRobinBalancerTest {
 
 	@Test
 	void shouldCheckBalance() {
-		TestTubeOld tt0 = new TestTubeOld();
-		TestTubeOld tt1 = new TestTubeOld();
-		TestTubeOld tt2 = new TestTubeOld();
+		TestTube tt0 = new TestTube();
+		TestTube tt1 = new TestTube();
+		TestTube tt2 = new TestTube();
 
 		RoundRobinBalancer balancer = RoundRobinBalancer.builder()
 			.tube(tt0)
@@ -59,15 +61,24 @@ class RoundRobinBalancerTest {
 		);
 	}
 
-	private static class TestTubeOld implements TubeOld {
-		private final List<PayloadMessage> messages = new ArrayList<>();
+	private static class TestTube implements Tube {
+		private final List<TubeDatum> messages = new ArrayList<>();
 
 		@Override
-		public void send(PayloadMessage message) {
-			this.messages.add(message);
+		public boolean put(TubeDatum datum) {
+			this.messages.add(datum);
+			return false;
 		}
 
 		@Override
-		public int size() { return messages.size(); }
+		public void dispose() throws InterruptedException {}
+
+		@Override
+		public int size() {
+			return messages.size();
+		}
+
+		@Override
+		public DatumCreator creator() {return null;}
 	}
 }
