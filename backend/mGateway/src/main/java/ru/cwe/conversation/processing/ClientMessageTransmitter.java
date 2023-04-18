@@ -2,8 +2,8 @@ package ru.cwe.conversation.processing;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
-import ru.cwe.conversation.container.MessageContainer;
 import ru.cwe.conversation.converter.ToConfirmationMessageConverter;
+import ru.cwe.conversation.holder.SentMessageHolder;
 import ru.cwe.conversation.message.confirmation.ConfirmationMessage;
 import ru.cwe.conversation.message.payload.PayloadMessage;
 
@@ -12,7 +12,7 @@ import java.util.function.Function;
 
 public final class ClientMessageTransmitter extends ChannelInboundHandlerAdapter {
 	private final PayloadMessage message;
-	private final MessageContainer<ConfirmationMessage> messageContainer;
+	private final SentMessageHolder sentMessageHolder;
 	private final Function<Object, Optional<ConfirmationMessage>> converter;
 
 	public static Builder builder(){
@@ -20,15 +20,15 @@ public final class ClientMessageTransmitter extends ChannelInboundHandlerAdapter
 	}
 
 	public static ClientMessageTransmitter instance(final PayloadMessage message,
-													final MessageContainer<ConfirmationMessage> container){
-		return builder().build(message, container);
+													final SentMessageHolder sentMessageHolder){
+		return builder().build(message, sentMessageHolder);
 	}
 
 	private ClientMessageTransmitter(final PayloadMessage message,
-									 final MessageContainer<ConfirmationMessage> messageContainer,
+									 final SentMessageHolder sentMessageHolder,
 									 final Function<Object, Optional<ConfirmationMessage>> converter) {
 		this.message = message;
-		this.messageContainer = messageContainer;
+		this.sentMessageHolder = sentMessageHolder;
 		this.converter = converter;
 	}
 
@@ -38,9 +38,9 @@ public final class ClientMessageTransmitter extends ChannelInboundHandlerAdapter
 	}
 
 	@Override
-	public void channelRead(final ChannelHandlerContext ctx, Object msg) throws Exception {
+	public void channelRead(final ChannelHandlerContext ctx, final Object msg) throws Exception {
 		Optional<ConfirmationMessage> result = converter.apply(msg);
-		result.ifPresent(messageContainer::append);
+		result.ifPresent(m -> { sentMessageHolder.erase(m.getUuid()); });
 		ctx.close();
 	}
 
@@ -53,10 +53,10 @@ public final class ClientMessageTransmitter extends ChannelInboundHandlerAdapter
 		}
 
 		public ClientMessageTransmitter build(final PayloadMessage message,
-											  final MessageContainer<ConfirmationMessage> container){
+											  final SentMessageHolder sentMessageHolder){
 			return new ClientMessageTransmitter(
 				message,
-				container,
+				sentMessageHolder,
 				converter != null ? converter : new ToConfirmationMessageConverter()
 			);
 		}

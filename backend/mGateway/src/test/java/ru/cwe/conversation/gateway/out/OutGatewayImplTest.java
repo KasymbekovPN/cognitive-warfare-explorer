@@ -26,7 +26,7 @@ class OutGatewayImplTest {
 	}
 
 	@Test
-	void shouldCheckStart() {
+	void shouldCheckSend() {
 		TestChannelFuture expectedFuture = new TestChannelFuture();
 		TestBootstrapHolder holder = new TestBootstrapHolder(false, expectedFuture);
 		TestFutureProcessor futureProcessor = new TestFutureProcessor();
