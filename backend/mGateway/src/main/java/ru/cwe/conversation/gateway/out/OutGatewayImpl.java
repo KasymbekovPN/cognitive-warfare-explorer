@@ -49,6 +49,7 @@ public final class OutGatewayImpl implements OutGateway {
 
 	private void send(final PayloadMessage message,
 					  final ChannelFutureSupplier supplier){
+		// TODO: 18.04.2023 move it to holder !!! CWE-41
 		bootstrapHolder.getBootstrap().handler(new ChannelInitializer<SocketChannel>() {
 			@Override
 			protected void initChannel(SocketChannel ch) throws Exception {

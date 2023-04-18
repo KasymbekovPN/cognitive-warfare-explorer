@@ -5,7 +5,7 @@ import ru.cwe.conversation.message.payload.PayloadMessage;
 
 @RequiredArgsConstructor
 public final class DatumCreatorImpl implements DatumCreator {
-	private final Tube tube;
+	private final TubeOld tubeOld;
 
 	private PayloadMessage message;
 	private String host;
@@ -30,8 +30,8 @@ public final class DatumCreatorImpl implements DatumCreator {
 	}
 
 	@Override
-	public Tube put() {
-		tube.put(new TubeDatumImpl(message, host, port));
-		return tube;
+	public TubeOld put() {
+		tubeOld.put(new TubeDatumImpl(message, host, port));
+		return tubeOld;
 	}
 }

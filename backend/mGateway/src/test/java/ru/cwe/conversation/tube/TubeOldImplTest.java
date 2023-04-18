@@ -15,7 +15,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class TubeImplTest {
+// TODO: 18.04.2023 del
+class TubeOldImplTest {
 
 	@SneakyThrows
 	@Test
@@ -24,7 +25,7 @@ class TubeImplTest {
 		TestExecutorService executorService = new TestExecutorService();
 		TestOutGateway outGateway = new TestOutGateway();
 
-		TubeImpl tube = TubeImpl.create(queue, executorService, outGateway);
+		TubeOldImpl tube = TubeOldImpl.create(queue, executorService, outGateway);
 		assertThat(tube).isNotNull();
 		assertThat(executorService.isSubmitted()).isTrue();
 
@@ -38,7 +39,7 @@ class TubeImplTest {
 		TestExecutorService executorService = new TestExecutorService();
 		TestOutGateway outGateway = new TestOutGateway();
 
-		TubeImpl tube = TubeImpl.create(queue, executorService, outGateway);
+		TubeOldImpl tube = TubeOldImpl.create(queue, executorService, outGateway);
 		tube.dispose();
 
 		AtomicBoolean inProgress = Reflections.get(tube, "inProcess", AtomicBoolean.class);
@@ -54,7 +55,7 @@ class TubeImplTest {
 		TestExecutorService executorService = new TestExecutorService();
 		TestOutGateway outGateway = new TestOutGateway();
 
-		TubeImpl tube = TubeImpl.create(queue, executorService, outGateway);
+		TubeOldImpl tube = TubeOldImpl.create(queue, executorService, outGateway);
 
 		boolean result = tube.put(new TubeDatumImpl(null, Fakers.address().host(), Fakers.address().port()));
 		assertThat(result).isTrue();
@@ -69,7 +70,7 @@ class TubeImplTest {
 		TestExecutorService executorService = new TestExecutorService();
 		TestOutGateway outGateway = new TestOutGateway();
 
-		TubeImpl tube = TubeImpl.create(queue, executorService, outGateway);
+		TubeOldImpl tube = TubeOldImpl.create(queue, executorService, outGateway);
 		tube.dispose();
 
 		boolean result = tube.put(new TubeDatumImpl(null, Fakers.address().host(), Fakers.address().port()));
@@ -92,7 +93,7 @@ class TubeImplTest {
 			}
 		};
 
-		TubeImpl tube = TubeImpl.create(queue, executorService, outGateway);
+		TubeOldImpl tube = TubeOldImpl.create(queue, executorService, outGateway);
 
 		tube.put(new TubeDatumImpl(null, Fakers.address().host(), Fakers.address().port()));
 		tube.put(new TubeDatumImpl(null, Fakers.address().host(), Fakers.address().port()));
@@ -110,11 +111,11 @@ class TubeImplTest {
 		TestExecutorService executorService = new TestExecutorService();
 		TestOutGateway outGateway = new TestOutGateway();
 
-		TubeImpl tube = TubeImpl.create(queue, executorService, outGateway);
+		TubeOldImpl tube = TubeOldImpl.create(queue, executorService, outGateway);
 		DatumCreator creator = tube.creator();
 
 		assertThat(creator).isInstanceOf(DatumCreatorImpl.class);
-		assertThat(Reflections.get(creator, "tube", Tube.class)).isEqualTo(tube);
+		assertThat(Reflections.get(creator, "tube", TubeOld.class)).isEqualTo(tube);
 
 		tube.dispose();
 	}
@@ -126,7 +127,7 @@ class TubeImplTest {
 		ExecutorService executorService = Executors.newSingleThreadExecutor();
 		TestOutGateway outGateway = new TestOutGateway();
 
-		TubeImpl tube = TubeImpl.create(queue, executorService, outGateway);
+		TubeOldImpl tube = TubeOldImpl.create(queue, executorService, outGateway);
 		int size = 10;
 		for (int i = 0; i < size; i++) {
 			tube.put(new TubeDatumImpl(null, Fakers.address().host(), Fakers.address().port()));

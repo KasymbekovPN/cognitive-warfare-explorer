@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import ru.cwe.conversation.message.MessageType;
 import ru.cwe.conversation.message.payload.PayloadMessage;
 import ru.cwe.conversation.tube.DatumCreator;
-import ru.cwe.conversation.tube.Tube;
+import ru.cwe.conversation.tube.TubeOld;
 import ru.cwe.conversation.tube.TubeDatum;
 import utils.TestPayloadMessage;
 import utils.faker.Fakers;
@@ -32,9 +32,9 @@ class AdaptiveBalancerTest {
 
 	@Test
 	void shouldCheckBalance() {
-		TestTube tt0 = new TestTube(0);
-		TestTube tt1 = new TestTube(7);
-		TestTube tt2 = new TestTube(11);
+		TestTubeOld tt0 = new TestTubeOld(0);
+		TestTubeOld tt1 = new TestTubeOld(7);
+		TestTubeOld tt2 = new TestTubeOld(11);
 
 		AdaptiveBalancer balancer = AdaptiveBalancer.builder()
 			.tube(tt0)
@@ -65,7 +65,7 @@ class AdaptiveBalancerTest {
 	}
 
 	@RequiredArgsConstructor
-	private static class TestTube implements Tube {
+	private static class TestTubeOld implements TubeOld {
 		@Getter
 		private final List<TubeDatum> messages = new ArrayList<>();
 		private final int offset;

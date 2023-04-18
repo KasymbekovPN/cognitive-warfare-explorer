@@ -27,7 +27,7 @@ class DatumCreatorImplTest {
 			Fakers.address().address()
 		);
 
-		DatumCreatorImpl creator = new DatumCreatorImpl(new TestTube());
+		DatumCreatorImpl creator = new DatumCreatorImpl(new TestTubeOld());
 		DatumCreator result = creator.message(message);
 
 		assertThat(result).isEqualTo(creator);
@@ -37,7 +37,7 @@ class DatumCreatorImplTest {
 	@SneakyThrows
 	@Test
 	void shouldCheckHostMethod() {
-		DatumCreatorImpl creator = new DatumCreatorImpl(new TestTube());
+		DatumCreatorImpl creator = new DatumCreatorImpl(new TestTubeOld());
 		String expectedHost = Fakers.address().host();
 		DatumCreator result = creator.host(expectedHost);
 
@@ -48,7 +48,7 @@ class DatumCreatorImplTest {
 	@SneakyThrows
 	@Test
 	void shouldCheckPortMethod() {
-		DatumCreatorImpl creator = new DatumCreatorImpl(new TestTube());
+		DatumCreatorImpl creator = new DatumCreatorImpl(new TestTubeOld());
 		int expectedPort = Fakers.address().port();
 		DatumCreator result = creator.port(expectedPort);
 
@@ -71,20 +71,20 @@ class DatumCreatorImplTest {
 		String expectedHost = Fakers.address().host();
 		int expectedPort = Fakers.address().port();
 
-		Tube tube = new DatumCreatorImpl(new TestTube())
+		TubeOld tubeOld = new DatumCreatorImpl(new TestTubeOld())
 			.message(message)
 			.host(expectedHost)
 			.port(expectedPort)
 			.put();
-		assertThat(tube).isInstanceOf(TestTube.class);
-		TestTube castTube = (TestTube) tube;
+		assertThat(tubeOld).isInstanceOf(TestTubeOld.class);
+		TestTubeOld castTube = (TestTubeOld) tubeOld;
 		TubeDatum datum = castTube.getDatum();
 		assertThat(datum.getMessage()).isEqualTo(message);
 		assertThat(datum.getHost()).isEqualTo(expectedHost);
 		assertThat(datum.getPort()).isEqualTo(expectedPort);
 	}
 
-	private static class TestTube implements Tube {
+	private static class TestTubeOld implements TubeOld {
 		@Getter
 		private TubeDatum datum;
 

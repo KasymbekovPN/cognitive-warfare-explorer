@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import ru.cwe.conversation.message.MessageType;
 import ru.cwe.conversation.message.payload.PayloadMessage;
 import ru.cwe.conversation.tube.DatumCreator;
-import ru.cwe.conversation.tube.Tube;
+import ru.cwe.conversation.tube.TubeOld;
 import ru.cwe.conversation.tube.TubeDatum;
 import utils.TestPayloadMessage;
 import utils.faker.Fakers;
@@ -29,9 +29,9 @@ class RoundRobinBalancerTest {
 
 	@Test
 	void shouldCheckBalance() {
-		TestTube tt0 = new TestTube();
-		TestTube tt1 = new TestTube();
-		TestTube tt2 = new TestTube();
+		TestTubeOld tt0 = new TestTubeOld();
+		TestTubeOld tt1 = new TestTubeOld();
+		TestTubeOld tt2 = new TestTubeOld();
 
 		RoundRobinBalancer balancer = RoundRobinBalancer.builder()
 			.tube(tt0)
@@ -61,7 +61,7 @@ class RoundRobinBalancerTest {
 		);
 	}
 
-	private static class TestTube implements Tube {
+	private static class TestTubeOld implements TubeOld {
 		private final List<TubeDatum> messages = new ArrayList<>();
 
 		@Override

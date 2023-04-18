@@ -7,23 +7,24 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+// TODO: 18.04.2023 del
 @Slf4j
-public final class TubeImpl implements Tube {
+public final class TubeOldImpl implements TubeOld {
 	private final AtomicBoolean inProcess = new AtomicBoolean(true);
 	private final BlockingQueue<TubeDatum> queue;
 	private final ExecutorService executor;
 	private final OutGateway outGateway;
 
-	public static TubeImpl create(BlockingQueue<TubeDatum> queue,
-								  ExecutorService executor,
-								  OutGateway outGateway){
-		TubeImpl tube = new TubeImpl(queue, executor, outGateway);
+	public static TubeOldImpl create(BlockingQueue<TubeDatum> queue,
+									 ExecutorService executor,
+									 OutGateway outGateway){
+		TubeOldImpl tube = new TubeOldImpl(queue, executor, outGateway);
 		tube.submit(tube::execute);
 		log.info("It's started...");
 		return tube;
 	}
 
-	private TubeImpl(BlockingQueue<TubeDatum> queue, ExecutorService executor, OutGateway outGateway) {
+	private TubeOldImpl(BlockingQueue<TubeDatum> queue, ExecutorService executor, OutGateway outGateway) {
 		this.queue = queue;
 		this.executor = executor;
 		this.outGateway = outGateway;

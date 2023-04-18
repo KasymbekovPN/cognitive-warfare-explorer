@@ -1,6 +1,7 @@
 package ru.cwe.conversation.tube;
 
-public interface Tube {
+// TODO: 18.04.2023 del
+public interface TubeOld {
 	boolean put(TubeDatum datum);
 	void dispose() throws InterruptedException;
 	int size();

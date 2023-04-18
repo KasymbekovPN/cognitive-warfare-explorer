@@ -1,7 +1,7 @@
 package ru.cwe.bus.balancer;
 
 import ru.cwe.conversation.message.payload.PayloadMessage;
-import ru.cwe.conversation.tube.Tube;
+import ru.cwe.conversation.tube.TubeOld;
 import ru.cwe.conversation.tube.TubeDatumImpl;
 
 import java.util.HashMap;
@@ -10,13 +10,13 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public final class RoundRobinBalancer implements Balancer {
 	private final AtomicInteger counter = new AtomicInteger(0);
-	private final Map<Integer, Tube> tubes;
+	private final Map<Integer, TubeOld> tubes;
 
 	public static Builder builder(){
 		return new Builder();
 	}
 
-	private RoundRobinBalancer(Map<Integer, Tube> tubes) {
+	private RoundRobinBalancer(Map<Integer, TubeOld> tubes) {
 		this.tubes = tubes;
 	}
 
@@ -27,11 +27,11 @@ public final class RoundRobinBalancer implements Balancer {
 	}
 
 	public static class Builder {
-		private final Map<Integer, Tube> tubes = new HashMap<>();
+		private final Map<Integer, TubeOld> tubes = new HashMap<>();
 
 		private int counter = 0;
 
-		public Builder tube(Tube tubeOld) {
+		public Builder tube(TubeOld tubeOld) {
 			tubes.put(counter++, tubeOld);
 			return this;
 		}

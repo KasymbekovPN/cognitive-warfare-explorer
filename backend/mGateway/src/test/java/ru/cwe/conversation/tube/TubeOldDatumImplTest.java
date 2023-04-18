@@ -8,7 +8,7 @@ import utils.faker.Fakers;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class TubeDatumImplTest {
+class TubeOldDatumImplTest {
 
 	@Test
 	void shouldCheckCreation_byMessage() {
