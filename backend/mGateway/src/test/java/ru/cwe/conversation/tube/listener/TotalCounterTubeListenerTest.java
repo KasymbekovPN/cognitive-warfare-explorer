@@ -1,6 +1,7 @@
 package ru.cwe.conversation.tube.listener;
 
 import lombok.SneakyThrows;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ class TotalCounterTubeListenerTest {
 	}
 
 	@SneakyThrows
-	@Test
+	@RepeatedTest(1000)
 	void shouldCheckGetting() {
 		int expectedCounter = 10;
 		int threadAmount = 5;
