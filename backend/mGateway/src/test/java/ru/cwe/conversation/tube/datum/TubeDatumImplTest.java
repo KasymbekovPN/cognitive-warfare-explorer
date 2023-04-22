@@ -1,4 +1,4 @@
-package ru.cwe.conversation.tube;
+package ru.cwe.conversation.tube.datum;
 
 import org.junit.jupiter.api.Test;
 import ru.cwe.conversation.address.Address;
@@ -8,7 +8,7 @@ import utils.faker.Fakers;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class TubeOldDatumImplTest {
+class TubeDatumImplTest {
 
 	@Test
 	void shouldCheckCreation_byMessage() {

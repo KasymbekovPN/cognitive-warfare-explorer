@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import ru.cwe.conversation.address.Address;
 import ru.cwe.conversation.message.MessageType;
 import ru.cwe.conversation.message.payload.PayloadMessage;
-import ru.cwe.conversation.tube.TubeDatumImpl;
+import ru.cwe.conversation.tube.datum.TubeDatumImpl;
 import utils.TestPayloadMessage;
 import utils.faker.Fakers;
 

@@ -1,4 +1,4 @@
-package ru.cwe.conversation.tube;
+package ru.cwe.conversation.tube.datum;
 
 import lombok.Getter;
 import ru.cwe.conversation.message.payload.PayloadMessage;

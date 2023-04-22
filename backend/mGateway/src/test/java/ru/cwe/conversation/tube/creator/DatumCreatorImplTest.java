@@ -1,10 +1,12 @@
-package ru.cwe.conversation.tube;
+package ru.cwe.conversation.tube.creator;
 
 import lombok.Getter;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 import ru.cwe.conversation.message.MessageType;
 import ru.cwe.conversation.message.payload.PayloadMessage;
+import ru.cwe.conversation.tube.datum.TubeDatum;
+import ru.cwe.conversation.tube.TubeOld;
 import ru.cwe.utils.reflection.Reflections;
 import utils.TestPayloadMessage;
 import utils.faker.Fakers;

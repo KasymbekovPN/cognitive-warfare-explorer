@@ -2,7 +2,7 @@ package ru.cwe.bus.balancer;
 
 import ru.cwe.conversation.message.payload.PayloadMessage;
 import ru.cwe.conversation.tube.TubeOld;
-import ru.cwe.conversation.tube.TubeDatumImpl;
+import ru.cwe.conversation.tube.datum.TubeDatumImpl;
 
 import java.util.HashMap;
 import java.util.Map;

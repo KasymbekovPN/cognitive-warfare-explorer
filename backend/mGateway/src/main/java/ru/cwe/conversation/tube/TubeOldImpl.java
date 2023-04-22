@@ -2,6 +2,9 @@ package ru.cwe.conversation.tube;
 
 import lombok.extern.slf4j.Slf4j;
 import ru.cwe.conversation.gateway.out.OutGateway;
+import ru.cwe.conversation.tube.creator.DatumCreator;
+import ru.cwe.conversation.tube.creator.DatumCreatorImpl;
+import ru.cwe.conversation.tube.datum.TubeDatum;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;

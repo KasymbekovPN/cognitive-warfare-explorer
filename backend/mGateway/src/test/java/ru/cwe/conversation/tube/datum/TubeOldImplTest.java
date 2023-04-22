@@ -1,10 +1,17 @@
-package ru.cwe.conversation.tube;
+package ru.cwe.conversation.tube.datum;
 
 import lombok.Getter;
 import lombok.SneakyThrows;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import ru.cwe.conversation.gateway.out.OutGateway;
 import ru.cwe.conversation.message.payload.PayloadMessage;
+import ru.cwe.conversation.tube.TubeOld;
+import ru.cwe.conversation.tube.TubeOldImpl;
+import ru.cwe.conversation.tube.creator.DatumCreator;
+import ru.cwe.conversation.tube.creator.DatumCreatorImpl;
+import ru.cwe.conversation.tube.datum.TubeDatum;
+import ru.cwe.conversation.tube.datum.TubeDatumImpl;
 import ru.cwe.utils.reflection.Reflections;
 import utils.faker.Fakers;
 
@@ -115,7 +122,7 @@ class TubeOldImplTest {
 		DatumCreator creator = tube.creator();
 
 		assertThat(creator).isInstanceOf(DatumCreatorImpl.class);
-		assertThat(Reflections.get(creator, "tube", TubeOld.class)).isEqualTo(tube);
+		Assertions.assertThat(Reflections.get(creator, "tube", TubeOld.class)).isEqualTo(tube);
 
 		tube.dispose();
 	}

@@ -1,7 +1,7 @@
 package ru.cwe.conversation.tube.listener;
 
 import lombok.Getter;
-import ru.cwe.conversation.tube.TubeDatum;
+import ru.cwe.conversation.tube.datum.TubeDatum;
 
 import java.util.concurrent.atomic.AtomicInteger;
 

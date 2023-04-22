@@ -1,7 +1,7 @@
 package ru.cwe.conversation.tube.listener;
 
 import ru.cwe.conversation.address.Address;
-import ru.cwe.conversation.tube.TubeDatum;
+import ru.cwe.conversation.tube.datum.TubeDatum;
 
 import java.util.Collections;
 import java.util.HashMap;
