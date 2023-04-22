@@ -1,4 +1,4 @@
-package ru.cwe.conversation.message.confirmation;
+package ru.cwe.common.message.confirmation;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import java.util.HashMap;
 import java.util.Map;
 
-// TODO: 22.04.2023 del
 @RequiredArgsConstructor
 public enum ConfirmationResult {
 	INVALID(0),

@@ -1,8 +1,7 @@
-package ru.cwe.conversation.message.confirmation;
+package ru.cwe.common.message.confirmation;
 
-import ru.cwe.conversation.message.Message;
+import ru.cwe.common.message.Message;
 
-// TODO: 22.04.2023 del
 public interface ConfirmationMessage extends Message {
 	ConfirmationResult getResult();
 	String getPayloadMessageType();
