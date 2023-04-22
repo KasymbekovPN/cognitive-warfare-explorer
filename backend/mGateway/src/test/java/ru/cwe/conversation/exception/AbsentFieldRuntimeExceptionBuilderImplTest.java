@@ -3,7 +3,7 @@ package ru.cwe.conversation.exception;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import ru.cwe.utils.reflection.Reflections;
+import ru.cwe.common.reflection.Reflections;
 import utils.faker.Fakers;
 
 import java.util.Optional;

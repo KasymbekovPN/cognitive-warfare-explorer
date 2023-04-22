@@ -9,6 +9,7 @@ import ru.cwe.conversation.message.payload.PayloadMessage;
 
 import java.util.UUID;
 
+// TODO: 22.04.2023 del
 @EqualsAndHashCode
 @RequiredArgsConstructor
 @Getter

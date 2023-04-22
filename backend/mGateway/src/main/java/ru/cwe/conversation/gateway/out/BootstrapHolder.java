@@ -2,7 +2,7 @@ package ru.cwe.conversation.gateway.out;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
-import ru.cwe.utils.shutdown.Shutdown;
+import ru.cwe.common.shutdown.Shutdown;
 
 public interface BootstrapHolder extends Shutdown {
 	Bootstrap getBootstrap();

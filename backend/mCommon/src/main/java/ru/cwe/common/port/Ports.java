@@ -1,4 +1,4 @@
-package ru.cwe.utils.port;
+package ru.cwe.common.port;
 
 public final class Ports {
 	private static final int MIN = 0;

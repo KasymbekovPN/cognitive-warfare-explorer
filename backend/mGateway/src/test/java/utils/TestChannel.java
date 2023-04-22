@@ -7,6 +7,7 @@ import io.netty.util.AttributeKey;
 
 import java.net.SocketAddress;
 
+// TODO: 22.04.2023 del
 public class TestChannel implements Channel {
 	@Override
 	public ChannelId id() { return null; }

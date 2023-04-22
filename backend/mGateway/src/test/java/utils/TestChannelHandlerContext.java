@@ -9,6 +9,7 @@ import lombok.Getter;
 
 import java.net.SocketAddress;
 
+// TODO: 22.04.2023 del 
 @Getter
 public final class TestChannelHandlerContext implements ChannelHandlerContext{
 	@Getter

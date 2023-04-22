@@ -5,7 +5,7 @@ import ru.cwe.conversation.exception.AbsentFieldRuntimeExceptionBuilderImpl;
 import ru.cwe.conversation.message.MessageType;
 import ru.cwe.conversation.message.Priorities;
 import ru.cwe.conversation.message.Versions;
-import ru.cwe.utils.delimiter.FirstDelimiter;
+import ru.cwe.common.delimiter.FirstDelimiter;
 
 import java.util.Optional;
 import java.util.function.Function;

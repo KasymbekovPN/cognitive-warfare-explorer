@@ -6,6 +6,7 @@ import ru.cwe.conversation.message.Priorities;
 import ru.cwe.conversation.message.Versions;
 import ru.cwe.conversation.message.confirmation.ConfirmationResult;
 
+// TODO: 22.04.2023 del
 @RequiredArgsConstructor
 public final class MessageFaker {
 	private final BaseFaker base;

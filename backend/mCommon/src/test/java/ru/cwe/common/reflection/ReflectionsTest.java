@@ -1,9 +1,10 @@
-package ru.cwe.utils.reflection;
+package ru.cwe.common.reflection;
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
+import ru.cwe.common.reflection.Reflections;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;

@@ -8,7 +8,7 @@ import ru.cwe.conversation.message.payload.PayloadMessage;
 import ru.cwe.conversation.tube.datum.TubeDatum;
 import ru.cwe.conversation.tube.datum.TubeDatumImpl;
 import ru.cwe.conversation.tube.listener.TubeListener;
-import ru.cwe.utils.reflection.Reflections;
+import ru.cwe.common.reflection.Reflections;
 import utils.TestPayloadMessage;
 import utils.faker.Fakers;
 

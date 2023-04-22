@@ -6,6 +6,7 @@ import ru.cwe.conversation.container.MessageContainer;
 import java.util.ArrayList;
 import java.util.List;
 
+// TODO: 22.04.2023 del
 public final class TestMessageContainer<M> implements MessageContainer<M> {
 	@Getter
 	private final List<M> messages = new ArrayList<>();

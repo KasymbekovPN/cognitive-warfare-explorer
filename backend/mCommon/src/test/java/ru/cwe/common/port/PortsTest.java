@@ -1,8 +1,9 @@
-package ru.cwe.utils.port;
+package ru.cwe.common.port;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
+import ru.cwe.common.port.Ports;
 
 class PortsTest {
 

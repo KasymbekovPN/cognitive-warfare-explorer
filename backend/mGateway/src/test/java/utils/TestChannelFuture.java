@@ -10,6 +10,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+// TODO: 22.04.2023 del 
 public class TestChannelFuture implements ChannelFuture {
 	@Getter
 	private GenericFutureListener<? extends Future<? super Void>> listener;

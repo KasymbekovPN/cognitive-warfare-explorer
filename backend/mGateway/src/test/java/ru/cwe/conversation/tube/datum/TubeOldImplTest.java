@@ -10,9 +10,7 @@ import ru.cwe.conversation.tube.TubeOld;
 import ru.cwe.conversation.tube.TubeOldImpl;
 import ru.cwe.conversation.tube.creator.DatumCreator;
 import ru.cwe.conversation.tube.creator.DatumCreatorImpl;
-import ru.cwe.conversation.tube.datum.TubeDatum;
-import ru.cwe.conversation.tube.datum.TubeDatumImpl;
-import ru.cwe.utils.reflection.Reflections;
+import ru.cwe.common.reflection.Reflections;
 import utils.faker.Fakers;
 
 import java.util.Collection;

@@ -1,7 +1,7 @@
 package ru.cwe.conversation.address;
 
 import ru.cwe.conversation.exception.AbsentFieldRuntimeExceptionBuilderImpl;
-import ru.cwe.utils.port.Ports;
+import ru.cwe.common.port.Ports;
 
 import java.util.Optional;
 import java.util.function.Function;

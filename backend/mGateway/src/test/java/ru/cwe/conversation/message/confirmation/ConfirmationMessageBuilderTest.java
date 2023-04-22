@@ -6,7 +6,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import ru.cwe.conversation.message.MessageType;
 import ru.cwe.conversation.message.Priorities;
-import ru.cwe.utils.reflection.Reflections;
+import ru.cwe.common.reflection.Reflections;
 import utils.faker.Fakers;
 import utils.TestPayloadMessage;
 

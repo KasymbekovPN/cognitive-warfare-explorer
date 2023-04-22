@@ -10,6 +10,7 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 
+// TODO: 22.04.2023 del
 public final class BufferUtil {
 	private static final Charset CHARSET = StandardCharsets.UTF_8;
 

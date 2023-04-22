@@ -1,8 +1,8 @@
 package ru.cwe.conversation.exception;
 
 import lombok.RequiredArgsConstructor;
-import ru.cwe.utils.delimiter.Delimiter;
-import ru.cwe.utils.delimiter.FirstDelimiter;
+import ru.cwe.common.delimiter.Delimiter;
+import ru.cwe.common.delimiter.FirstDelimiter;
 
 import java.util.Optional;
 import java.util.function.Function;

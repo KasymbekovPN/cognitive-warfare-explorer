@@ -1,6 +1,7 @@
-package ru.cwe.utils.delimiter;
+package ru.cwe.common.delimiter;
 
 import org.junit.jupiter.api.Test;
+import ru.cwe.common.delimiter.FirstDelimiter;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

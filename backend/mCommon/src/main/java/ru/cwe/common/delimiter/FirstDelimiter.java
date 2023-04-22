@@ -1,4 +1,4 @@
-package ru.cwe.utils.delimiter;
+package ru.cwe.common.delimiter;
 
 import lombok.RequiredArgsConstructor;
 

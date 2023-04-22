@@ -6,7 +6,7 @@ import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 import ru.cwe.conversation.gateway.FutureProcessor;
 import ru.cwe.conversation.message.confirmation.ConfirmationMessage;
-import ru.cwe.utils.reflection.Reflections;
+import ru.cwe.common.reflection.Reflections;
 import utils.TestMessageContainer;
 import utils.faker.Fakers;
 

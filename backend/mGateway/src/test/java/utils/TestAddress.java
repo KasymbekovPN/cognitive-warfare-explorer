@@ -4,6 +4,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import ru.cwe.conversation.address.Address;
 
+// TODO: 22.04.2023 del
 @EqualsAndHashCode
 @Getter
 public final class TestAddress implements Address {

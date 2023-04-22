@@ -9,6 +9,7 @@ import ru.cwe.conversation.message.confirmation.ConfirmationResult;
 
 import java.util.UUID;
 
+// TODO: 22.04.2023 del
 @RequiredArgsConstructor
 @EqualsAndHashCode
 @Getter

@@ -1,4 +1,4 @@
-package ru.cwe.utils.reflection;
+package ru.cwe.common.reflection;
 
 import java.lang.reflect.Field;
 

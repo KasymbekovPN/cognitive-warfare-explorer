@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import ru.cwe.conversation.address.Address;
 import utils.TestAddress;
 
+// TODO: 22.04.2023 del
 @RequiredArgsConstructor
 public final class AddressFaker {
 	private final BaseFaker base;
