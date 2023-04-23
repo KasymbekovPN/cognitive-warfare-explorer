@@ -2,6 +2,7 @@ package ru.cwe.common.test.faker;
 
 import lombok.RequiredArgsConstructor;
 
+// TODO: 23.04.2023 add message builders
 // TODO: 23.04.2023 impl it
 @RequiredArgsConstructor
 public final class MessageFaker {

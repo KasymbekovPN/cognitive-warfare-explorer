@@ -1,23 +1,16 @@
 package ru.cwe.common.test.message;
 
-// TODO: 22.04.2023 impl + add test
-public class TestPayloadMessage {
-	/*
-
-	package utils;
-
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import ru.cwe.conversation.address.Address;
-import ru.cwe.conversation.message.MessageType;
-import ru.cwe.conversation.message.payload.PayloadMessage;
+import ru.cwe.common.address.Address;
+import ru.cwe.common.message.MessageType;
+import ru.cwe.common.message.payload.PayloadMessage;
 
 import java.util.UUID;
 
-// TODO: 22.04.2023 del
-@EqualsAndHashCode
 @RequiredArgsConstructor
+@EqualsAndHashCode
 @Getter
 public final class TestPayloadMessage implements PayloadMessage {
 	private final int version;
@@ -28,7 +21,4 @@ public final class TestPayloadMessage implements PayloadMessage {
 	private final String content;
 	private final Address from;
 	private final Address to;
-}
-
-	 */
 }
