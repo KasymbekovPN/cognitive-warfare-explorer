@@ -2,12 +2,10 @@ package ru.cwe.common.test.faker;
 
 import com.github.javafaker.Faker;
 import lombok.SneakyThrows;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import ru.cwe.common.reflection.Reflections;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 class BaseFakerTest {
 

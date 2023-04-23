@@ -1,8 +1,8 @@
 package ru.cwe.common.port;
 
 public final class Ports {
-	private static final int MIN = 0;
-	private static final int MAX = 65535;
+	public static final int MIN = 0;
+	public static final int MAX = 65535;
 	private static final int LEFT_TO_RANGE = -1;
 	private static final int IN_RANGE = 0;
 	private static final int RIGHT_TO_RANGE = 1;
