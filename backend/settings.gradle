@@ -1,5 +1,3 @@
 rootProject.name = 'backend'
-include 'mGateway'
 include 'mCommon'
-include 'mBus'
 

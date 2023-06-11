@@ -1,9 +1,0 @@
-,,,Absent fields: version & uuid & result
-,123,,Absent fields: version & result
-,,1,Absent fields: version & uuid
-0,,,Absent fields: uuid & result
-0,123,,Absent fields: result
-0,,1,Absent fields: uuid
--1,,,Absent fields: uuid & result; invalid version
--1,123,,Absent fields: result; invalid version
--1,,1,Absent fields: uuid; invalid version

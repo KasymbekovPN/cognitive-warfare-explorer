@@ -1,0 +1,14 @@
+// TODO: 10.06.2023 ???
+//package ru.cwe.common.test.fakers;
+//
+//import com.github.javafaker.Faker;
+//import lombok.RequiredArgsConstructor;
+//
+//@RequiredArgsConstructor
+//public final class StringFaker {
+//	private final Faker core;
+//
+//	public String string(){
+//		return "randomString" + String.valueOf(core.number().randomNumber());
+//	}
+//}
