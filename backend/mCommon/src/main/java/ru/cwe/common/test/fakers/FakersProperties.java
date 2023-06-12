@@ -1,14 +1,20 @@
 package ru.cwe.common.test.fakers;
 
-import lombok.RequiredArgsConstructor;
 import ru.cwe.common.test.fakers.exception.NoSuchFakersProperty;
 
 import java.util.EnumMap;
 
-@RequiredArgsConstructor
 public final class FakersProperties {
 	private final EnumMap<FakersProperty, Object> properties = new EnumMap<>(FakersProperty.class);
 	private final Fakers fakers;
+
+	public FakersProperties() {
+		this.fakers = new Fakers();
+	}
+
+	public FakersProperties(Fakers fakers) {
+		this.fakers = fakers;
+	}
 
 	public FakersProperties put(FakersProperty property, Object value){
 		properties.put(property, value);
@@ -16,6 +22,7 @@ public final class FakersProperties {
 	}
 
 	public Fakers back(){
+		fakers.set(this);
 		return fakers;
 	}
 

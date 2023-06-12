@@ -1,12 +1,11 @@
 package ru.cwe.common.test.fakers.strategy.integer;
 
 import com.github.javafaker.Faker;
-import ru.cwe.common.test.fakers.FakersProperty;
+import ru.cwe.common.test.fakers.FakersProperties;
 import ru.cwe.common.test.fakers.exception.BadFakersStrategyPropertiesException;
 import ru.cwe.common.test.fakers.strategy.FakersStrategy;
 
 import java.util.ArrayList;
-import java.util.EnumMap;
 import java.util.List;
 
 public final class IntegerFakersStrategy implements FakersStrategy {
@@ -18,7 +17,7 @@ public final class IntegerFakersStrategy implements FakersStrategy {
 	}};
 
 	@Override
-	public Object execute(Faker faker, EnumMap<FakersProperty, Object> properties) {
+	public Object execute(Faker faker, FakersProperties properties) {
 		for (FakersStrategy strategy : STRATEGIES) {
 			Object result = strategy.execute(faker, properties);
 			if (result != null){
@@ -26,7 +25,6 @@ public final class IntegerFakersStrategy implements FakersStrategy {
 			}
 		}
 
-		// TODO: 11.06.2023 take message from properties
-		throw new BadFakersStrategyPropertiesException("");
+		throw new BadFakersStrategyPropertiesException(properties.toString());
 	}
 }

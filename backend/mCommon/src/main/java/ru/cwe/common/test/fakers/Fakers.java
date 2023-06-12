@@ -3,21 +3,21 @@ package ru.cwe.common.test.fakers;
 import com.github.javafaker.Faker;
 import ru.cwe.common.test.fakers.exception.NoSuchFakersStrategyException;
 import ru.cwe.common.test.fakers.strategy.FakersStrategy;
+import ru.cwe.common.test.fakers.strategy.integer.IntegerFakersStrategy;
 
-import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
 
 public final class Fakers {
 
 	private static final Map<Class<?>, FakersStrategy> DEFAULT_STRATEGIES = new HashMap<>(){{
-//		put(Integer.class, new IntegerFakersStrategy());
+		put(Integer.class, new IntegerFakersStrategy());
 	}};
 
 	private final Faker faker = new Faker();
 
-	private Map<Class<?>, FakersStrategy> strategies;
-	private EnumMap<FakersProperty, Object> properties;
+	private final Map<Class<?>, FakersStrategy> strategies;
+	private FakersProperties properties;
 
 	public Fakers() {
 		this.strategies = DEFAULT_STRATEGIES;
@@ -28,8 +28,8 @@ public final class Fakers {
 		this.strategies.putAll(strategies);
 	}
 
-	public PropertiesCollector fake(Class<?> type){
-		return new PropertiesCollector(this, type);
+	public FakersProperties props(Class<?> type){
+		return new FakersProperties(this).put(FakersProperty.TYPE, type);
 	}
 
 	public Object make(){
@@ -40,32 +40,7 @@ public final class Fakers {
 		throw new NoSuchFakersStrategyException(String.format("Strategy for %s is absence", key));
 	}
 
-	private void set(EnumMap<FakersProperty, Object> properties){
+	public void set(FakersProperties properties){
 		this.properties = properties;
-	}
-
-	// TODO: 11.06.2023 del
-	public static final class PropertiesCollector {
-
-		private final EnumMap<FakersProperty, Object> properties;
-		private final Fakers fakers;
-
-		public PropertiesCollector(Fakers fakers, Class<?> type) {
-			this.fakers = fakers;
-			this.properties = new EnumMap<>(FakersProperty.class);
-			this.properties.put(FakersProperty.TYPE, type);
-		}
-
-		public PropertiesCollector add(FakersProperty property, Object value){
-			if (!property.equals(FakersProperty.TYPE)){
-				properties.put(property, value);
-			}
-			return this;
-		}
-
-		public Fakers set(){
-			fakers.set(properties);
-			return fakers;
-		}
 	}
 }

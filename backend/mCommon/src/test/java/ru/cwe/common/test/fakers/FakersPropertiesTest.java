@@ -16,7 +16,7 @@ class FakersPropertiesTest {
 	@Test
 	void shouldCheckPutting() {
 		EnumMap<FakersProperty, Object> expected = new EnumMap<>(FakersProperty.class);
-		FakersProperties fakersProperties = new FakersProperties(null);
+		FakersProperties fakersProperties = new FakersProperties();
 
 		for (FakersProperty value : FakersProperty.values()) {
 			expected.put(value, value);
@@ -40,7 +40,7 @@ class FakersPropertiesTest {
 	@Test
 	void shouldCheckGetting_ifItAbsence() {
 		Throwable throwable = catchThrowable(() -> {
-			Object result = new FakersProperties(null).get(FakersProperty.OPERATION);
+			Object result = new FakersProperties().get(FakersProperty.OPERATION);
 		});
 		assertThat(throwable).isInstanceOf(NoSuchFakersProperty.class);
 	}
@@ -48,7 +48,7 @@ class FakersPropertiesTest {
 	@Test
 	void shouldCheckGetting() {
 		Class<Integer> expectedType = Integer.class;
-		Object result = new FakersProperties(null).put(FakersProperty.TYPE, expectedType).get(FakersProperty.TYPE);
+		Object result = new FakersProperties().put(FakersProperty.TYPE, expectedType).get(FakersProperty.TYPE);
 
 		assertThat(result).isEqualTo(expectedType);
 	}
@@ -56,7 +56,7 @@ class FakersPropertiesTest {
 	@Test
 	void shouldCheckCastGetting_idAbsence() {
 		Throwable throwable = catchThrowable(() -> {
-			Object result = new FakersProperties(null).get(FakersProperty.TYPE, Integer.class);
+			Object result = new FakersProperties().get(FakersProperty.TYPE, Integer.class);
 		});
 		assertThat(throwable).isInstanceOf(NoSuchFakersProperty.class);
 	}
@@ -64,7 +64,7 @@ class FakersPropertiesTest {
 	@Test
 	void shouldCheckCastGetting_ifBadCast() {
 		Throwable throwable = catchThrowable(() -> {
-			Object result = new FakersProperties(null)
+			Object result = new FakersProperties()
 				.put(FakersProperty.TYPE, 123.0)
 				.get(FakersProperty.TYPE, Integer.class);
 		});
@@ -74,7 +74,7 @@ class FakersPropertiesTest {
 	@Test
 	void shouldCheckCastGetting() {
 		int expected = 123;
-		Object result = new FakersProperties(null)
+		Object result = new FakersProperties()
 			.put(FakersProperty.TYPE, expected)
 			.get(FakersProperty.TYPE, Integer.class);
 		assertThat(result).isEqualTo(expected);
@@ -82,37 +82,37 @@ class FakersPropertiesTest {
 
 	@Test
 	void shouldCheckContains_ifAbsence() {
-		FakersProperties properties = new FakersProperties(null);
+		FakersProperties properties = new FakersProperties();
 		assertThat(properties.contains(FakersProperty.TYPE)).isFalse();
 	}
 
 	@Test
 	void shouldCheckContains() {
-		FakersProperties properties = new FakersProperties(null).put(FakersProperty.TYPE, Integer.class);
+		FakersProperties properties = new FakersProperties().put(FakersProperty.TYPE, Integer.class);
 		assertThat(properties.contains(FakersProperty.TYPE)).isTrue();
 	}
 
 	@Test
 	void shouldCheckEqual_ifAbsence() {
-		FakersProperties properties = new FakersProperties(null);
+		FakersProperties properties = new FakersProperties();
 		assertThat(properties.isEqual(FakersProperty.TYPE, Integer.class)).isFalse();
 	}
 
 	@Test
 	void shouldCheckEqual_ifNotEqual() {
-		FakersProperties properties = new FakersProperties(null).put(FakersProperty.TYPE, Float.class);
+		FakersProperties properties = new FakersProperties().put(FakersProperty.TYPE, Float.class);
 		assertThat(properties.isEqual(FakersProperty.TYPE, Integer.class)).isFalse();
 	}
 
 	@Test
 	void shouldCheckEqual() {
-		FakersProperties properties = new FakersProperties(null).put(FakersProperty.TYPE, Integer.class);
+		FakersProperties properties = new FakersProperties().put(FakersProperty.TYPE, Integer.class);
 		assertThat(properties.isEqual(FakersProperty.TYPE, Integer.class)).isTrue();
 	}
 
 	@Test
 	void showToString() {
-		FakersProperties properties = new FakersProperties(null)
+		FakersProperties properties = new FakersProperties()
 			.put(FakersProperty.TYPE, Integer.class)
 			.put(FakersProperty.OPERATION, FakersProperty.BETWEEN)
 			.put(FakersProperty.MIN, 0)
