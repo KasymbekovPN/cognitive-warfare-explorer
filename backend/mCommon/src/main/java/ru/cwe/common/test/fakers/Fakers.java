@@ -4,14 +4,19 @@ import com.github.javafaker.Faker;
 import ru.cwe.common.test.fakers.exception.NoSuchFakersStrategyException;
 import ru.cwe.common.test.fakers.strategy.FakersStrategy;
 import ru.cwe.common.test.fakers.strategy.integer.IntegerFakersStrategy;
+import ru.cwe.common.test.fakers.strategy.string.StringFakersStrategy;
+import ru.cwe.common.test.fakers.strategy.uuid.UuidFakersStrategy;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public final class Fakers {
 
 	private static final Map<Class<?>, FakersStrategy> DEFAULT_STRATEGIES = new HashMap<>(){{
 		put(Integer.class, new IntegerFakersStrategy());
+		put(String.class, new StringFakersStrategy());
+		put(UUID.class, new UuidFakersStrategy());
 	}};
 
 	private final Faker faker = new Faker();
