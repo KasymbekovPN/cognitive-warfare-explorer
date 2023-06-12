@@ -44,6 +44,7 @@ public final class Fakers {
 		this.properties = properties;
 	}
 
+	// TODO: 11.06.2023 del
 	public static final class PropertiesCollector {
 
 		private final EnumMap<FakersProperty, Object> properties;
