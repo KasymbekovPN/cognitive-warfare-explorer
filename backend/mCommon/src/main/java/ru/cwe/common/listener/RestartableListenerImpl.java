@@ -26,6 +26,15 @@ public class RestartableListenerImpl implements RestartableListener {
 
 	@Override
 	public void shutdown() {
-		thread.shutdown();
+		ListenerThread th = null;
+		synchronized (this){
+			if (thread != null){
+				th = thread;
+				thread = null;
+			}
+		}
+		if (th != null){
+			th.shutdown();
+		}
 	}
 }

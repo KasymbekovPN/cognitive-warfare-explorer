@@ -17,6 +17,7 @@ ext {
     set('logbackVersion', '1.2.10')
     set('mackitoVersion', '1.10.19')
     set('javafakerVersion', '1.0.2')
+    set('kafkaVersion', '2.7.2')
 }
 
 dependencies {
