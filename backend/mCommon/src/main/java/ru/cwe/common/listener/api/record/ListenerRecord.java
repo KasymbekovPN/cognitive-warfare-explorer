@@ -1,4 +1,4 @@
-package ru.cwe.common.record;
+package ru.cwe.common.listener.api.record;
 
 import ru.cwe.common.message.Message;
 

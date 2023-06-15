@@ -1,20 +1,17 @@
 package ru.cwe.common.listener;
 
 import lombok.RequiredArgsConstructor;
-import ru.cwe.common.buffer.ListenerMessageBuffer;
-import ru.cwe.common.record.ListenerRecord;
+import ru.cwe.common.listener.api.buffer.ListenerMessageBuffer;
 
-import java.io.IOException;
-import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Supplier;
 
 // TODO: 14.06.2023 rename
 @RequiredArgsConstructor
-public class KafkaListenerThread extends Thread implements ListenerThread {
+public class KafkaListenerThreadOld extends Thread implements ListenerThreadOld {
 	private final AtomicBoolean keepListening = new AtomicBoolean(false);
 
-	private final Supplier<Listener> listenerSupplier;
+	private final Supplier<ListenerOld> listenerSupplier;
 	private final ListenerMessageBuffer buffer;
 
 	@Override

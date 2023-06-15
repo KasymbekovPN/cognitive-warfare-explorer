@@ -1,6 +1,7 @@
 package ru.cwe.common.listener;
 
-public interface RestartableListener {
+// TODO: 15.06.2023 ???
+public interface ListenerThreadOld {
 	void start();
 	void shutdown();
 }

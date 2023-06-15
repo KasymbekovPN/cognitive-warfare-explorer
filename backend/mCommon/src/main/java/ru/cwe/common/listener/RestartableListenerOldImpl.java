@@ -4,11 +4,12 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.function.Supplier;
 
+// TODO: 15.06.2023 ???
 @RequiredArgsConstructor
-public class RestartableListenerImpl implements RestartableListener {
-	private final Supplier<ListenerThread> threadSupplier;
+public class RestartableListenerOldImpl implements RestartableListenerOld {
+	private final Supplier<ListenerThreadOld> threadSupplier;
 
-	private ListenerThread thread;
+	private ListenerThreadOld thread;
 
 	@Override
 	public void start() {
@@ -26,7 +27,7 @@ public class RestartableListenerImpl implements RestartableListener {
 
 	@Override
 	public void shutdown() {
-		ListenerThread th = null;
+		ListenerThreadOld th = null;
 		synchronized (this){
 			if (thread != null){
 				th = thread;
