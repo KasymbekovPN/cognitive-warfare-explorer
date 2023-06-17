@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import ru.cwe.common.listener.api.record.ListenerRecord;
 import ru.cwe.common.listener.api.record.ListenerRecordUnsupportedGetting;
-import ru.cwe.common.message.Message;
+import ru.cwe.common.message.api.message.Message;
 
 import java.util.HashMap;
 import java.util.Map;

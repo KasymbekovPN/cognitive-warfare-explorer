@@ -13,7 +13,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import ru.cwe.common.listener.api.record.ListenerRecord;
 import ru.cwe.common.listener.impl.record.KafkaRecordConverter;
-import ru.cwe.common.message.Message;
+import ru.cwe.common.message.api.message.Message;
 
 import java.time.Duration;
 import java.util.*;

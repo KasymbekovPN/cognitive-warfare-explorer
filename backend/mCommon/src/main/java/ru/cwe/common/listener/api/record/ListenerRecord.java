@@ -1,6 +1,6 @@
 package ru.cwe.common.listener.api.record;
 
-import ru.cwe.common.message.Message;
+import ru.cwe.common.message.api.message.Message;
 
 import java.util.UUID;
 

@@ -18,6 +18,7 @@ ext {
     set('mackitoVersion', '1.10.19')
     set('javafakerVersion', '1.0.2')
     set('kafkaVersion', '2.7.2')
+    set("jacksonVersion", '2.13.1')
 }
 
 dependencies {

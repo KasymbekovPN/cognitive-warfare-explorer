@@ -6,7 +6,7 @@ import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import ru.cwe.common.listener.api.listener.PollingListener;
 import ru.cwe.common.listener.api.record.ListenerRecord;
-import ru.cwe.common.message.Message;
+import ru.cwe.common.message.api.message.Message;
 
 import java.time.Duration;
 import java.util.ArrayList;

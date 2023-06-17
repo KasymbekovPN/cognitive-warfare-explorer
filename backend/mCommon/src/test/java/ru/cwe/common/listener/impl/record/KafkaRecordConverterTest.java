@@ -1,10 +1,9 @@
 package ru.cwe.common.listener.impl.record;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import ru.cwe.common.listener.api.record.ListenerRecord;
-import ru.cwe.common.message.Message;
+import ru.cwe.common.message.api.message.Message;
 
 import java.util.UUID;
 

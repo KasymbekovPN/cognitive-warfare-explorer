@@ -30,7 +30,7 @@ public class KafkaListenerWorkTest {
 //    }
 
 
-// TODO: 17.06.2023 del 
+// TODO: 17.06.2023 del
 //	    private final String kafkaServer = ;
 //
 //    @Bean

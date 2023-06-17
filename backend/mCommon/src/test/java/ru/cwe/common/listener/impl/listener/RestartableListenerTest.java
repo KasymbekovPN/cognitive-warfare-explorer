@@ -9,8 +9,7 @@ import ru.cwe.common.listener.api.listener.PollingListener;
 import ru.cwe.common.listener.api.buffer.ListenerMessageBuffer;
 import ru.cwe.common.listener.api.factory.ListenerFactory;
 import ru.cwe.common.listener.api.record.ListenerRecord;
-import ru.cwe.common.listener.impl.listener.RestartableListener;
-import ru.cwe.common.message.Message;
+import ru.cwe.common.message.api.message.Message;
 
 import java.util.ArrayList;
 import java.util.List;
