@@ -1,21 +1,20 @@
-package ru.cwe.common.listener.impl;
+package ru.cwe.common.listener.impl.listener;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import ru.cwe.common.listener.api.PollingListener;
+import ru.cwe.common.listener.api.listener.PollingListener;
 import ru.cwe.common.listener.api.buffer.ListenerMessageBuffer;
 import ru.cwe.common.listener.api.factory.ListenerFactory;
 import ru.cwe.common.listener.api.record.ListenerRecord;
+import ru.cwe.common.listener.impl.listener.RestartableListener;
 import ru.cwe.common.message.Message;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.concurrent.Semaphore;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

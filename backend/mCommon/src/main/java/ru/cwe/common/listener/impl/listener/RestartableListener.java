@@ -1,8 +1,8 @@
-package ru.cwe.common.listener.impl;
+package ru.cwe.common.listener.impl.listener;
 
 import lombok.RequiredArgsConstructor;
-import ru.cwe.common.listener.api.Listener;
-import ru.cwe.common.listener.api.PollingListener;
+import ru.cwe.common.listener.api.listener.Listener;
+import ru.cwe.common.listener.api.listener.PollingListener;
 import ru.cwe.common.listener.api.buffer.ListenerMessageBuffer;
 import ru.cwe.common.listener.api.factory.ListenerFactory;
 import ru.cwe.common.listener.api.record.ListenerRecord;

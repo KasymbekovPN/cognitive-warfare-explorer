@@ -1,4 +1,4 @@
-package ru.cwe.common.listener.api;
+package ru.cwe.common.listener.api.listener;
 
 public interface Listener {
 	void subscribe();
