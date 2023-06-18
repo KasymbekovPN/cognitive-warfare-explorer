@@ -9,7 +9,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
-public class MessageSerializer implements Serializer<Message> {
+public final class MessageSerializer implements Serializer<Message> {
 
 	@Override
 	public byte[] serialize(String topic, Message data) {
@@ -17,8 +17,8 @@ public class MessageSerializer implements Serializer<Message> {
 			byte[] classNameBytes = data.getClass().getName().getBytes(StandardCharsets.UTF_8);
 			byte[] messageBytes = new ObjectMapper().writeValueAsBytes(data);
 			ByteArrayOutputStream stream = new ByteArrayOutputStream();
-			stream.write((classNameBytes.length / 256) - Byte.MIN_VALUE);
-			stream.write((classNameBytes.length % 256) - Byte.MIN_VALUE);
+			stream.write((classNameBytes.length / 256) + Byte.MIN_VALUE);
+			stream.write((classNameBytes.length % 256) + Byte.MIN_VALUE);
 			stream.write(classNameBytes);
 			stream.write(messageBytes);
 

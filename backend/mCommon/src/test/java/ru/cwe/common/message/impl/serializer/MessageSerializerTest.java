@@ -19,8 +19,8 @@ class MessageSerializerTest {
 		byte[] classNameBytes = message.getClass().getName().getBytes(StandardCharsets.UTF_8);
 		byte[] messageBytes = new ObjectMapper().writeValueAsBytes(message);
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
-		stream.write((classNameBytes.length / 256) - Byte.MIN_VALUE);
-		stream.write((classNameBytes.length % 256) - Byte.MIN_VALUE);
+		stream.write((classNameBytes.length / 256) + Byte.MIN_VALUE);
+		stream.write((classNameBytes.length % 256) + Byte.MIN_VALUE);
 		stream.write(classNameBytes);
 		stream.write(messageBytes);
 
