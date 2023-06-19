@@ -2,19 +2,19 @@ package ru.cwe.common.test.fakers.strategy.integer;
 
 import com.github.javafaker.Faker;
 import org.junit.jupiter.api.Test;
-import ru.cwe.common.test.fakers.FakersProperties;
+import ru.cwe.common.test.fakers.FakersPropertiesOld;
 import ru.cwe.common.test.fakers.exception.BadFakersStrategyPropertiesException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
 
-class IntegerFakersStrategyTest {
+class IntegerFakersStrategyOldOldTestOld {
 
 	@Test
 	void shouldCheckBadExecutionScenario() {
-		FakersProperties properties = new FakersProperties();
+		FakersPropertiesOld properties = new FakersPropertiesOld();
 		Throwable throwable = catchThrowable(() -> {
-			Object result = new IntegerFakersStrategy().execute(new Faker(), properties);
+			Object result = new IntegerFakersStrategyOldOld().execute(new Faker(), properties);
 		});
 		assertThat(throwable).isInstanceOf(BadFakersStrategyPropertiesException.class);
 	}

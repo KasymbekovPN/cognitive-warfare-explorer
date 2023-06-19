@@ -3,16 +3,16 @@ package ru.cwe.common.test.fakers.strategy.integer;
 import com.github.javafaker.Faker;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
-import ru.cwe.common.test.fakers.FakersProperties;
-import ru.cwe.common.test.fakers.FakersProperty;
+import ru.cwe.common.test.fakers.FakersPropertiesOld;
+import ru.cwe.common.test.fakers.FakersPropertyOld;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class BetweenIntegerFakersStrategyTest {
+class BetweenIntegerFakersStrategyOldOldTestOldOld {
 
 	@Test
 	void shouldCheckExecution_ifBadProperties() {
-		Object result = new BetweenIntegerFakersStrategy().execute(new Faker(), new FakersProperties());
+		Object result = new BetweenIntegerFakersStrategyOldOld().execute(new Faker(), new FakersPropertiesOld());
 		assertThat(result).isNull();
 	}
 
@@ -20,12 +20,12 @@ class BetweenIntegerFakersStrategyTest {
 	void shouldCheckExecution() {
 		int min = -10;
 		int max = 10;
-		FakersProperties properties = new FakersProperties()
-			.put(FakersProperty.OPERATION, FakersProperty.BETWEEN)
-			.put(FakersProperty.MIN, min)
-			.put(FakersProperty.MAX, max);
+		FakersPropertiesOld properties = new FakersPropertiesOld()
+			.put(FakersPropertyOld.OPERATION, FakersPropertyOld.BETWEEN)
+			.put(FakersPropertyOld.MIN, min)
+			.put(FakersPropertyOld.MAX, max);
 
-		Object result = new BetweenIntegerFakersStrategy().execute(new Faker(), properties);
+		Object result = new BetweenIntegerFakersStrategyOldOld().execute(new Faker(), properties);
 		assertThat(result).isInstanceOf(Integer.class);
 
 		Integer castResult = (Integer) result;

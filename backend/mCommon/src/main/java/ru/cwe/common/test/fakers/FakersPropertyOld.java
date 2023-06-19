@@ -3,8 +3,9 @@ package ru.cwe.common.test.fakers;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+// TODO: 18.06.2023 del
 @RequiredArgsConstructor
-public enum FakersProperty {
+public enum FakersPropertyOld {
 	TYPE("type"),
 	OPERATION("operation"),
 
