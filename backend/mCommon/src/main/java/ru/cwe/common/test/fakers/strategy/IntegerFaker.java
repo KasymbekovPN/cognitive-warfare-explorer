@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 public class IntegerFaker {
 	private final Faker core;
 
-	public int value(){
+	public int random(){
 		return core.number().randomDigit();
 	}
 

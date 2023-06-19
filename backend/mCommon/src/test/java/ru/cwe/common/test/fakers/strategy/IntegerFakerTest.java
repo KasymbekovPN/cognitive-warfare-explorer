@@ -8,8 +8,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 class IntegerFakerTest {
 
 	@Test
-	void shouldCheckValueMethod() {
-		int value = new IntegerFaker(new Faker()).value();
+	void shouldCheckRandomMethod() {
+		int value = new IntegerFaker(new Faker()).random();
 
 		assertThat(value)
 			.isGreaterThanOrEqualTo(Integer.MIN_VALUE)
