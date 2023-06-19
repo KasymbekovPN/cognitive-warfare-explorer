@@ -4,7 +4,7 @@ import com.github.javafaker.Faker;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class IntegerFaker {
+public final class IntegerFaker {
 	private final Faker core;
 
 	public int random(){

@@ -4,7 +4,7 @@ import com.github.javafaker.Faker;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class StringFaker {
+public final class StringFaker {
 	public static final int MIN_LEN = 1;
 	public static final int MAX_LEN = 10;
 	public static final int MIN_CHAR_CODE = 32;
