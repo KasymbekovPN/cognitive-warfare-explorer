@@ -1,4 +1,4 @@
-package ru.cwe.common.test.fakers.strategy;
+package ru.cwe.common.test.fakers;
 
 import com.github.javafaker.Faker;
 import lombok.RequiredArgsConstructor;
