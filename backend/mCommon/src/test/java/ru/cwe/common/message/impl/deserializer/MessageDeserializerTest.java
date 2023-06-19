@@ -5,6 +5,7 @@ import lombok.*;
 import org.apache.commons.lang3.SerializationException;
 import org.junit.jupiter.api.Test;
 import ru.cwe.common.message.api.message.Message;
+import ru.cwe.common.test.fakers.Fakers;
 
 import java.io.ByteArrayOutputStream;
 import java.nio.charset.StandardCharsets;
@@ -18,7 +19,7 @@ class MessageDeserializerTest {
 	@Test
 	void shouldCheckDeserialization_ifDataNull() {
 		Throwable throwable = catchThrowable(() -> {
-			new MessageDeserializer().deserialize("", null);
+			new MessageDeserializer().deserialize(Fakers.str_().random(), null);
 		});
 
 		assertThat(throwable)
@@ -28,9 +29,9 @@ class MessageDeserializerTest {
 
 	@Test
 	void shouldCheckDeserialization_ifDataDoesNotContainClassNameLen() {
-		byte[] bytes = new byte[1];
+		byte[] bytes = new byte[1]; // TODO: 19.06.2023 !!!
 		Throwable throwable = catchThrowable(() -> {
-			new MessageDeserializer().deserialize("", bytes);
+			new MessageDeserializer().deserialize(Fakers.str_().random(), bytes);
 		});
 
 		assertThat(throwable)
@@ -40,9 +41,9 @@ class MessageDeserializerTest {
 
 	@Test
 	void shouldCheckDeserialization_ifDataDoesNotContainClassName() {
-		byte[] bytes = new byte[]{-128, -100, 1, 2, 3};
+		byte[] bytes = new byte[]{-128, -100, 1, 2, 3}; // TODO: 19.06.2023 !!!
 		Throwable throwable = catchThrowable(() -> {
-			new MessageDeserializer().deserialize("", bytes);
+			new MessageDeserializer().deserialize(Fakers.str_().random(), bytes);
 		});
 
 		assertThat(throwable)
@@ -60,7 +61,7 @@ class MessageDeserializerTest {
 		stream.write(badClassName.getBytes(StandardCharsets.UTF_8));
 
 		Throwable throwable = catchThrowable(() -> {
-			new MessageDeserializer().deserialize("", stream.toByteArray());
+			new MessageDeserializer().deserialize(Fakers.str_().random(), stream.toByteArray());
 		});
 
 		assertThat(throwable).isInstanceOf(SerializationException.class);
@@ -80,7 +81,7 @@ class MessageDeserializerTest {
 		stream.write(className.getBytes(StandardCharsets.UTF_8));
 
 		Throwable throwable = catchThrowable(() -> {
-			new MessageDeserializer().deserialize("", stream.toByteArray());
+			new MessageDeserializer().deserialize(Fakers.str_().random(), stream.toByteArray());
 		});
 
 		assertThat(throwable).isInstanceOf(SerializationException.class);
@@ -100,7 +101,7 @@ class MessageDeserializerTest {
 		stream.write(className.getBytes(StandardCharsets.UTF_8));
 
 		Throwable throwable = catchThrowable(() -> {
-			new MessageDeserializer().deserialize("", stream.toByteArray());
+			new MessageDeserializer().deserialize(Fakers.str_().random(), stream.toByteArray());
 		});
 
 		assertThat(throwable)
@@ -113,12 +114,18 @@ class MessageDeserializerTest {
 	void shouldCheckDeserialization_ifFailDataDeserialization() {
 		String className = BadTestMessage.class.getName();
 
+		TestMessage testMessage = new TestMessage(
+			Fakers.int_().random(),
+			Fakers.str_().random(),
+			List.of(12.7, 4.5) // TODO: 19.06.2023 !!!
+		);
+
 		ByteArrayOutputStream stream = createStream(className.length());
 		stream.write(className.getBytes(StandardCharsets.UTF_8));
-		stream.write(new ObjectMapper().writeValueAsBytes(new TestMessage(123, "abc", List.of(12.7, 4.5))));
+		stream.write(new ObjectMapper().writeValueAsBytes(testMessage));
 
 		Throwable throwable = catchThrowable(() -> {
-			new MessageDeserializer().deserialize("", stream.toByteArray());
+			new MessageDeserializer().deserialize(Fakers.str_().random(), stream.toByteArray());
 		});
 
 		assertThat(throwable)
@@ -128,7 +135,11 @@ class MessageDeserializerTest {
 	@SneakyThrows
 	@Test
 	void shouldCheckDeserialization() {
-		TestMessage expectedMessage = new TestMessage(123, "456", List.of(12.3, 23.5));
+		TestMessage expectedMessage = new TestMessage(
+			Fakers.int_().random(),
+			Fakers.str_().random(),
+			List.of(12.3, 23.5) // TODO: 19.06.2023 !!!
+		);
 
 		byte[] classNameBytes = expectedMessage.getClass().getName().getBytes(StandardCharsets.UTF_8);
 		ByteArrayOutputStream stream = createStream(classNameBytes.length);
@@ -136,7 +147,7 @@ class MessageDeserializerTest {
 		stream.write(new ObjectMapper().writeValueAsBytes(expectedMessage));
 
 		@SuppressWarnings("resource")
-		Message message = new MessageDeserializer().deserialize("", stream.toByteArray());
+		Message message = new MessageDeserializer().deserialize(Fakers.str_().random(), stream.toByteArray());
 
 		assertThat(message).isEqualTo(expectedMessage);
 	}

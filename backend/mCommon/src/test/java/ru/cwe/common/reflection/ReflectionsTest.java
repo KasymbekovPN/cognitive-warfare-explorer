@@ -4,13 +4,13 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
-import ru.cwe.common.reflection.Reflections;
+import ru.cwe.common.test.fakers.Fakers;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
 
 class ReflectionsTest {
-	private static final int EXPECTED_INT_VALUE = 123;
+	private static final int EXPECTED_INT_VALUE = Fakers.int_().between(100, 200);
 
 	@Test
 	void shouldCheckRawGetting_ifFieldAbsent() throws Exception {

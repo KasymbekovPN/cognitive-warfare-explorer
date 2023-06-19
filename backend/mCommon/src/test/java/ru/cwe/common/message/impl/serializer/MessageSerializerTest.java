@@ -2,20 +2,27 @@ package ru.cwe.common.message.impl.serializer;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.*;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import ru.cwe.common.message.api.message.Message;
+import ru.cwe.common.test.fakers.Fakers;
 
 import java.io.ByteArrayOutputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 class MessageSerializerTest {
 
 	@SneakyThrows
 	@Test
 	void shouldCheckSerialization() {
-		TestMessage message = new TestMessage(123, "abc", List.of(1.1, 1.2));
+		TestMessage message = new TestMessage(
+			Fakers.int_().random(),
+			Fakers.str_().random(),
+			List.of(1.1, 1.2) // TODO: 19.06.2023 !!!
+		);
+
 		byte[] classNameBytes = message.getClass().getName().getBytes(StandardCharsets.UTF_8);
 		byte[] messageBytes = new ObjectMapper().writeValueAsBytes(message);
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -26,9 +33,9 @@ class MessageSerializerTest {
 
 		@SuppressWarnings("resource")
 		MessageSerializer messageSerializer = new MessageSerializer();
-		byte[] bytes = messageSerializer.serialize("", message);
+		byte[] bytes = messageSerializer.serialize(Fakers.str_().random(), message);
 
-		Assertions.assertThat(bytes).isEqualTo(stream.toByteArray());
+		assertThat(bytes).isEqualTo(stream.toByteArray());
 	}
 
 	@AllArgsConstructor

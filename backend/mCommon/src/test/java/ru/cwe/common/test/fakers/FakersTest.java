@@ -8,21 +8,21 @@ class FakersTest {
 
 	@Test
 	void shouldCheckIntegerMethod() {
-		IntegerFaker faker = Fakers.integer();
+		IntegerFaker faker = Fakers.int_();
 
 		assertThat(faker).isNotNull();
 	}
 
 	@Test
 	void shouldCheckStringMethod() {
-		StringFaker faker = Fakers.str();
+		StringFaker faker = Fakers.str_();
 
 		assertThat(faker).isNotNull();
 	}
 
 	@Test
 	void shouldCheckUuidMethod() {
-		UuidFaker faker = Fakers.uuid();
+		UuidFaker faker = Fakers.uuid_();
 
 		assertThat(faker).isNotNull();
 	}

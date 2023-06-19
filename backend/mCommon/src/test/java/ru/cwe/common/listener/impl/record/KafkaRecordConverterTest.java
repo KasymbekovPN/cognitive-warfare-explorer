@@ -4,6 +4,7 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.junit.jupiter.api.Test;
 import ru.cwe.common.listener.api.record.ListenerRecord;
 import ru.cwe.common.message.api.message.Message;
+import ru.cwe.common.test.fakers.Fakers;
 
 import java.util.UUID;
 
@@ -13,10 +14,10 @@ class KafkaRecordConverterTest {
 
 	@Test
 	void shouldCheckConversion() {
-		String expectedTopic = "topic";
-		int expectedPartition = 0;
-		int expectedOffset = 1;
-		UUID expectedKey = UUID.randomUUID();
+		String expectedTopic = Fakers.str_().random();
+		int expectedPartition = Fakers.int_().between(0, 10);
+		long expectedOffset = 1; // TODO: 19.06.2023 !!!
+		UUID expectedKey = Fakers.uuid_().random();
 		TestMessage expectedValue = new TestMessage();
 		ConsumerRecord<UUID, Message> consumerRecord = new ConsumerRecord<>(
 			expectedTopic,

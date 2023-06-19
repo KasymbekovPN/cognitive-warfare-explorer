@@ -10,6 +10,7 @@ import ru.cwe.common.listener.api.buffer.ListenerMessageBuffer;
 import ru.cwe.common.listener.api.factory.ListenerFactory;
 import ru.cwe.common.listener.api.record.ListenerRecord;
 import ru.cwe.common.message.api.message.Message;
+import ru.cwe.common.test.fakers.Fakers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,8 +67,8 @@ class RestartableListenerTest {
 
 	@RequiredArgsConstructor
 	private static class TestPollingListener implements PollingListener {
-		private static final long LEAST_UUID_BEGIN = 0;
-		private static final int POLL_CALLING_QUANTITY = 10;
+		private static final long LEAST_UUID_BEGIN = 0L; // TODO: 19.06.2023 !!!
+		private static final int POLL_CALLING_QUANTITY = Fakers.int_().between(5, 20);
 
 		private static long leastUuid = LEAST_UUID_BEGIN;
 

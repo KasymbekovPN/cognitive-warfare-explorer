@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import ru.cwe.common.listener.api.record.ListenerRecord;
 import ru.cwe.common.listener.impl.record.KafkaRecordConverter;
 import ru.cwe.common.message.api.message.Message;
+import ru.cwe.common.test.fakers.Fakers;
 
 import java.time.Duration;
 import java.util.*;
@@ -21,12 +22,12 @@ import java.util.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class KafkaListenerTest {
-	private static final String TOPIC = "topic";
-	private static final Duration DURATION = Duration.ofMillis(100);
-	private static final int PARTITION = 1;
-	private static final long OFFSET = 2L;
-	private static final UUID KEY = UUID.randomUUID();
-	private static final Message VALUE = new TestMessage(1);
+	private static final String TOPIC = Fakers.str_().random();
+	private static final Duration DURATION = Duration.ofMillis(Fakers.int_().between(50, 150));
+	private static final int PARTITION = Fakers.int_().between(1, 10);
+	private static final long OFFSET = 2L; // TODO: 19.06.2023 !!!
+	private static final UUID KEY = Fakers.uuid_().random();
+	private static final Message VALUE = new TestMessage(Fakers.int_().between(0, 10));
 
 	private static ConsumerRecords<UUID, Message> records;
 	private static Map<String, Object> properties;
@@ -45,7 +46,7 @@ class KafkaListenerTest {
 			put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
 			put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, LongDeserializer.class);
 			put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-			put(ConsumerConfig.GROUP_ID_CONFIG, "g1");
+			put(ConsumerConfig.GROUP_ID_CONFIG, Fakers.str_().random());
 		}};
 
 	}

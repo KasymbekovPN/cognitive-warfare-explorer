@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import ru.cwe.common.listener.api.record.ListenerRecordUnsupportedGetting;
 import ru.cwe.common.message.api.message.Message;
+import ru.cwe.common.test.fakers.Fakers;
 
 import java.util.UUID;
 
@@ -15,13 +16,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
 
 class KafkaListenerRecordTest {
-	private static final String TOPIC = "test";
-	private static final int PARTITION = 0;
-	private static final long OFFSET = 1;
-	private static final long TIMESTAMP = 100;
+	private static final String TOPIC = Fakers.str_().random();;
+	private static final int PARTITION = Fakers.int_().between(0, 10);
+	private static final long OFFSET = 1; // TODO: 19.06.2023 !!!
+	private static final long TIMESTAMP = 100; // TODO: 19.06.2023 !!!
 	private static final TimestampType TIMESTAMP_TYPE = TimestampType.CREATE_TIME;
-	private static final UUID KEY = UUID.randomUUID();
-	private static final Message VALUE = new TestMessage(1);
+	private static final UUID KEY = Fakers.uuid_().random();
+	private static final Message VALUE = new TestMessage(Fakers.int_().between(0, 100));
 
 	private static ConsumerRecord<UUID, Message> record;
 
