@@ -46,6 +46,6 @@ class FakersTest {
 	void shouldCheckByteMethod() {
 		ByteFaker faker = Fakers.byte_();
 
-		assertThat(faker).isNull();
+		assertThat(faker).isNotNull();
 	}
 }

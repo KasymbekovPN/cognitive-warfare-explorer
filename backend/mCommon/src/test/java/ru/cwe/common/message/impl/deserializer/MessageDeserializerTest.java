@@ -29,7 +29,7 @@ class MessageDeserializerTest {
 
 	@Test
 	void shouldCheckDeserialization_ifDataDoesNotContainClassNameLen() {
-		byte[] bytes = new byte[1]; // TODO: 19.06.2023 !!!
+		byte[] bytes = Fakers.byte_().array(1);
 		Throwable throwable = catchThrowable(() -> {
 			new MessageDeserializer().deserialize(Fakers.str_().random(), bytes);
 		});
@@ -41,7 +41,7 @@ class MessageDeserializerTest {
 
 	@Test
 	void shouldCheckDeserialization_ifDataDoesNotContainClassName() {
-		byte[] bytes = new byte[]{-128, -100, 1, 2, 3}; // TODO: 19.06.2023 !!!
+		byte[] bytes = Fakers.byte_().array(5);
 		Throwable throwable = catchThrowable(() -> {
 			new MessageDeserializer().deserialize(Fakers.str_().random(), bytes);
 		});
@@ -117,7 +117,7 @@ class MessageDeserializerTest {
 		TestMessage testMessage = new TestMessage(
 			Fakers.int_().random(),
 			Fakers.str_().random(),
-			List.of(12.7, 4.5) // TODO: 19.06.2023 !!!
+			Fakers.double_().list(2)
 		);
 
 		ByteArrayOutputStream stream = createStream(className.length());
@@ -138,7 +138,7 @@ class MessageDeserializerTest {
 		TestMessage expectedMessage = new TestMessage(
 			Fakers.int_().random(),
 			Fakers.str_().random(),
-			List.of(12.3, 23.5) // TODO: 19.06.2023 !!!
+			Fakers.double_().list(2)
 		);
 
 		byte[] classNameBytes = expectedMessage.getClass().getName().getBytes(StandardCharsets.UTF_8);

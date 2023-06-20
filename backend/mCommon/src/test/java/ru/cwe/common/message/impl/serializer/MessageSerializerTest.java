@@ -20,7 +20,7 @@ class MessageSerializerTest {
 		TestMessage message = new TestMessage(
 			Fakers.int_().random(),
 			Fakers.str_().random(),
-			List.of(1.1, 1.2) // TODO: 19.06.2023 !!!
+			Fakers.double_().list(2)
 		);
 
 		byte[] classNameBytes = message.getClass().getName().getBytes(StandardCharsets.UTF_8);

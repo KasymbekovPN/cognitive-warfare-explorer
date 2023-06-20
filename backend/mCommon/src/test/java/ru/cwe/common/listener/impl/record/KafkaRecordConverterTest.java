@@ -16,7 +16,7 @@ class KafkaRecordConverterTest {
 	void shouldCheckConversion() {
 		String expectedTopic = Fakers.str_().random();
 		int expectedPartition = Fakers.int_().between(0, 10);
-		long expectedOffset = 1; // TODO: 19.06.2023 !!!
+		long expectedOffset = Fakers.long_().between(0L, 10);
 		UUID expectedKey = Fakers.uuid_().random();
 		TestMessage expectedValue = new TestMessage();
 		ConsumerRecord<UUID, Message> consumerRecord = new ConsumerRecord<>(

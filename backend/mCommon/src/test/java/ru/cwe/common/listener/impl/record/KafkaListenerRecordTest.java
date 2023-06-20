@@ -18,8 +18,8 @@ import static org.assertj.core.api.Assertions.catchThrowable;
 class KafkaListenerRecordTest {
 	private static final String TOPIC = Fakers.str_().random();;
 	private static final int PARTITION = Fakers.int_().between(0, 10);
-	private static final long OFFSET = 1; // TODO: 19.06.2023 !!!
-	private static final long TIMESTAMP = 100; // TODO: 19.06.2023 !!!
+	private static final long OFFSET = Fakers.long_().between(0L, 10L);
+	private static final long TIMESTAMP = Fakers.long_().between(10_000L, 20_000L);
 	private static final TimestampType TIMESTAMP_TYPE = TimestampType.CREATE_TIME;
 	private static final UUID KEY = Fakers.uuid_().random();
 	private static final Message VALUE = new TestMessage(Fakers.int_().between(0, 100));

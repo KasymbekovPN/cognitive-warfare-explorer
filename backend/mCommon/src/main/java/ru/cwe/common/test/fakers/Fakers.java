@@ -25,6 +25,6 @@ public final class Fakers {
 	}
 
 	public static ByteFaker byte_(){
-		return null;
+		return new ByteFaker(new Faker());
 	}
 }

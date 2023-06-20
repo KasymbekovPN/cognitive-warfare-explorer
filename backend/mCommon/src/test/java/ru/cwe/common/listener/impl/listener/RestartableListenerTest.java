@@ -67,7 +67,7 @@ class RestartableListenerTest {
 
 	@RequiredArgsConstructor
 	private static class TestPollingListener implements PollingListener {
-		private static final long LEAST_UUID_BEGIN = 0L; // TODO: 19.06.2023 !!!
+		private static final long LEAST_UUID_BEGIN = Fakers.long_().between(0L, 10L);
 		private static final int POLL_CALLING_QUANTITY = Fakers.int_().between(5, 20);
 
 		private static long leastUuid = LEAST_UUID_BEGIN;

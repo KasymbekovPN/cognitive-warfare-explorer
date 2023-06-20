@@ -3,8 +3,6 @@ package ru.cwe.common.test.fakers;
 import com.github.javafaker.Faker;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ByteFakerTest {
@@ -23,7 +21,6 @@ class ByteFakerTest {
 		int size = 10;
 		byte[] result = new ByteFaker(new Faker()).array(size);
 
-		System.out.println(Arrays.toString(result));
 		assertThat(result).hasSize(size);
 	}
 }

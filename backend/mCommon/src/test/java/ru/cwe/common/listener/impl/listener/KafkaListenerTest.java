@@ -25,7 +25,7 @@ class KafkaListenerTest {
 	private static final String TOPIC = Fakers.str_().random();
 	private static final Duration DURATION = Duration.ofMillis(Fakers.int_().between(50, 150));
 	private static final int PARTITION = Fakers.int_().between(1, 10);
-	private static final long OFFSET = 2L; // TODO: 19.06.2023 !!!
+	private static final long OFFSET = Fakers.long_().between(0, 3);
 	private static final UUID KEY = Fakers.uuid_().random();
 	private static final Message VALUE = new TestMessage(Fakers.int_().between(0, 10));
 
