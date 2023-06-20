@@ -1,5 +1,6 @@
 package ru.cwe.common.test.fakers;
 
+import com.github.javafaker.Faker;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -30,6 +31,13 @@ class FakersTest {
 	@Test
 	void shouldCheckLongMethod() {
 		LongFaker faker = Fakers.long_();
+
+		assertThat(faker).isNotNull();
+	}
+
+	@Test
+	void shouldCheckDoubleMethod() {
+		DoubleFaker faker = Fakers.double_();
 
 		assertThat(faker).isNotNull();
 	}

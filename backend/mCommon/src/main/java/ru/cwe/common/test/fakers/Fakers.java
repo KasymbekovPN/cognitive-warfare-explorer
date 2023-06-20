@@ -20,7 +20,10 @@ public final class Fakers {
 		return new LongFaker(new Faker());
 	}
 
+	public static DoubleFaker double_(){
+		return new DoubleFaker(new Faker());
+	}
+
 	// TODO: 19.06.2023 !!!
-	// double + list
 	// byte + array
 }
