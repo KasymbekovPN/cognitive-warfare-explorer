@@ -24,6 +24,7 @@ public final class Fakers {
 		return new DoubleFaker(new Faker());
 	}
 
-	// TODO: 19.06.2023 !!!
-	// byte + array
+	public static ByteFaker byte_(){
+		return null;
+	}
 }

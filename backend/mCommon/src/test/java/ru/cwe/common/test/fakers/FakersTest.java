@@ -41,4 +41,11 @@ class FakersTest {
 
 		assertThat(faker).isNotNull();
 	}
+
+	@Test
+	void shouldCheckByteMethod() {
+		ByteFaker faker = Fakers.byte_();
+
+		assertThat(faker).isNull();
+	}
 }

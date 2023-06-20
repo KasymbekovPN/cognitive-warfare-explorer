@@ -8,7 +8,7 @@ public final class IntegerFaker {
 	private final Faker core;
 
 	public int random(){
-		return core.number().randomDigit();
+		return core.number().numberBetween(Integer.MIN_VALUE, Integer.MAX_VALUE);
 	}
 
 	public int between(int min, int max){
