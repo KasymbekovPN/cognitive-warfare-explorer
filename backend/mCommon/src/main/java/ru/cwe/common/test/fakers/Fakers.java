@@ -16,8 +16,11 @@ public final class Fakers {
 		return new UuidFaker(new Faker());
 	}
 
+	public static LongFaker long_() {
+		return new LongFaker(new Faker());
+	}
+
 	// TODO: 19.06.2023 !!!
-	// long
 	// double + list
 	// byte + array
 }
