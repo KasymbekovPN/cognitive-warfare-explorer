@@ -14,8 +14,9 @@ class DoubleFakerTest {
 	void shouldCheckRandomMethod() {
 		double value = new DoubleFaker(new Faker()).random();
 
-		assertThat(value)
-			.isGreaterThanOrEqualTo(Double.MIN_VALUE)
+		System.out.println(value);
+		assertThat(Math.abs(value))
+			.isGreaterThan(Double.MIN_VALUE)
 			.isLessThanOrEqualTo(Double.MAX_VALUE);
 	}
 
