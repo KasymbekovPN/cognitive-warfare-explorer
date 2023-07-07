@@ -5,7 +5,7 @@ import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import ru.cwe.common.listener.api.factory.ListenerFactory;
 import ru.cwe.common.listener.api.listener.PollingListener;
-import ru.cwe.common.listener.api.record.ListenerRecord;
+import ru.cwe.common.record.api.Record;
 import ru.cwe.common.listener.impl.listener.KafkaListener;
 import ru.cwe.common.message.api.message.Message;
 
@@ -18,7 +18,7 @@ public class KafkaListenerFactory implements ListenerFactory<PollingListener> {
 	private final String topic;
 	private final Duration duration;
 	private final Consumer<UUID, Message> consumer;
-	private final Function<ConsumerRecord<UUID, Message>, ListenerRecord> converter;
+	private final Function<ConsumerRecord<UUID, Message>, Record> converter;
 
 	@Override
 	public PollingListener create() {

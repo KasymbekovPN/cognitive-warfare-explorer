@@ -4,9 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
-import org.apache.kafka.clients.consumer.KafkaConsumer;
 import ru.cwe.common.listener.api.listener.PollingListener;
-import ru.cwe.common.listener.api.record.ListenerRecord;
+import ru.cwe.common.record.api.Record;
 import ru.cwe.common.message.api.message.Message;
 
 import java.time.Duration;
@@ -20,7 +19,7 @@ public final class KafkaListener implements PollingListener {
 	private final String topic;
 	private final Duration duration;
 	private final Consumer<UUID, Message> consumer;
-	private final Function<ConsumerRecord<UUID, Message>, ListenerRecord> converter;
+	private final Function<ConsumerRecord<UUID, Message>, Record> converter;
 
 	@Override
 	public void subscribe() {
@@ -33,9 +32,9 @@ public final class KafkaListener implements PollingListener {
 	}
 
 	@Override
-	public List<ListenerRecord> poll() {
+	public List<Record> poll() {
 		ConsumerRecords<UUID, Message> records = consumer.poll(this.duration);
-		ArrayList<ListenerRecord> result = new ArrayList<>();
+		ArrayList<Record> result = new ArrayList<>();
 		records.forEach(record -> { result.add(converter.apply(record)); });
 		return result;
 	}

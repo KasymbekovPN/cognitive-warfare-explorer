@@ -5,7 +5,7 @@ import ru.cwe.common.listener.api.listener.Listener;
 import ru.cwe.common.listener.api.listener.PollingListener;
 import ru.cwe.common.listener.api.buffer.ListenerMessageBuffer;
 import ru.cwe.common.listener.api.factory.ListenerFactory;
-import ru.cwe.common.listener.api.record.ListenerRecord;
+import ru.cwe.common.record.api.Record;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -26,7 +26,7 @@ public final class RestartableListener implements Listener {
 				try(PollingListener listener = factory.create()){
 					listener.subscribe();
 					while (keepListening.get()){
-						List<ListenerRecord> records = listener.poll();
+						List<Record> records = listener.poll();
 						records.forEach(buffer::offer);
 					}
 					listener.unsubscribe();

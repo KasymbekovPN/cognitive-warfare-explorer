@@ -2,7 +2,7 @@ package ru.cwe.common.listener.impl.record;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.junit.jupiter.api.Test;
-import ru.cwe.common.listener.api.record.ListenerRecord;
+import ru.cwe.common.record.api.Record;
 import ru.cwe.common.message.api.message.Message;
 import ru.cwe.common.test.fakers.Fakers;
 
@@ -27,7 +27,7 @@ class KafkaRecordConverterTest {
 			expectedValue
 		);
 
-		ListenerRecord result = new KafkaRecordConverter().apply(consumerRecord);
+		Record result = new KafkaRecordConverter().apply(consumerRecord);
 		assertThat(result.key()).isEqualTo(expectedKey);
 		assertThat(result.value()).isEqualTo(expectedValue);
 		assertThat(result.get("topic", String.class)).isEqualTo(expectedTopic);

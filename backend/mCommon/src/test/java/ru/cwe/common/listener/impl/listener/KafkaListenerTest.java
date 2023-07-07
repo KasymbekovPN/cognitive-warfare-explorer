@@ -11,7 +11,7 @@ import org.apache.kafka.common.serialization.LongDeserializer;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import ru.cwe.common.listener.api.record.ListenerRecord;
+import ru.cwe.common.record.api.Record;
 import ru.cwe.common.listener.impl.record.KafkaRecordConverter;
 import ru.cwe.common.message.api.message.Message;
 import ru.cwe.common.test.fakers.Fakers;
@@ -74,11 +74,11 @@ class KafkaListenerTest {
 		TestConsumer consumer = new TestConsumer(properties, records);
 		KafkaListener listener = new KafkaListener(TOPIC, DURATION, consumer, new KafkaRecordConverter());
 
-		List<ListenerRecord> result = listener.poll();
+		List<Record> result = listener.poll();
 		assertThat(consumer.getDuration()).isEqualTo(DURATION);
 		assertThat(result.size()).isEqualTo(1);
 
-		ListenerRecord record = result.get(0);
+		Record record = result.get(0);
 		assertThat(record.key()).isEqualTo(KEY);
 		assertThat(record.value()).isEqualTo(VALUE);
 		assertThat(record.get("topic", String.class)).isEqualTo(TOPIC);

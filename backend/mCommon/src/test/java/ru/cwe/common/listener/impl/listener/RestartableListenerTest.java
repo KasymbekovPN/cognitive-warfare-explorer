@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import ru.cwe.common.listener.api.listener.PollingListener;
 import ru.cwe.common.listener.api.buffer.ListenerMessageBuffer;
 import ru.cwe.common.listener.api.factory.ListenerFactory;
-import ru.cwe.common.listener.api.record.ListenerRecord;
+import ru.cwe.common.record.api.Record;
 import ru.cwe.common.message.api.message.Message;
 import ru.cwe.common.test.fakers.Fakers;
 
@@ -46,10 +46,10 @@ class RestartableListenerTest {
 
 	private static class TestBuffer implements ListenerMessageBuffer {
 		@Getter
-		private final List<ListenerRecord> records = new ArrayList<>();
+		private final List<Record> records = new ArrayList<>();
 
 		@Override
-		public boolean offer(ListenerRecord record) {
+		public boolean offer(Record record) {
 			this.records.add(record);
 			return true;
 		}
@@ -85,7 +85,7 @@ class RestartableListenerTest {
 
 		@SneakyThrows
 		@Override
-		public List<ListenerRecord> poll() {
+		public List<Record> poll() {
 			if (callCounter < POLL_CALLING_QUANTITY){
 				callCounter++;
 				return List.of(new TestListenerRecord(new UUID(0L, leastUuid++)));
@@ -98,7 +98,7 @@ class RestartableListenerTest {
 
 	@EqualsAndHashCode
 	@RequiredArgsConstructor
-	private static class TestListenerRecord implements ListenerRecord {
+	private static class TestListenerRecord implements Record {
 		private final UUID key;
 
 		@Override

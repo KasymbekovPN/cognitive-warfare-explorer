@@ -9,7 +9,7 @@ import org.apache.kafka.common.TopicPartition;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import ru.cwe.common.listener.api.listener.PollingListener;
-import ru.cwe.common.listener.api.record.ListenerRecord;
+import ru.cwe.common.record.api.Record;
 import ru.cwe.common.message.api.message.Message;
 import ru.cwe.common.reflection.Reflections;
 import ru.cwe.common.test.fakers.Fakers;
@@ -26,7 +26,7 @@ class KafkaListenerFactoryTest {
 	private static final String EXPECTED_TOPIC = Fakers.str_().random();
 	private static final Duration EXPECTED_DURATION = Duration.ofSeconds(Fakers.int_().between(100, 200));
 	private static final Consumer<UUID, Message> EXPECTED_CONSUMER = new TestConsumer();
-	private static final Function<ConsumerRecord<UUID, Message>, ListenerRecord> EXPECTED_CONVERTER = new TestConverter();
+	private static final Function<ConsumerRecord<UUID, Message>, Record> EXPECTED_CONVERTER = new TestConverter();
 
 	private static KafkaListenerFactory factory;
 
@@ -77,9 +77,9 @@ class KafkaListenerFactoryTest {
 		assertThat(converter).isEqualTo(EXPECTED_CONVERTER);
 	}
 
-	private static class TestConverter implements Function<ConsumerRecord<UUID, Message>, ListenerRecord>{
+	private static class TestConverter implements Function<ConsumerRecord<UUID, Message>, Record>{
 		@Override
-		public ListenerRecord apply(ConsumerRecord<UUID, Message> uuidMessageConsumerRecord) {
+		public Record apply(ConsumerRecord<UUID, Message> uuidMessageConsumerRecord) {
 			return null;
 		}
 	}

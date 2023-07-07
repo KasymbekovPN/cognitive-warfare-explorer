@@ -3,8 +3,8 @@ package ru.cwe.common.listener.impl.record;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
-import ru.cwe.common.listener.api.record.ListenerRecord;
-import ru.cwe.common.listener.api.record.ListenerRecordUnsupportedGetting;
+import ru.cwe.common.record.api.Record;
+import ru.cwe.common.record.impl.RecordUnsupportedGetting;
 import ru.cwe.common.message.api.message.Message;
 
 import java.util.HashMap;
@@ -13,7 +13,7 @@ import java.util.UUID;
 import java.util.function.Function;
 
 @RequiredArgsConstructor
-class KafkaListenerRecord implements ListenerRecord {
+class KafkaListenerRecord implements Record {
 	private static final Map<String, Function<ConsumerRecord<UUID, Message>, Object>> GETTERS = new HashMap<>(){{
 		put(Property.TOPIC.getValue(), KafkaListenerRecord::getTopic);
 		put(Property.PARTITION.getValue(), KafkaListenerRecord::getPartition);
@@ -40,7 +40,7 @@ class KafkaListenerRecord implements ListenerRecord {
 			return type.cast(GETTERS.get(property).apply(essence));
 		}
 
-		throw new ListenerRecordUnsupportedGetting(property);
+		throw new RecordUnsupportedGetting(property);
 	}
 
 	private static Object getTopic(ConsumerRecord<UUID, Message> essence){

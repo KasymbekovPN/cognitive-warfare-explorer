@@ -6,7 +6,7 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.common.record.TimestampType;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import ru.cwe.common.listener.api.record.ListenerRecordUnsupportedGetting;
+import ru.cwe.common.record.impl.RecordUnsupportedGetting;
 import ru.cwe.common.message.api.message.Message;
 import ru.cwe.common.test.fakers.Fakers;
 
@@ -89,7 +89,7 @@ class KafkaListenerRecordTest {
 		Throwable throwable = catchThrowable(() -> {
 			new KafkaListenerRecord(record).get("", Integer.class);
 		});
-		assertThat(throwable).isInstanceOf(ListenerRecordUnsupportedGetting.class);
+		assertThat(throwable).isInstanceOf(RecordUnsupportedGetting.class);
 	}
 
 	@RequiredArgsConstructor
