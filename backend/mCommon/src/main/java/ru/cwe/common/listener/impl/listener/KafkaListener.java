@@ -1,6 +1,7 @@
 package ru.cwe.common.listener.impl.listener;
 
 import lombok.RequiredArgsConstructor;
+import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
@@ -15,10 +16,10 @@ import java.util.UUID;
 import java.util.function.Function;
 
 @RequiredArgsConstructor
-final class KafkaListener implements PollingListener {
+public final class KafkaListener implements PollingListener {
 	private final String topic;
 	private final Duration duration;
-	private final KafkaConsumer<UUID, Message> consumer;
+	private final Consumer<UUID, Message> consumer;
 	private final Function<ConsumerRecord<UUID, Message>, ListenerRecord> converter;
 
 	@Override

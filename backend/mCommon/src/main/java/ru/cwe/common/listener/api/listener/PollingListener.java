@@ -1,6 +1,5 @@
 package ru.cwe.common.listener.api.listener;
 
-import ru.cwe.common.listener.api.listener.Listener;
 import ru.cwe.common.listener.api.record.ListenerRecord;
 
 import java.io.Closeable;
