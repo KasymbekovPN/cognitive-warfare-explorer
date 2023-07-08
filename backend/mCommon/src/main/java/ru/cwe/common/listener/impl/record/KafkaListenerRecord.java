@@ -1,5 +1,6 @@
 package ru.cwe.common.listener.impl.record;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -12,7 +13,9 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.function.Function;
 
+// TODO: 08.07.2023 move ???
 @RequiredArgsConstructor
+@EqualsAndHashCode
 class KafkaListenerRecord implements Record {
 	private static final Map<String, Function<ConsumerRecord<UUID, Message>, Object>> GETTERS = new HashMap<>(){{
 		put(Property.TOPIC.getValue(), KafkaListenerRecord::getTopic);
