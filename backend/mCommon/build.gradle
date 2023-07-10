@@ -1,4 +1,6 @@
 plugins {
+    id 'org.springframework.boot' version '2.6.2'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
 }
 
@@ -13,6 +15,8 @@ dependencies {
     implementation "com.fasterxml.jackson.core:jackson-annotations:$jacksonVersion"
     implementation "org.projectlombok:lombok:$lombokVersion"
     implementation "com.github.javafaker:javafaker:$javafakerVersion"
+    implementation 'org.springframework.kafka:spring-kafka'
+    implementation "ch.qos.logback:logback-classic:$logbackVersion"
 
     annotationProcessor "org.projectlombok:lombok:$lombokVersion"
 
@@ -22,6 +26,7 @@ dependencies {
     testImplementation "org.junit.jupiter:junit-jupiter-params:$junitJupiterVersion"
     testImplementation "com.github.javafaker:javafaker:$javafakerVersion"
     testImplementation "org.mockito:mockito-all:$mackitoVersion"
+    testImplementation 'org.springframework.kafka:spring-kafka-test'
 
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitJupiterVersion"
 

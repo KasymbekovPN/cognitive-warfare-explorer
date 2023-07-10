@@ -12,25 +12,33 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
 
 class KafkaSendRecordTest {
+	private static final String EXPECTED_TOPIC = Fakers.str_().random();
 	private static final UUID EXPECTED_KEY = Fakers.uuid_().random();
 	private static final Message EXPECTED_MESSAGE = new TestMessage(Fakers.int_().random());
 
 	@Test
 	void shouldCheckKeyGetting(){
-		KafkaSendRecord record = new KafkaSendRecord(EXPECTED_KEY, EXPECTED_MESSAGE);
+		KafkaSendRecord record = new KafkaSendRecord(EXPECTED_TOPIC, EXPECTED_KEY, EXPECTED_MESSAGE);
 		assertThat(record.key()).isEqualTo(EXPECTED_KEY);
 	}
 
 	@Test
 	void shouldCheckMessageGetting(){
-		KafkaSendRecord record = new KafkaSendRecord(EXPECTED_KEY, EXPECTED_MESSAGE);
+		KafkaSendRecord record = new KafkaSendRecord(EXPECTED_TOPIC, EXPECTED_KEY, EXPECTED_MESSAGE);
 		assertThat(record.value()).isEqualTo(EXPECTED_MESSAGE);
+	}
+
+	@Test
+	void shouldCheckTopicGetting(){
+		KafkaSendRecord record = new KafkaSendRecord(EXPECTED_TOPIC, EXPECTED_KEY, EXPECTED_MESSAGE);
+		String topic = record.get("topic", String.class);
+		assertThat(topic).isEqualTo(EXPECTED_TOPIC);
 	}
 
 	@Test
 	void shouldCheckGetting(){
 		Throwable throwable = catchThrowable(() -> {
-			new KafkaSendRecord(EXPECTED_KEY, EXPECTED_MESSAGE).get(Fakers.str_().random(), String.class);
+			new KafkaSendRecord(EXPECTED_TOPIC, EXPECTED_KEY, EXPECTED_MESSAGE).get("_"+Fakers.str_().random(), String.class);
 		});
 		assertThat(throwable).isInstanceOf(RecordUnsupportedGetting.class);
 	}

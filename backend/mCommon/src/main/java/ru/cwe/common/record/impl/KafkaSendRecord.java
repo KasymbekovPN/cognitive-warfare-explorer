@@ -10,6 +10,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @EqualsAndHashCode
 public class KafkaSendRecord implements Record {
+	private final String topic;
 	private final UUID uuid;
 	private final Message message;
 
@@ -25,6 +26,9 @@ public class KafkaSendRecord implements Record {
 
 	@Override
 	public <T> T get(String property, Class<T> type) {
+		if (property.equals("topic")){
+			return type.cast(topic);
+		}
 		throw new RecordUnsupportedGetting(String.format("%s does not support getting", getClass().getSimpleName()));
 	}
 }
