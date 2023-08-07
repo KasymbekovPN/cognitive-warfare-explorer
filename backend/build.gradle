@@ -3,7 +3,7 @@ plugins {
 }
 
 group 'ru.cwe'
-version '1.0-SNAPSHOT'
+version '0.0.0'
 
 repositories {
     mavenCentral()

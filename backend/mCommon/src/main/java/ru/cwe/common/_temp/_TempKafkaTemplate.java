@@ -5,6 +5,7 @@ import ru.cwe.common.message.api.message.Message;
 
 import java.util.UUID;
 
+// TODO: 07.08.2023 del
 @Getter
 public class _TempKafkaTemplate {
 	private String topic;

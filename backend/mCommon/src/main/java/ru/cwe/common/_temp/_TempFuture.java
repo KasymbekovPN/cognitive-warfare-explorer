@@ -4,6 +4,7 @@ import lombok.Getter;
 
 import java.util.function.Consumer;
 
+// TODO: 07.08.2023 del
 public class _TempFuture {
 	@Getter private Consumer<Object> success;
 	@Getter private Consumer<Throwable> fail;

@@ -1,0 +1,47 @@
+plugins {
+    id 'org.springframework.boot' version '2.6.2'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+// todo ???
+//    implementation "org.apache.kafka:kafka-clients:$kafkaVersion"
+//    implementation "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
+//    implementation "com.fasterxml.jackson.core:jackson-core:$jacksonVersion"
+//    implementation "com.fasterxml.jackson.core:jackson-annotations:$jacksonVersion"
+    implementation "org.projectlombok:lombok:$lombokVersion"
+//    implementation "com.github.javafaker:javafaker:$javafakerVersion"
+//    implementation 'org.springframework.kafka:spring-kafka'
+
+//    todo restore
+    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    implementation "ch.qos.logback:logback-classic:$logbackVersion"
+
+    annotationProcessor "org.projectlombok:lombok:$lombokVersion"
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation "org.projectlombok:lombok:$lombokVersion"
+    testImplementation "org.assertj:assertj-core:$assertjVersion"
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$junitJupiterVersion"
+    testImplementation "org.junit.jupiter:junit-jupiter-params:$junitJupiterVersion"
+//    todo ???
+//    testImplementation "com.github.javafaker:javafaker:$javafakerVersion"
+    testImplementation "org.mockito:mockito-all:$mackitoVersion"
+//    todo ???
+//    testImplementation 'org.springframework.kafka:spring-kafka-test'
+
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitJupiterVersion"
+
+    testAnnotationProcessor "org.projectlombok:lombok:$lombokVersion"
+}
+
+test {
+    useJUnitPlatform()
+}
