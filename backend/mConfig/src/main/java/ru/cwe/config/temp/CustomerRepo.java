@@ -1,22 +1,11 @@
 package ru.cwe.config.temp;
 
-public interface CustomerRepo {
-
-	/*
-
-	package hello;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;
 
-import org.springframework.data.mongodb.repository.MongoRepository;
-
-public interface CustomerRepository extends MongoRepository<Customer, String> {
-
-    public Customer findByFirstName(String firstName);
-    public List<Customer> findByLastName(String lastName);
-
-}
-
-	 */
-
+// TODO: 08.08.2023 del
+public interface CustomerRepo extends MongoRepository<Customer, String> {
+	Customer findByFirstName(String firstName);
+	List<Customer> findByLastName(String lastName);
 }

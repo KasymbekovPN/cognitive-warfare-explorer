@@ -13,7 +13,8 @@ public class SimpleMongoConfig {
 
 	@Bean
 	public MongoClient mongoClient(){
-		ConnectionString connectionString = new ConnectionString("mongo://localhost:27017/test");
+		// TODO: 08.08.2023 !!!
+		ConnectionString connectionString = new ConnectionString("mongodb://localhost:27017/test");
 		MongoClientSettings settings = MongoClientSettings.builder()
 			.applyConnectionString(connectionString)
 			.build();
