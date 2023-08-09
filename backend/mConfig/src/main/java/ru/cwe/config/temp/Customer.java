@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 
-// TODO: 08.08.2023 del 
+// TODO: 08.08.2023 del
 @Document(collection = "test_con")
 @Data
 public class Customer {
