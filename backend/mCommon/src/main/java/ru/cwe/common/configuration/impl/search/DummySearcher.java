@@ -1,4 +1,4 @@
-package ru.cwe.common.configuration.impl;
+package ru.cwe.common.configuration.impl.search;
 
 import lombok.RequiredArgsConstructor;
 import ru.cwe.common.configuration.api.search.Searcher;

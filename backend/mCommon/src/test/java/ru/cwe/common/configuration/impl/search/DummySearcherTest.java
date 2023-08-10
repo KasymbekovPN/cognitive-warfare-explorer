@@ -1,4 +1,4 @@
-package ru.cwe.common.configuration.impl;
+package ru.cwe.common.configuration.impl.search;
 
 import org.junit.jupiter.api.Test;
 import ru.cwe.common.configuration.exception.ConfFileNotExistException;
