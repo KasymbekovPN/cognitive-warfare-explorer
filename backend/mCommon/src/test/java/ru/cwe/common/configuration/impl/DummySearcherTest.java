@@ -1,25 +1,31 @@
 package ru.cwe.common.configuration.impl;
 
 import org.junit.jupiter.api.Test;
+import ru.cwe.common.configuration.exception.ConfFileNotExistException;
 
 import java.io.File;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.catchThrowable;
 
 class DummySearcherTest {
+	@Test
+	void shouldCheckSearch_ifFileDoesNotExist() {
+		String filePath = "not exist";
+		Throwable throwable = catchThrowable(() -> {
+			new DummySearcher(filePath).search();
+		});
+		assertThat(throwable).isInstanceOf(ConfFileNotExistException.class);
+	}
 
 	@Test
-	void test() {
-		File file = new File("");
+	void shouldCheckSearch() {
+		String pwd = Paths.get("").toAbsolutePath().toString();
+		String packagePart = getClass().getPackageName().replace(".", "\\");
+		String filePath = pwd + "\\src\\test\\java\\" + packagePart + "\\test.txt";
+		File file = new DummySearcher(filePath).search();
 
-		Path path0 = Paths.get("");
-		System.out.println(path0.toAbsolutePath());
-		System.out.println(path0.toFile());
-		System.out.println(path0.toUri());
-		System.out.println(path0.toString());
-
-		System.out.println(file);
+		assertThat(file).isEqualTo(new File(filePath));
 	}
 }
